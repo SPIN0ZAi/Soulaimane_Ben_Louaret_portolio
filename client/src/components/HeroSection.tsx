@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronDown, Github, Linkedin, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import ShapeBlur from './ShapeBlur';
 import profileImage from '@assets/generated_images/Professional_developer_profile_photo_d6596db3.png';
 
 export default function HeroSection() {
@@ -56,6 +57,15 @@ export default function HeroSection() {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-background to-primary/5"
     >
+      <ShapeBlur 
+        variation={0}
+        pixelRatioProp={window.devicePixelRatio || 1}
+        shapeSize={1.2}
+        roundness={0.4}
+        borderSize={0.05}
+        circleSize={0.3}
+        circleEdge={0.5}
+      />
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 left-10 w-72 h-72 bg-primary rounded-full blur-3xl"></div>
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent-foreground rounded-full blur-3xl"></div>

@@ -3,6 +3,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Github, ExternalLink } from 'lucide-react';
+import ElectricBorder from './ElectricBorder';
 
 interface ProjectCardProps {
   title: string;
@@ -31,8 +32,9 @@ export default function ProjectCard({
       transition={{ delay: 0.1 * index, duration: 0.5 }}
       whileHover={{ y: -10 }}
     >
-      <Card className="overflow-hidden h-full flex flex-col hover-elevate">
-        <div className="relative h-48 overflow-hidden">
+      <ElectricBorder color="#14B8A6" speed={0.8} chaos={0.5} thickness={2} style={{ borderRadius: '0.5625rem' }}>
+        <Card className="overflow-hidden h-full flex flex-col hover-elevate border-0">
+          <div className="relative h-48 overflow-hidden">
           <img
             src={image}
             alt={title}
@@ -40,9 +42,10 @@ export default function ProjectCard({
             data-testid={`img-project-${index}`}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-card/90 to-transparent"></div>
-        </div>
+          </div>
 
-        <div className="p-6 flex-1 flex flex-col">
+          <div className="p-6 flex-1 flex flex-col">
+
           <h3 className="text-2xl font-bold mb-3" data-testid={`text-project-title-${index}`}>
             {title}
           </h3>
@@ -92,8 +95,9 @@ export default function ProjectCard({
               <ExternalLink className="h-4 w-4" />
             </Button>
           </div>
-        </div>
-      </Card>
+          </div>
+        </Card>
+      </ElectricBorder>
     </motion.div>
   );
 }

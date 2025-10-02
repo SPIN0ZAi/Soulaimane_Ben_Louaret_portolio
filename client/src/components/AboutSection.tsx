@@ -2,6 +2,8 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import LogoLoop from './LogoLoop';
+import { SiC, SiPython, SiJavascript, SiReact, SiNodedotjs, SiMongodb, SiGit, SiDocker } from 'react-icons/si';
 
 interface Skill {
   name: string;
@@ -120,6 +122,38 @@ export default function AboutSection() {
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 1, duration: 0.6 }}
+          className="mb-12"
+        >
+          <h3 className="text-2xl font-bold mb-6 text-center">Tech Stack</h3>
+          <div style={{ height: '100px', position: 'relative', overflow: 'hidden' }}>
+            <LogoLoop
+              logos={[
+                { node: <SiC />, title: 'C' },
+                { node: <SiPython />, title: 'Python' },
+                { node: <SiJavascript />, title: 'JavaScript' },
+                { node: <SiReact />, title: 'React' },
+                { node: <SiNodedotjs />, title: 'Node.js' },
+                { node: <SiMongodb />, title: 'MongoDB' },
+                { node: <SiGit />, title: 'Git' },
+                { node: <SiDocker />, title: 'Docker' },
+              ]}
+              speed={60}
+              direction="left"
+              logoHeight={48}
+              gap={48}
+              pauseOnHover
+              scaleOnHover
+              fadeOut
+              fadeOutColor="#0F172A"
+              ariaLabel="Technology stack"
+            />
+          </div>
+        </motion.div>
 
         <Card className="p-8 bg-gradient-to-r from-primary/10 to-accent-foreground/10 border-primary/20">
           <h3 className="text-2xl font-bold mb-4 text-center" data-testid="text-unique-title">
