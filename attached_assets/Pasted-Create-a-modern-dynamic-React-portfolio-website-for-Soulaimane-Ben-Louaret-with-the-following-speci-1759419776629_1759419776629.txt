@@ -1,0 +1,145 @@
+Create a modern, dynamic React portfolio website for Soulaimane Ben Louaret with the following specifications:
+
+TECH STACK:
+- React 18 with TypeScript
+- Tailwind CSS for styling
+- Framer Motion for animations
+- React Icons for iconography
+- Responsive design (mobile-first)
+
+DESIGN STYLE:
+- Dark theme with deep teal (#0D4F5C) and soft cream (#F7F3E9) accents
+- Glass morphism effects with subtle gradients
+- 3D hover transformations using CSS transforms
+- Smooth parallax scrolling effects
+- Micro-interactions and smooth transitions
+- Nike/ASUS inspired modern aesthetic with tech-focused elements
+
+PERSONAL INFORMATION TO INCLUDE:
+- Name: "Soulaimane Ben Louaret"
+- Title: "Computer Engineering Student & Aspiring Developer"
+- Location: "Albacete, Spain"
+- Email: "ssolayman244@gmail.com"
+- GitHub: "https://github.com/SPIN0ZAi"
+- LinkedIn: "https://www.linkedin.com/in/soulaimane-ben-louaret-98471428b"
+
+HERO SECTION:
+- Animated text reveal: "Soulaimane Ben Louaret"
+- Subtitle with typing effect: "Computer Engineering Student | Tech Enthusiast | Problem Solver"
+- Tagline: "Thriving in the oceans of tech since age 10"
+- Placeholder circular profile image with 3D hover effects
+- Tech-themed floating elements (circuit patterns, code snippets)
+- Smooth scroll indicator with teal gradient
+
+ABOUT SECTION:
+- Professional summary: "Computer Engineering student at Universidad de Castilla-La Mancha with deep passion for technology and programming. From repairing electronics in my father's shop to mastering assembly language, I bring curiosity, persistence, and hands-on experience to every challenge."
+- Skills visualization with animated progress bars:
+  * Programming Languages: C, Python, Java, JavaScript, Assembly, Haskell, MATLAB
+  * Web Technologies: HTML5, CSS3, Node.js, React, Discord.js
+  * Databases: SQL, MongoDB
+  * Tools: Git, Docker, Lua scripting
+  * Hardware: Computer/Phone repair, Electronics troubleshooting
+- Unique qualities highlight: "What makes me unique: 1 year electronics repair experience, YouTube content creation, gaming expertise, and complex assembly language programming"
+
+PROJECTS SECTION (5 interactive project cards):
+1. SB-chan-bot
+   - Description: "Multi-purpose Discord bot with GitHub integration and automated file handling"
+   - Tech: ["JavaScript", "Node.js", "Discord.js", "Lua", "GitHub API"]
+   - Features: ["Lua manifest fetching", "Auto file compression", "7MB+ file hosting", "Discord embed generation"]
+   - GitHub: "https://github.com/SPIN0ZAi/SB-chan-bot"
+
+2. Assembly Pixel Renderer
+   - Description: "2D sprite animation engine written in RISC-V Assembly language"
+   - Tech: ["RISC-V Assembly", "Ripes Simulator"]
+   - Features: ["Directional movement", "Sprite animation", "Boundary detection", "Frame optimization"]
+   - GitHub: "https://github.com/SPIN0ZAi/assembly-pixel-renderer"
+
+3. Brick Breaker Game
+   - Description: "Classic arcade-style game built with Java Swing"
+   - Tech: ["Java", "Swing", "OOP"]
+   - Features: ["Collision detection", "Score tracking", "Level progression", "Retro gameplay"]
+   - GitHub: "https://github.com/SPIN0ZAi/Brick_Breaker_Game_in_Java"
+
+4. Hotel Simulation Program
+   - Description: "C-based hotel reservation management system"
+   - Tech: ["C", "Data Structures", "Console UI"]
+   - Features: ["Multi-floor management", "Reservation system", "Check-in/out logic", "Availability tracking"]
+   - GitHub: "https://github.com/SPIN0ZAi/Hotel-simulation-program"
+
+5. Task Scheduling Simulation
+   - Description: "Advanced task scheduling algorithm implementation in C"
+   - Tech: ["C", "Algorithms", "Priority Systems"]
+   - Features: ["Priority scheduling", "Task dependencies", "Unique identifiers", "Performance optimization"]
+   - GitHub: "https://github.com/SPIN0ZAi/Task-Scheduling-Simulation"
+
+EDUCATION/EXPERIENCE SECTION:
+- Current Education: "Computer Engineering Student (2024-2026)" at "Universidad de Castilla-La Mancha"
+- Experience: "Electronics Repair Technician (1 year)" - "Hardware diagnostics, phone/computer repair, customer service"
+- Current Courses: Display as animated skill tags: ["Computer Architecture", "Software Engineering", "Operating Systems", "Computer Networks", "Data Structures"]
+- Certifications in Progress: ["CompTIA Network+", "Cisco Networking", "Network Security Diploma"]
+
+CONTACT SECTION:
+- Animated contact form with teal accent colors
+- Form fields: Name, Email, Subject, Message
+- Status: "Open to opportunities and collaborations"
+- Location display: "Albacete, Spain (GMT+1)"
+- Social media icons with hover animations
+
+ANIMATIONS REQUIRED:
+- Page load with staggered reveals (0.2s delays)
+- Scroll-triggered animations for each section
+- Project cards with 3D tilt effects on hover
+- Skill bars with progressive fill animations
+- Custom cursor with tech-themed trail effects
+- Smooth section transitions with parallax
+- Loading spinner with circuit board pattern
+
+LAYOUT FEATURES:
+- Fixed navigation with glass morphism background
+- Mobile hamburger menu with smooth slide transitions
+- Responsive grid layouts for all sections
+- Tech-themed background patterns (subtle circuit designs)
+- Smooth scrolling between sections with offset
+- Footer with animated tech icons and social links
+
+COLOR SCHEME:
+- Primary: Deep Teal (#0D4F5C)
+- Secondary: Soft Cream (#F7F3E9)
+- Accent: Bright teal (#14B8A6) for highlights
+- Background: Dark navy (#0F172A) with subtle gradients
+- Text: Light cream (#F8FAFC) for readability
+
+PERFORMANCE OPTIMIZATION:
+- 60fps animations using transform/opacity
+- Lazy loading for project images
+- Optimized bundle size with code splitting
+- Responsive images with placeholder effects
+
+Create complete file structure with modular components, custom hooks for animations, and TypeScript interfaces. Include placeholder project images and a generic profile photo that can be easily replaced.
+Additional Customizations You Can Request
+After Initial Generation, Ask Replit to Add:
+Gaming Section (since you're a gamer):
+
+text
+Add a "Gaming & Interests" section with:
+- Favorite games with animated icons
+- Gaming setup showcase
+- Movie/tech interests
+- YouTube content creation mention (2016 phone app videos)
+Tech Journey Timeline:
+
+text
+Create an animated timeline showing:
+- Age 10: Started with tech interest
+- High school: Electronics repair work
+- 2016: YouTube content creation
+- Present: University studies
+- Future: Career aspirations
+Interactive Elements:
+
+text
+Add these interactive features:
+- Clickable tech stack icons with descriptions
+- Hover effects showing project details
+- Animated counter for years of tech experience
+- Dynamic text showing current learning progress
