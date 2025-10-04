@@ -83,9 +83,25 @@ export default {
         },
       },
       fontFamily: {
-        sans: ["Inter", "var(--font-sans)"],
-        serif: ["var(--font-serif)"],
-        mono: ["Fira Code", "var(--font-mono)"],
+        sans: ["JetBrains Mono", "Fira Code", "monospace"],
+        serif: ["JetBrains Mono", "Fira Code", "monospace"],
+        mono: ["JetBrains Mono", "Fira Code", "monospace"],
+        code: ["Fira Code", "JetBrains Mono", "monospace"],
+      },
+      fontWeight: {
+        light: '300',
+        normal: '400',
+        medium: '500',
+        semibold: '600',
+        bold: '700',
+        extrabold: '800',
+        black: '900',
+      },
+      letterSpacing: {
+        'extra-wide': '0.15em',
+        'wide': '0.1em',
+        'normal': '0',
+        'tight': '-0.025em',
       },
       keyframes: {
         "accordion-down": {

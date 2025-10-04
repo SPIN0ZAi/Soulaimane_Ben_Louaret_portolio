@@ -65,7 +65,7 @@ export default function AboutSection() {
   });
 
   return (
-    <section id="about" className="py-20 md:py-32 px-6 bg-gradient-to-b from-background to-primary/5">
+    <section id="about" className="py-20 md:py-32 px-6 bg-gradient-to-b from-background to-muted/10 relative overflow-hidden">
       <motion.div
         ref={ref}
         initial={{ opacity: 0, y: 50 }}
@@ -73,13 +73,13 @@ export default function AboutSection() {
         transition={{ duration: 0.6 }}
         className="max-w-6xl mx-auto"
       >
-        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-center" data-testid="text-about-title">
+        <h2 className="font-serif text-4xl md:text-5xl font-bold mb-6 text-center text-foreground uppercase tracking-wider" data-testid="text-about-title">
           About Me
         </h2>
-        <div className="h-1 w-24 bg-gradient-to-r from-primary to-accent-foreground mx-auto mb-12"></div>
+        <div className="h-1 w-24 bg-gradient-to-r from-accent to-primary mx-auto mb-12 rounded-full"></div>
 
-        <Card className="p-8 mb-12 bg-card/50 backdrop-blur-sm">
-          <p className="text-lg text-muted-foreground leading-relaxed text-center" data-testid="text-about-summary">
+        <Card className="p-8 mb-12 bg-card backdrop-blur-sm border-2 border-card-border rounded-3xl shadow-lg">
+          <p className="font-sans text-lg text-card-foreground leading-relaxed text-center" data-testid="text-about-summary">
             Computer Engineering student at Universidad de Castilla-La Mancha with deep passion for
             technology and programming. From repairing electronics in my father's shop to mastering
             assembly language, I bring curiosity, persistence, and hands-on experience to every
@@ -95,23 +95,23 @@ export default function AboutSection() {
               animate={inView ? { opacity: 1, x: 0 } : {}}
               transition={{ delay: 0.2 * idx, duration: 0.5 }}
             >
-              <Card className="p-6 h-full">
-                <h3 className="text-xl font-semibold mb-4 text-primary" data-testid={`text-skill-category-${idx}`}>
+              <Card className="p-6 h-full bg-card border-2 border-card-border rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300">
+                <h3 className="font-serif text-xl font-semibold mb-4 text-card-foreground uppercase tracking-wide" data-testid={`text-skill-category-${idx}`}>
                   {category.title}
                 </h3>
                 <div className="space-y-4">
                   {category.skills.map((skill) => (
                     <div key={skill.name}>
                       <div className="flex justify-between mb-2">
-                        <span className="text-sm font-medium" data-testid={`text-skill-${skill.name.toLowerCase().replace(/\s+/g, '-')}`}>{skill.name}</span>
-                        <span className="text-sm text-muted-foreground">{skill.level}%</span>
+                        <span className="font-sans text-sm font-medium text-card-foreground" data-testid={`text-skill-${skill.name.toLowerCase().replace(/\s+/g, '-')}`}>{skill.name}</span>
+                        <span className="font-sans text-sm text-card-foreground font-semibold bg-accent/20 px-2 py-1 rounded-full">{skill.level}%</span>
                       </div>
-                      <div className="h-2 bg-muted rounded-full overflow-hidden">
+                      <div className="h-3 bg-background/30 rounded-full overflow-hidden border border-accent/20">
                         <motion.div
                           initial={{ width: 0 }}
                           animate={inView ? { width: `${skill.level}%` } : {}}
                           transition={{ delay: 0.5 + idx * 0.1, duration: 1 }}
-                          className="h-full bg-gradient-to-r from-primary to-accent-foreground rounded-full"
+                          className="h-full bg-gradient-to-r from-accent to-primary rounded-full shadow-sm"
                           data-testid={`progress-${skill.name.toLowerCase().replace(/\s+/g, '-')}`}
                         />
                       </div>
@@ -129,7 +129,7 @@ export default function AboutSection() {
           transition={{ delay: 1, duration: 0.6 }}
           className="mb-12"
         >
-          <h3 className="text-2xl font-bold mb-6 text-center">Tech Stack</h3>
+          <h3 className="font-serif text-2xl font-bold mb-6 text-center text-foreground uppercase tracking-wider">Tech Stack</h3>
           <div style={{ height: '100px', position: 'relative', overflow: 'hidden' }}>
             <LogoLoop
               logos={[
@@ -155,21 +155,21 @@ export default function AboutSection() {
           </div>
         </motion.div>
 
-        <Card className="p-8 bg-gradient-to-r from-primary/10 to-accent-foreground/10 border-primary/20">
-          <h3 className="text-2xl font-bold mb-4 text-center" data-testid="text-unique-title">
+        <Card className="p-8 bg-gradient-to-r from-card/80 to-muted/60 border-2 border-card-border rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300">
+          <h3 className="font-serif text-2xl font-bold mb-4 text-center text-card-foreground uppercase tracking-wider" data-testid="text-unique-title">
             What Makes Me Unique
           </h3>
           <div className="flex flex-wrap gap-3 justify-center">
-            <Badge variant="secondary" className="text-sm px-4 py-2">
+            <Badge variant="secondary" className="font-sans text-sm px-4 py-2 bg-accent/80 text-accent-foreground border border-accent rounded-full hover:bg-accent transition-all shadow-md">
               1 year electronics repair experience
             </Badge>
-            <Badge variant="secondary" className="text-sm px-4 py-2">
+            <Badge variant="secondary" className="font-sans text-sm px-4 py-2 bg-primary/80 text-primary-foreground border border-primary rounded-full hover:bg-primary transition-all shadow-md">
               YouTube content creation
             </Badge>
-            <Badge variant="secondary" className="text-sm px-4 py-2">
+            <Badge variant="secondary" className="font-sans text-sm px-4 py-2 bg-secondary/80 text-secondary-foreground border border-secondary rounded-full hover:bg-secondary transition-all shadow-md">
               Gaming expertise
             </Badge>
-            <Badge variant="secondary" className="text-sm px-4 py-2">
+            <Badge variant="secondary" className="font-sans text-sm px-4 py-2 bg-accent/80 text-accent-foreground border border-accent rounded-full hover:bg-accent transition-all shadow-md">
               Complex assembly language programming
             </Badge>
           </div>

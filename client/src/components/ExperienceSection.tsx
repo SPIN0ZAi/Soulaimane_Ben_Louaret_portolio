@@ -32,7 +32,7 @@ export default function ExperienceSection() {
         transition={{ duration: 0.6 }}
         className="max-w-6xl mx-auto"
       >
-        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-center" data-testid="text-experience-title">
+        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-center text-card-foreground" data-testid="text-experience-title">
           Education & Experience
         </h2>
         <div className="h-1 w-24 bg-gradient-to-r from-primary to-accent-foreground mx-auto mb-12"></div>
@@ -45,18 +45,18 @@ export default function ExperienceSection() {
           >
             <Card className="p-6 h-full">
               <div className="flex items-start gap-4">
-                <div className="p-3 bg-primary/10 rounded-lg">
+                <div className="p-3 bg-primary/10 rounded-3xl">
                   <GraduationCap className="h-6 w-6 text-primary" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-bold mb-2" data-testid="text-education-degree">
+                  <h3 className="text-xl font-bold mb-2 text-card-foreground" data-testid="text-education-degree">
                     Computer Engineering Student
                   </h3>
-                  <p className="text-muted-foreground mb-1" data-testid="text-education-university">
+                  <p className="text-card-foreground/80 mb-1" data-testid="text-education-university">
                     Universidad de Castilla-La Mancha
                   </p>
-                  <p className="text-sm text-muted-foreground mb-4">2024 - 2026</p>
-                  <p className="text-sm">
+                  <p className="text-sm text-card-foreground/70 mb-4">2024 - 2026</p>
+                  <p className="text-sm text-card-foreground/80">
                     Pursuing advanced studies in computer engineering with focus on software
                     development, algorithms, and system architecture.
                   </p>
@@ -72,16 +72,16 @@ export default function ExperienceSection() {
           >
             <Card className="p-6 h-full">
               <div className="flex items-start gap-4">
-                <div className="p-3 bg-accent-foreground/10 rounded-lg">
+                <div className="p-3 bg-accent-foreground/10 rounded-3xl">
                   <Briefcase className="h-6 w-6 text-accent-foreground" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-bold mb-2" data-testid="text-work-title">
+                  <h3 className="text-xl font-bold mb-2 text-card-foreground" data-testid="text-work-title">
                     Electronics Repair Technician
                   </h3>
-                  <p className="text-muted-foreground mb-1">1 year experience</p>
-                  <p className="text-sm text-muted-foreground mb-4">Hardware & Electronics</p>
-                  <p className="text-sm">
+                  <p className="text-card-foreground/80 mb-1">1 year experience</p>
+                  <p className="text-sm text-card-foreground/70 mb-4">Hardware & Electronics</p>
+                  <p className="text-sm text-card-foreground/80">
                     Specialized in hardware diagnostics, phone and computer repair, and customer
                     service. Developed strong problem-solving skills and technical expertise.
                   </p>
@@ -100,7 +100,7 @@ export default function ExperienceSection() {
             <Card className="p-6">
               <div className="flex items-center gap-3 mb-4">
                 <BookOpen className="h-6 w-6 text-primary" />
-                <h3 className="text-xl font-bold">Current Courses</h3>
+                <h3 className="text-xl font-bold text-card-foreground">Current Courses</h3>
               </div>
               <div className="flex flex-wrap gap-2">
                 {courses.map((course, idx) => (
@@ -127,7 +127,7 @@ export default function ExperienceSection() {
             <Card className="p-6">
               <div className="flex items-center gap-3 mb-4">
                 <Award className="h-6 w-6 text-accent-foreground" />
-                <h3 className="text-xl font-bold">Certifications in Progress</h3>
+                <h3 className="text-xl font-bold text-card-foreground">Certifications in Progress</h3>
               </div>
               <div className="space-y-2">
                 {certifications.map((cert, idx) => (
@@ -139,7 +139,7 @@ export default function ExperienceSection() {
                     className="flex items-center gap-2"
                   >
                     <div className="h-2 w-2 bg-primary rounded-full"></div>
-                    <span className="text-sm" data-testid={`text-cert-${idx}`}>{cert}</span>
+                    <span className="text-sm text-card-foreground/80" data-testid={`text-cert-${idx}`}>{cert}</span>
                   </motion.div>
                 ))}
               </div>

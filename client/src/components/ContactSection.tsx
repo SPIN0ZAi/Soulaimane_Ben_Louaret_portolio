@@ -45,7 +45,7 @@ export default function ContactSection() {
         transition={{ duration: 0.6 }}
         className="max-w-6xl mx-auto"
       >
-        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-center" data-testid="text-contact-title">
+        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-center text-card-foreground" data-testid="text-contact-title">
           Get In Touch
         </h2>
         <div className="h-1 w-24 bg-gradient-to-r from-primary to-accent-foreground mx-auto mb-12"></div>
@@ -58,7 +58,7 @@ export default function ContactSection() {
             className="lg:col-span-2"
           >
             <Card className="p-6 h-full">
-              <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
+              <h3 className="text-2xl font-bold mb-6 text-card-foreground">Contact Information</h3>
 
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
@@ -66,10 +66,10 @@ export default function ContactSection() {
                     <Mail className="h-5 w-5 text-primary" />
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-1">Email</h4>
+                    <h4 className="font-semibold mb-1 text-card-foreground">Email</h4>
                     <a
                       href="mailto:ssolayman244@gmail.com"
-                      className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                      className="text-sm text-card-foreground/70 hover:text-primary transition-colors"
                       data-testid="link-email"
                     >
                       ssolayman244@gmail.com
@@ -78,12 +78,12 @@ export default function ContactSection() {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="p-3 bg-accent-foreground/10 rounded-lg">
+                  <div className="p-3 bg-accent-foreground/10 rounded-3xl">
                     <MapPin className="h-5 w-5 text-accent-foreground" />
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-1">Location</h4>
-                    <p className="text-sm text-muted-foreground" data-testid="text-location">
+                    <h4 className="font-semibold mb-1 text-card-foreground">Location</h4>
+                    <p className="text-sm text-card-foreground/70" data-testid="text-location">
                       Albacete, Spain (GMT+1)
                     </p>
                   </div>
@@ -94,16 +94,16 @@ export default function ContactSection() {
                     <Clock className="h-5 w-5 text-primary" />
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-1">Status</h4>
-                    <p className="text-sm text-muted-foreground" data-testid="text-status">
+                    <h4 className="font-semibold mb-1 text-card-foreground">Status</h4>
+                    <p className="text-sm text-card-foreground/70" data-testid="text-status">
                       Open to opportunities and collaborations
                     </p>
                   </div>
                 </div>
               </div>
 
-              <div className="mt-8 p-4 bg-gradient-to-r from-primary/10 to-accent-foreground/10 rounded-lg">
-                <p className="text-sm text-center">
+              <div className="mt-8 p-4 bg-gradient-to-r from-primary/10 to-accent-foreground/10 rounded-3xl">
+                <p className="text-sm text-center text-card-foreground/80">
                   Available for freelance projects, internships, and full-time opportunities
                 </p>
               </div>
@@ -117,7 +117,7 @@ export default function ContactSection() {
             className="lg:col-span-3"
           >
             <Card className="p-6">
-              <h3 className="text-2xl font-bold mb-6">Send a Message</h3>
+              <h3 className="text-2xl font-bold mb-6 text-card-foreground">Send a Message</h3>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>

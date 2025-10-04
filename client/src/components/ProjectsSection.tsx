@@ -90,7 +90,7 @@ export default function ProjectsSection() {
         transition={{ duration: 0.6 }}
         className="max-w-7xl mx-auto"
       >
-        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-center" data-testid="text-projects-title">
+        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-center text-card-foreground" data-testid="text-projects-title">
           Featured Projects
         </h2>
         <div className="h-1 w-24 bg-gradient-to-r from-primary to-accent-foreground mx-auto mb-12"></div>
