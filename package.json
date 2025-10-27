@@ -1,6 +1,7 @@
 {
   "name": "rest-express",
   "version": "1.0.0",
+  "description": "A secure, scalable backend API for Soulaimane Ben Louaret's modern portfolio website. Built with Node.js, Express, MongoDB, and TypeScript.",
   "type": "module",
   "license": "MIT",
   "scripts": {
