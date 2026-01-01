@@ -7,17 +7,19 @@ import { SiC, SiPython, SiJavascript, SiReact, SiNodedotjs, SiMongodb, SiGit, Si
 
 interface Skill {
   name: string;
-  level: number;
+  level?: number;
 }
 
 interface SkillCategory {
   title: string;
   skills: Skill[];
+  displayType?: 'progress' | 'badges'; // New property to control display style
 }
 
 const skillCategories: SkillCategory[] = [
   {
     title: 'Programming Languages',
+    displayType: 'progress',
     skills: [
       { name: 'C', level: 90 },
       { name: 'Python', level: 85 },
@@ -31,6 +33,7 @@ const skillCategories: SkillCategory[] = [
   },
   {
     title: 'Web Technologies',
+    displayType: 'progress',
     skills: [
       { name: 'HTML5', level: 90 },
       { name: 'CSS3', level: 85 },
@@ -42,6 +45,7 @@ const skillCategories: SkillCategory[] = [
   },
   {
     title: 'Databases & Tools',
+    displayType: 'progress',
     skills: [
       { name: 'SQL', level: 80 },
       { name: 'MongoDB', level: 75 },
@@ -52,45 +56,62 @@ const skillCategories: SkillCategory[] = [
   },
   {
     title: 'Operating Systems',
+    displayType: 'badges',
     skills: [
-      { name: 'Process Management', level: 85 },
-      { name: 'CPU Scheduling', level: 85 },
-      { name: 'Memory Management', level: 80 },
-      { name: 'Synchronization & Deadlocks', level: 80 },
-      { name: 'File Systems', level: 75 },
+      { name: 'Process Management' },
+      { name: 'CPU Scheduling' },
+      { name: 'Memory Management' },
+      { name: 'Virtual Memory' },
+      { name: 'Synchronization' },
+      { name: 'Deadlock Handling' },
+      { name: 'File Systems' },
+      { name: 'Context Switching' },
     ],
   },
   {
     title: 'Computer Architecture',
+    displayType: 'badges',
     skills: [
-      { name: 'RISC-V Datapath Design', level: 85 },
-      { name: 'Pipelining & Hazards', level: 80 },
-      { name: 'Cache Memory', level: 80 },
-      { name: 'Memory Hierarchy', level: 75 },
+      { name: 'RISC-V Datapath' },
+      { name: 'Pipelining' },
+      { name: 'Hazard Detection' },
+      { name: 'Cache Design' },
+      { name: 'Memory Hierarchy' },
+      { name: 'Instruction Set Design' },
+      { name: 'Performance Analysis' },
     ],
   },
   {
     title: 'Data Structures & Algorithms',
+    displayType: 'badges',
     skills: [
-      { name: 'Trees (BST/AVL)', level: 90 },
-      { name: 'Heaps', level: 85 },
-      { name: 'Graph Algorithms (DFS/BFS)', level: 85 },
-      { name: 'Huffman Coding', level: 80 },
-      { name: 'Floyd-Warshall', level: 80 },
+      { name: 'Binary Search Trees' },
+      { name: 'AVL Trees' },
+      { name: 'Heaps' },
+      { name: 'Graph Algorithms' },
+      { name: 'DFS/BFS' },
+      { name: 'Huffman Coding' },
+      { name: 'Floyd-Warshall' },
+      { name: 'Dynamic Programming' },
     ],
   },
   {
     title: 'Logic & Software Engineering',
+    displayType: 'badges',
     skills: [
-      { name: 'Propositional Logic', level: 80 },
-      { name: 'Boolean Algebra', level: 80 },
-      { name: 'UML Modeling', level: 85 },
-      { name: 'Requirements Engineering', level: 80 },
-      { name: 'Unified Process (RUP)', level: 75 },
+      { name: 'Propositional Logic' },
+      { name: 'Boolean Algebra' },
+      { name: 'UML Diagrams' },
+      { name: 'Use Case Modeling' },
+      { name: 'Sequence Diagrams' },
+      { name: 'Requirements Engineering' },
+      { name: 'Unified Process (RUP)' },
+      { name: 'Software Architecture' },
     ],
   },
   {
     title: 'Hardware',
+    displayType: 'progress',
     skills: [
       { name: 'Computer Repair', level: 95 },
       { name: 'Phone Repair', level: 90 },
@@ -140,25 +161,43 @@ export default function AboutSection() {
                 <h3 className="font-serif text-xl font-semibold mb-4 text-card-foreground uppercase tracking-wide" data-testid={`text-skill-category-${idx}`}>
                   {category.title}
                 </h3>
-                <div className="space-y-4">
-                  {category.skills.map((skill) => (
-                    <div key={skill.name}>
-                      <div className="flex justify-between mb-2">
-                        <span className="font-sans text-sm font-medium text-card-foreground" data-testid={`text-skill-${skill.name.toLowerCase().replace(/\s+/g, '-')}`}>{skill.name}</span>
-                        <span className="font-sans text-sm text-card-foreground font-semibold bg-accent/20 px-2 py-1 rounded-full">{skill.level}%</span>
+                
+                {/* Badge-style display for technical subjects */}
+                {category.displayType === 'badges' ? (
+                  <div className="flex flex-wrap gap-2">
+                    {category.skills.map((skill) => (
+                      <Badge 
+                        key={skill.name}
+                        variant="secondary" 
+                        className="font-sans text-sm px-3 py-1.5 bg-gradient-to-r from-accent/20 to-primary/20 hover:from-accent/30 hover:to-primary/30 text-card-foreground border border-accent/30 rounded-full transition-all shadow-sm hover:shadow-md"
+                        data-testid={`badge-skill-${skill.name.toLowerCase().replace(/\s+/g, '-')}`}
+                      >
+                        {skill.name}
+                      </Badge>
+                    ))}
+                  </div>
+                ) : (
+                  /* Progress bar display for other skills */
+                  <div className="space-y-4">
+                    {category.skills.map((skill) => (
+                      <div key={skill.name}>
+                        <div className="flex justify-between mb-2">
+                          <span className="font-sans text-sm font-medium text-card-foreground" data-testid={`text-skill-${skill.name.toLowerCase().replace(/\s+/g, '-')}`}>{skill.name}</span>
+                          <span className="font-sans text-sm text-card-foreground font-semibold bg-accent/20 px-2 py-1 rounded-full">{skill.level}%</span>
+                        </div>
+                        <div className="h-3 bg-background/30 rounded-full overflow-hidden border border-accent/20">
+                          <motion.div
+                            initial={{ width: 0 }}
+                            animate={inView ? { width: `${skill.level}%` } : {}}
+                            transition={{ delay: 0.5 + idx * 0.1, duration: 1 }}
+                            className="h-full bg-gradient-to-r from-accent to-primary rounded-full shadow-sm"
+                            data-testid={`progress-${skill.name.toLowerCase().replace(/\s+/g, '-')}`}
+                          />
+                        </div>
                       </div>
-                      <div className="h-3 bg-background/30 rounded-full overflow-hidden border border-accent/20">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          animate={inView ? { width: `${skill.level}%` } : {}}
-                          transition={{ delay: 0.5 + idx * 0.1, duration: 1 }}
-                          className="h-full bg-gradient-to-r from-accent to-primary rounded-full shadow-sm"
-                          data-testid={`progress-${skill.name.toLowerCase().replace(/\s+/g, '-')}`}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                )}
               </Card>
             </motion.div>
           ))}

@@ -21,7 +21,49 @@ const projects = [
     ],
     github: 'https://github.com/SPIN0ZAi/Data-Structures-Visualizer',
     demo: 'https://data-structures-visualizer-seven.vercel.app/',
-    image: sbChanImage, // TODO: Replace with actual Data Structures Visualizer image
+    image: 'https://github.com/SPIN0ZAi/Data-Structures-Visualizer/blob/main/Screenshot%202025-12-12%20221422.png?raw=true',
+  },
+  {
+    title: 'One-Tap Discord JTC Bot',
+    description: 'Premium voice channel manager bot with interactive sticky messages and comprehensive permission control',
+    tech: ['TypeScript', 'Discord.js v14', 'SQLite', 'Node.js'],
+    features: [
+      'Auto voice channel management',
+      'Interactive sticky message panel',
+      'Co-owner system with permissions',
+      'Channel locks & user limits',
+      'Permit/blacklist users & roles',
+    ],
+    github: 'https://github.com/SPIN0ZAi/One-Tap---Advanced-Discord-JTC-Bot',
+    image: 'https://raw.githubusercontent.com/SPIN0ZAi/One-Tap---Advanced-Discord-JTC-Bot/feature/initial-release/Screenshot%202025-10-16%20165334.png',
+  },
+  {
+    title: 'Universal Document Converter',
+    description: 'Powerful desktop application for converting between 20+ file formats with batch processing',
+    tech: ['Python', 'Tkinter', 'python-docx', 'Pillow', 'pandas', 'reportlab'],
+    features: [
+      'Convert Word, PDF, Excel, images',
+      'Batch conversion support',
+      'Real-time progress tracking',
+      'Smart format detection',
+      'Folder processing',
+    ],
+    github: 'https://github.com/SPIN0ZAi/Multi-Format-Converter',
+    image: assemblyImage, // TODO: Add actual screenshot
+  },
+  {
+    title: 'MKV to MP4 Converter',
+    description: 'Simple desktop GUI application for converting MKV video files to MP4 format with FFmpeg',
+    tech: ['Python', 'Tkinter', 'FFmpeg'],
+    features: [
+      'Easy-to-use GUI',
+      'Real-time progress bar',
+      'Auto-installation script',
+      'Fast FFmpeg conversion',
+      'H.264 & AAC codec support',
+    ],
+    github: 'https://github.com/SPIN0ZAi/Mkv-to-mp4-converter-with-UI',
+    image: brickBreakerImage, // TODO: Add actual screenshot
   },
   {
     title: 'SB-chan-bot',
