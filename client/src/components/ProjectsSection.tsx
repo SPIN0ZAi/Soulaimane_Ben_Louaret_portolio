@@ -9,6 +9,21 @@ import taskSchedulingImage from '@assets/generated_images/Task_scheduling_simula
 
 const projects = [
   {
+    title: 'Data Structures Visualizer',
+    description: 'Interactive web application for visualizing fundamental data structures and algorithms with step-by-step animations',
+    tech: ['React', 'TypeScript', 'Vite', 'SVG', 'React Router'],
+    features: [
+      'BST/AVL tree visualization with rotations',
+      'Graph algorithms (DFS/BFS)',
+      'Floyd-Warshall shortest path',
+      'Huffman coding tree builder',
+      'Tree traversals (Pre/In/Post/Level-order)',
+    ],
+    github: 'https://github.com/SPIN0ZAi/Data-Structures-Visualizer',
+    demo: 'https://data-structures-visualizer-seven.vercel.app/',
+    image: sbChanImage, // TODO: Replace with actual Data Structures Visualizer image
+  },
+  {
     title: 'SB-chan-bot',
     description: 'Multi-purpose Discord bot with GitHub integration and automated file handling',
     tech: ['JavaScript', 'Node.js', 'Discord.js', 'Lua', 'GitHub API'],

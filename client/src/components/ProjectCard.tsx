@@ -10,6 +10,7 @@ interface ProjectCardProps {
   tech: string[];
   features: string[];
   github: string;
+  demo?: string;
   image: string;
   index: number;
 }
@@ -20,6 +21,7 @@ export default function ProjectCard({
   tech,
   features,
   github,
+  demo,
   image,
   index,
 }: ProjectCardProps) {
@@ -113,15 +115,29 @@ export default function ProjectCard({
               <Github className="h-4 w-4" />
               Source Code
             </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="aspect-square p-0 border-2 border-accent text-accent hover:bg-accent hover:text-accent-foreground rounded-2xl transition-all duration-200 hover:scale-105"
-              onClick={() => window.open(github, '_blank')}
-              data-testid={`button-external-${index}`}
-            >
-              <ExternalLink className="h-5 w-5" />
-            </Button>
+            {demo && (
+              <Button
+                size="lg"
+                variant="outline"
+                className="aspect-square p-0 border-2 border-accent text-accent hover:bg-accent hover:text-accent-foreground rounded-2xl transition-all duration-200 hover:scale-105"
+                onClick={() => window.open(demo, '_blank')}
+                data-testid={`button-demo-${index}`}
+                title="Live Demo"
+              >
+                <ExternalLink className="h-5 w-5" />
+              </Button>
+            )}
+            {!demo && (
+              <Button
+                size="lg"
+                variant="outline"
+                className="aspect-square p-0 border-2 border-accent text-accent hover:bg-accent hover:text-accent-foreground rounded-2xl transition-all duration-200 hover:scale-105"
+                onClick={() => window.open(github, '_blank')}
+                data-testid={`button-external-${index}`}
+              >
+                <ExternalLink className="h-5 w-5" />
+              </Button>
+            )}
           </div>
         </div>
 

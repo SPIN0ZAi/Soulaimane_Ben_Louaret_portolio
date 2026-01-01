@@ -23,7 +23,8 @@ const skillCategories: SkillCategory[] = [
       { name: 'Python', level: 85 },
       { name: 'Java', level: 80 },
       { name: 'JavaScript', level: 85 },
-      { name: 'Assembly', level: 75 },
+      { name: 'TypeScript', level: 80 },
+      { name: 'Assembly (RISC-V)', level: 75 },
       { name: 'Haskell', level: 70 },
       { name: 'MATLAB', level: 65 },
     ],
@@ -35,6 +36,7 @@ const skillCategories: SkillCategory[] = [
       { name: 'CSS3', level: 85 },
       { name: 'Node.js', level: 80 },
       { name: 'React', level: 85 },
+      { name: 'Vite', level: 80 },
       { name: 'Discord.js', level: 75 },
     ],
   },
@@ -46,6 +48,45 @@ const skillCategories: SkillCategory[] = [
       { name: 'Git', level: 85 },
       { name: 'Docker', level: 70 },
       { name: 'Lua scripting', level: 80 },
+    ],
+  },
+  {
+    title: 'Operating Systems',
+    skills: [
+      { name: 'Process Management', level: 85 },
+      { name: 'CPU Scheduling', level: 85 },
+      { name: 'Memory Management', level: 80 },
+      { name: 'Synchronization & Deadlocks', level: 80 },
+      { name: 'File Systems', level: 75 },
+    ],
+  },
+  {
+    title: 'Computer Architecture',
+    skills: [
+      { name: 'RISC-V Datapath Design', level: 85 },
+      { name: 'Pipelining & Hazards', level: 80 },
+      { name: 'Cache Memory', level: 80 },
+      { name: 'Memory Hierarchy', level: 75 },
+    ],
+  },
+  {
+    title: 'Data Structures & Algorithms',
+    skills: [
+      { name: 'Trees (BST/AVL)', level: 90 },
+      { name: 'Heaps', level: 85 },
+      { name: 'Graph Algorithms (DFS/BFS)', level: 85 },
+      { name: 'Huffman Coding', level: 80 },
+      { name: 'Floyd-Warshall', level: 80 },
+    ],
+  },
+  {
+    title: 'Logic & Software Engineering',
+    skills: [
+      { name: 'Propositional Logic', level: 80 },
+      { name: 'Boolean Algebra', level: 80 },
+      { name: 'UML Modeling', level: 85 },
+      { name: 'Requirements Engineering', level: 80 },
+      { name: 'Unified Process (RUP)', level: 75 },
     ],
   },
   {
@@ -171,6 +212,15 @@ export default function AboutSection() {
             </Badge>
             <Badge variant="secondary" className="font-sans text-sm px-4 py-2 bg-accent/80 text-accent-foreground border border-accent rounded-full hover:bg-accent transition-all shadow-md">
               Complex assembly language programming
+            </Badge>
+            <Badge variant="secondary" className="font-sans text-sm px-4 py-2 bg-primary/80 text-primary-foreground border border-primary rounded-full hover:bg-primary transition-all shadow-md">
+              Systems & low-level programming
+            </Badge>
+            <Badge variant="secondary" className="font-sans text-sm px-4 py-2 bg-secondary/80 text-secondary-foreground border border-secondary rounded-full hover:bg-secondary transition-all shadow-md">
+              Interactive algorithm visualization
+            </Badge>
+            <Badge variant="secondary" className="font-sans text-sm px-4 py-2 bg-accent/80 text-accent-foreground border border-accent rounded-full hover:bg-accent transition-all shadow-md">
+              Full-stack development
             </Badge>
           </div>
         </Card>
