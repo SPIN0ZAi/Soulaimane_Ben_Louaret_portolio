@@ -3,6 +3,7 @@ import Navigation from '@/components/Navigation';
 import HeroSection from '@/components/HeroSection';
 import AboutSection from '@/components/AboutSection';
 import ProjectsSection from '@/components/ProjectsSection';
+import CoursesSection from '@/components/CoursesSection';
 import ExperienceSection from '@/components/ExperienceSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
@@ -72,6 +73,26 @@ export default function Home() {
               <div className="w-32 h-1 bg-primary mx-auto rounded-full glow-magenta" />
             </div>
             <ProjectsSection />
+          </div>
+        </section>
+
+        {/* Courses Section */}
+        <section id="courses" className="relative py-24 bg-gradient-to-b from-background to-primary/5">
+          <div className="absolute inset-0 opacity-20">
+            <div className="absolute inset-0 bg-primary/5" style={{
+              backgroundImage: 'repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(0, 255, 255, 0.02) 40px, rgba(0, 255, 255, 0.02) 80px)'
+            }} />
+          </div>
+          <div className="relative">
+            <div className="container mx-auto px-6">
+              <div className="text-center mb-16">
+                <h2 className="font-mono text-4xl md:text-6xl font-bold uppercase tracking-extra-wide text-foreground mb-6 text-glow-cyan">
+                  Academic_Records
+                </h2>
+                <div className="w-32 h-1 bg-accent mx-auto rounded-full glow-cyan" />
+              </div>
+              <CoursesSection />
+            </div>
           </div>
         </section>
 
