@@ -53,9 +53,9 @@ export default function ExperienceSection() {
                     Computer Engineering Student
                   </h3>
                   <p className="text-card-foreground/80 mb-1" data-testid="text-education-university">
-                    Universidad de Castilla-La Mancha
+                    Universidad de Castilla-La Mancha (UCLM)
                   </p>
-                  <p className="text-sm text-card-foreground/70 mb-4">2024 - 2026</p>
+                  <p className="text-sm text-card-foreground/70 mb-4">2024 - Present</p>
                   <p className="text-sm text-card-foreground/80">
                     Pursuing advanced studies in computer engineering with focus on software
                     development, algorithms, and system architecture.
@@ -67,6 +67,34 @@ export default function ExperienceSection() {
 
           <motion.div
             initial={{ opacity: 0, x: 50 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ delay: 0.25 }}
+          >
+            <Card className="p-6 h-full">
+              <div className="flex items-start gap-4">
+                <div className="p-3 bg-primary/10 rounded-3xl">
+                  <GraduationCap className="h-6 w-6 text-primary" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold mb-2 text-card-foreground">
+                    Science & Technology Foundation
+                  </h3>
+                  <p className="text-card-foreground/80 mb-1">
+                    FST Tanger - Abdelmalek Essaadi University
+                  </p>
+                  <p className="text-sm text-card-foreground/70 mb-4">2022 - 2024</p>
+                  <p className="text-sm text-card-foreground/80">
+                    Completed foundational studies in Mathematics, Physics, Computer Science, and Engineering fundamentals (LST-MIPC program).
+                  </p>
+                </div>
+              </div>
+            </Card>
+          </motion.div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ delay: 0.3 }}
           >
