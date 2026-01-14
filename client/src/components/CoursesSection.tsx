@@ -49,7 +49,7 @@ export default function CoursesSection() {
   });
 
   return (
-    <section id="courses" className="py-20 md:py-32 px-6 bg-gradient-to-b from-background to-muted/10">
+    <section id="courses" className="py-20 md:py-32 px-6 bg-background">
       <motion.div
         ref={ref}
         initial={{ opacity: 0 }}
@@ -61,12 +61,12 @@ export default function CoursesSection() {
         <div className="text-center mb-12">
           <div className="inline-flex items-center justify-center gap-3 mb-4">
             <GraduationCap className="h-10 w-10 text-accent" />
-            <h2 className="text-4xl md:text-5xl font-bold text-card-foreground" data-testid="text-courses-title">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground" data-testid="text-courses-title">
               Academic Curriculum
             </h2>
           </div>
-          <div className="h-1 w-24 bg-gradient-to-r from-primary to-accent-foreground mx-auto mb-6"></div>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <div className="h-1 w-24 bg-gradient-to-r from-primary to-accent mx-auto mb-6"></div>
+          <p className="text-lg text-foreground/80 max-w-2xl mx-auto">
             Computer Engineering coursework at Universidad de Castilla-La Mancha
           </p>
         </div>
@@ -80,24 +80,24 @@ export default function CoursesSection() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.2 * yearIndex, duration: 0.5 }}
             >
-              <Card className="p-8 bg-card border-2 border-card-border rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300">
+              <Card className="p-8 bg-card/80 backdrop-blur-sm border-2 border-accent/30 rounded-3xl shadow-lg hover:shadow-xl hover:border-accent/50 transition-all duration-300">
                 {/* Year Header */}
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-accent/20 to-primary/20 border-2 border-accent/30">
-                    <Calendar className="h-6 w-6 text-accent" />
+                <div className="flex flex-wrap items-center gap-4 mb-6">
+                  <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-accent/30 to-primary/30 border-2 border-accent/50 shadow-md">
+                    <Calendar className="h-7 w-7 text-accent drop-shadow-lg" />
                   </div>
-                  <div>
-                    <h3 className="text-2xl md:text-3xl font-bold text-card-foreground" data-testid={`text-year-${academicYear.year}`}>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-2xl md:text-3xl font-bold text-foreground drop-shadow-sm" data-testid={`text-year-${academicYear.year}`}>
                       Academic Year {academicYear.year}
                     </h3>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-base text-foreground/70 font-medium">
                       {academicYear.courses.length} courses
                     </p>
                   </div>
-                  <div className="ml-auto">
+                  <div>
                     <Badge 
                       variant="secondary"
-                      className="px-4 py-2 text-sm font-semibold bg-gradient-to-r from-accent/20 to-primary/20 border border-accent/30 rounded-full"
+                      className="px-5 py-2.5 text-sm font-bold bg-gradient-to-r from-accent to-primary text-primary-foreground border-2 border-accent/50 rounded-full shadow-lg"
                     >
                       {academicYear.year === '2025-26' ? 'Current' : 'Completed'}
                     </Badge>
@@ -115,19 +115,19 @@ export default function CoursesSection() {
                       whileHover={{ scale: 1.03 }}
                       className="group"
                     >
-                      <Card className="p-4 h-full bg-gradient-to-br from-card to-muted/30 border border-card-border hover:border-accent/50 rounded-2xl transition-all duration-300 hover:shadow-md">
+                      <Card className="p-4 h-full bg-gradient-to-br from-muted/80 to-card/80 backdrop-blur-sm border-2 border-card-border hover:border-accent/60 hover:bg-accent/5 rounded-2xl transition-all duration-300 hover:shadow-lg">
                         <div className="flex items-start gap-3">
                           <div className="flex-shrink-0 mt-1">
-                            <div className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
-                              <BookOpen className="h-4 w-4 text-accent" />
+                            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-accent/20 to-primary/20 border border-accent/30 flex items-center justify-center group-hover:bg-accent/30 group-hover:border-accent/50 transition-all shadow-sm">
+                              <BookOpen className="h-5 w-5 text-accent drop-shadow-sm" />
                             </div>
                           </div>
                           <div className="flex-1 min-w-0">
-                            <h4 className="font-semibold text-sm text-card-foreground leading-tight mb-1 group-hover:text-accent transition-colors">
+                            <h4 className="font-bold text-sm md:text-base text-foreground leading-tight mb-1.5 group-hover:text-accent transition-colors">
                               {course.name}
                             </h4>
                             {course.code && (
-                              <p className="text-xs text-muted-foreground">
+                              <p className="text-xs md:text-sm text-foreground/60 font-medium">
                                 {course.code}
                               </p>
                             )}
@@ -149,27 +149,27 @@ export default function CoursesSection() {
           transition={{ delay: 0.6, duration: 0.5 }}
           className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6"
         >
-          <Card className="p-6 text-center bg-gradient-to-br from-accent/10 to-primary/10 border-2 border-accent/20 rounded-2xl">
-            <div className="text-3xl font-bold text-accent mb-2">
+          <Card className="p-6 text-center bg-gradient-to-br from-accent/20 to-primary/20 backdrop-blur-sm border-2 border-accent/40 rounded-2xl shadow-lg hover:shadow-xl hover:border-accent/60 transition-all">
+            <div className="text-4xl md:text-5xl font-bold text-accent drop-shadow-lg mb-2">
               {academicYears.reduce((sum, year) => sum + year.courses.length, 0)}
             </div>
-            <div className="text-sm text-muted-foreground font-medium">
+            <div className="text-sm md:text-base text-foreground font-bold">
               Total Courses Completed
             </div>
           </Card>
-          <Card className="p-6 text-center bg-gradient-to-br from-primary/10 to-accent/10 border-2 border-primary/20 rounded-2xl">
-            <div className="text-3xl font-bold text-primary mb-2">
+          <Card className="p-6 text-center bg-gradient-to-br from-primary/20 to-accent/20 backdrop-blur-sm border-2 border-primary/40 rounded-2xl shadow-lg hover:shadow-xl hover:border-primary/60 transition-all">
+            <div className="text-4xl md:text-5xl font-bold text-primary drop-shadow-lg mb-2">
               {academicYears.length}
             </div>
-            <div className="text-sm text-muted-foreground font-medium">
+            <div className="text-sm md:text-base text-foreground font-bold">
               Academic Years
             </div>
           </Card>
-          <Card className="p-6 text-center bg-gradient-to-br from-secondary/10 to-accent/10 border-2 border-secondary/20 rounded-2xl">
-            <div className="text-3xl font-bold text-secondary mb-2">
+          <Card className="p-6 text-center bg-gradient-to-br from-secondary/20 to-accent/20 backdrop-blur-sm border-2 border-secondary/40 rounded-2xl shadow-lg hover:shadow-xl hover:border-secondary/60 transition-all">
+            <div className="text-4xl md:text-5xl font-bold text-secondary drop-shadow-lg mb-2">
               UCLM
             </div>
-            <div className="text-sm text-muted-foreground font-medium">
+            <div className="text-sm md:text-base text-foreground font-bold">
               Universidad de Castilla-La Mancha
             </div>
           </Card>
