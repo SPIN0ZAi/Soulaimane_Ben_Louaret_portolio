@@ -1,13 +1,22 @@
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import Navigation from '@/components/Navigation';
 import HeroSection from '@/components/HeroSection';
-import AboutSection from '@/components/AboutSection';
-import ProjectsSection from '@/components/ProjectsSection';
-import CoursesSection from '@/components/CoursesSection';
-import ExperienceSection from '@/components/ExperienceSection';
-import ContactSection from '@/components/ContactSection';
-import Footer from '@/components/Footer';
 import FloatingCode from '@/components/FloatingCode';
+
+// Lazy load heavy components
+const AboutSection = lazy(() => import('@/components/AboutSection'));
+const ProjectsSection = lazy(() => import('@/components/ProjectsSection'));
+const CoursesSection = lazy(() => import('@/components/CoursesSection'));
+const ExperienceSection = lazy(() => import('@/components/ExperienceSection'));
+const ContactSection = lazy(() => import('@/components/ContactSection'));
+const Footer = lazy(() => import('@/components/Footer'));
+
+// Loading fallback component
+const SectionLoader = () => (
+  <div className="flex items-center justify-center py-20">
+    <div className="animate-pulse text-primary">Loading...</div>
+  </div>
+);
 
 export default function Home() {
   useEffect(() => {
@@ -58,7 +67,9 @@ export default function Home() {
                 </h2>
                 <div className="w-32 h-1 bg-accent mx-auto rounded-full glow-green" />
               </div>
-              <AboutSection />
+              <Suspense fallback={<SectionLoader />}>
+                <AboutSection />
+              </Suspense>
             </div>
           </div>
         </section>
@@ -72,7 +83,9 @@ export default function Home() {
               </h2>
               <div className="w-32 h-1 bg-primary mx-auto rounded-full glow-magenta" />
             </div>
-            <ProjectsSection />
+            <Suspense fallback={<SectionLoader />}>
+              <ProjectsSection />
+            </Suspense>
           </div>
         </section>
 
@@ -91,7 +104,9 @@ export default function Home() {
                 </h2>
                 <div className="w-32 h-1 bg-accent mx-auto rounded-full glow-cyan" />
               </div>
-              <CoursesSection />
+              <Suspense fallback={<SectionLoader />}>
+                <CoursesSection />
+              </Suspense>
             </div>
           </div>
         </section>
@@ -111,7 +126,9 @@ export default function Home() {
                 </h2>
                 <div className="w-32 h-1 bg-accent mx-auto rounded-full glow-green" />
               </div>
-              <ExperienceSection />
+              <Suspense fallback={<SectionLoader />}>
+                <ExperienceSection />
+              </Suspense>
             </div>
           </div>
         </section>
@@ -138,13 +155,17 @@ export default function Home() {
                 </h2>
                 <div className="w-32 h-1 bg-accent mx-auto rounded-full glow-cyan" />
               </div>
-              <ContactSection />
+              <Suspense fallback={<SectionLoader />}>
+                <ContactSection />
+              </Suspense>
             </div>
           </div>
         </section>
 
         {/* Footer */}
-        <Footer />
+        <Suspense fallback={null}>
+          <Footer />
+        </Suspense>
       </main>
     </div>
   );

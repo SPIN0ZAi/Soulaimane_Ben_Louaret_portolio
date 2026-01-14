@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { memo } from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { BookOpen, Calendar, GraduationCap, Info } from 'lucide-react';
@@ -107,7 +108,7 @@ const academicYears: AcademicYear[] = [
 export default function CoursesSection() {
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.1,
+    threshold: 0.05, // Reduced from 0.1 for earlier triggering
   });
 
   return (
@@ -116,7 +117,7 @@ export default function CoursesSection() {
         ref={ref}
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : {}}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.4 }} // Reduced from 0.6
         className="max-w-7xl mx-auto"
       >
         {/* Section Header */}
@@ -138,9 +139,9 @@ export default function CoursesSection() {
           {academicYears.map((academicYear, yearIndex) => (
             <motion.div
               key={academicYear.year}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }} // Reduced from y: 30
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.2 * yearIndex, duration: 0.5 }}
+              transition={{ delay: 0.1 * yearIndex, duration: 0.3 }} // Reduced delays and duration
             >
               <Card className="p-8 bg-background/50 border border-accent/25 rounded-xl shadow-sm">
                 {/* Year Header */}
@@ -195,9 +196,9 @@ export default function CoursesSection() {
                     {academicYear.courses.map((course, courseIndex) => (
                       <motion.div
                         key={course.name}
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={inView ? { opacity: 1, scale: 1 } : {}}
-                        transition={{ delay: 0.3 + yearIndex * 0.1 + courseIndex * 0.05, duration: 0.3 }}
+                        initial={{ opacity: 0 }}
+                        animate={inView ? { opacity: 1 } : {}}
+                        transition={{ delay: 0.05 * courseIndex, duration: 0.2 }} // Simplified and faster
                         className="group"
                       >
                         <Card className="p-4 h-full bg-muted/30 border border-accent/25 hover:border-accent/40 rounded-lg transition-colors duration-200">
@@ -240,9 +241,9 @@ export default function CoursesSection() {
                           {semester.courses.map((course, courseIndex) => (
                             <motion.div
                               key={course.name}
-                              initial={{ opacity: 0, scale: 0.9 }}
-                              animate={inView ? { opacity: 1, scale: 1 } : {}}
-                              transition={{ delay: 0.3 + yearIndex * 0.1 + semIndex * 0.1 + courseIndex * 0.03, duration: 0.3 }}
+                              initial={{ opacity: 0 }}
+                              animate={inView ? { opacity: 1 } : {}}
+                              transition={{ delay: 0.02 * courseIndex, duration: 0.2 }} // Much simpler animation
                               className="group"
                             >
                               <Card className="p-3.5 h-full bg-muted/30 border border-accent/25 hover:border-accent/40 rounded-lg transition-colors duration-200">
@@ -278,9 +279,9 @@ export default function CoursesSection() {
 
         {/* Summary Stats */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }} // Reduced from y: 20
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.6, duration: 0.5 }}
+          transition={{ delay: 0.3, duration: 0.3 }} // Reduced from 0.6, 0.5
           className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-6"
         >
           <Card className="p-6 text-center bg-muted/30 border border-accent/25 rounded-lg shadow-sm">
