@@ -208,11 +208,11 @@ export default function CoursesSection() {
                               </div>
                             </div>
                             <div className="flex-1 min-w-0">
-                              <h4 className="font-semibold text-sm md:text-base text-card-foreground leading-snug mb-1.5">
+                              <h4 className="font-bold text-sm md:text-base text-gray-900 dark:text-card-foreground leading-snug mb-1.5">
                                 {course.name}
                               </h4>
                               {course.code && (
-                                <p className="text-xs md:text-sm text-card-foreground/60 font-medium">
+                                <p className="text-xs md:text-sm text-gray-700 dark:text-card-foreground/70 font-medium">
                                   {course.code}
                                 </p>
                               )}
@@ -253,11 +253,11 @@ export default function CoursesSection() {
                                     </div>
                                   </div>
                                   <div className="flex-1 min-w-0">
-                                    <h5 className="font-semibold text-sm text-card-foreground leading-snug mb-1">
+                                    <h5 className="font-bold text-sm text-gray-900 dark:text-card-foreground leading-snug mb-1">
                                       {course.name}
                                     </h5>
                                     {course.description && (
-                                      <p className="text-xs text-card-foreground/60 leading-relaxed">
+                                      <p className="text-xs text-gray-700 dark:text-card-foreground/70 leading-relaxed">
                                         {course.description}
                                       </p>
                                     )}
@@ -291,7 +291,7 @@ export default function CoursesSection() {
                 return sum;
               }, 0)}
             </div>
-            <div className="text-sm md:text-base text-card-foreground/70 font-medium">
+            <div className="text-sm md:text-base text-gray-800 dark:text-card-foreground/80 font-semibold">
               Total Courses Studied
             </div>
           </Card>
@@ -299,7 +299,7 @@ export default function CoursesSection() {
             <div className="text-4xl md:text-5xl font-bold text-primary mb-2">
               2
             </div>
-            <div className="text-sm md:text-base text-card-foreground/70 font-medium">
+            <div className="text-sm md:text-base text-gray-800 dark:text-card-foreground/80 font-semibold">
               Universities
             </div>
           </Card>
@@ -307,7 +307,7 @@ export default function CoursesSection() {
             <div className="text-4xl md:text-5xl font-bold text-primary mb-2">
               {academicYears.length}
             </div>
-            <div className="text-sm md:text-base text-card-foreground/70 font-medium">
+            <div className="text-sm md:text-base text-gray-800 dark:text-card-foreground/80 font-semibold">
               Academic Periods
             </div>
           </Card>
