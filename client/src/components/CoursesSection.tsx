@@ -59,45 +59,45 @@ const academicYears: AcademicYear[] = [
       {
         semester: 'Semester 1',
         courses: [
-          { name: 'Analyse 1', description: 'Introductory Calculus' },
-          { name: 'Algèbre 1', description: 'Basic Algebra' },
-          { name: 'Electricité', description: 'Electricity Fundamentals' },
-          { name: 'Circuits électriques et électronique', description: 'Basic Circuits & Electronics' },
-          { name: 'Algorithmique et programmation 1', description: 'First Programming Course' },
-          { name: 'Langues et communication', description: 'Communication Skills' },
+          { name: 'Analysis 1', description: 'Introductory Calculus' },
+          { name: 'Algebra 1', description: 'Basic Algebra' },
+          { name: 'Electricity', description: 'Electricity Fundamentals' },
+          { name: 'Electric Circuits and Electronics', description: 'Basic Circuits & Electronics' },
+          { name: 'Algorithms and Programming 1', description: 'First Programming Course' },
+          { name: 'Languages and Communication', description: 'Communication Skills' },
         ],
       },
       {
         semester: 'Semester 2',
         courses: [
-          { name: 'Analyse 2', description: 'Further Calculus' },
-          { name: 'Algèbre 2', description: 'Continuation of Algebra' },
-          { name: 'Thermodynamique', description: 'Thermodynamics' },
-          { name: 'Mécanique du point & Optique géométrique', description: 'Mechanics and Optics' },
-          { name: 'Structure de la matière', description: 'Material Structure Basics' },
-          { name: 'Langues et communication 2', description: 'Languages & Communication' },
+          { name: 'Analysis 2', description: 'Further Calculus' },
+          { name: 'Algebra 2', description: 'Continuation of Algebra' },
+          { name: 'Thermodynamics', description: 'Thermodynamics' },
+          { name: 'Point Mechanics & Geometric Optics', description: 'Mechanics and Optics' },
+          { name: 'Structure of Matter', description: 'Material Structure Basics' },
+          { name: 'Languages and Communication 2', description: 'Languages & Communication' },
         ],
       },
       {
         semester: 'Semester 3',
         courses: [
-          { name: 'Analyse 3', description: 'Higher-level Calculus' },
-          { name: 'Statistique descriptive / Probabilités', description: 'Statistics and Probability' },
-          { name: 'Algorithmique et Programmation 2', description: 'Advanced Programming' },
-          { name: 'Electromagnétisme', description: 'Electromagnetism' },
-          { name: 'Réactivité chimique', description: 'Chemical Reactivity' },
-          { name: 'Langues et communication 3', description: 'Languages & Communication' },
+          { name: 'Analysis 3', description: 'Higher-level Calculus' },
+          { name: 'Descriptive Statistics / Probability', description: 'Statistics and Probability' },
+          { name: 'Algorithms and Programming 2', description: 'Advanced Programming' },
+          { name: 'Electromagnetism', description: 'Electromagnetism' },
+          { name: 'Chemical Reactivity', description: 'Chemical Reactivity' },
+          { name: 'Languages and Communication 3', description: 'Languages & Communication' },
         ],
       },
       {
         semester: 'Semester 4',
         courses: [
-          { name: 'Analyse 4', description: 'Advanced Calculus' },
-          { name: 'Mécanique quantique & Relativité', description: 'Quantum Mechanics and Relativity' },
-          { name: 'Mécanique du solide', description: 'Solid Mechanics' },
-          { name: 'Structures de données en C', description: 'Data Structures in C' },
-          { name: 'Chimie minérale 1', description: 'Inorganic Chemistry' },
-          { name: 'Chimie organique 1', description: 'Organic Chemistry' },
+          { name: 'Analysis 4', description: 'Advanced Calculus' },
+          { name: 'Quantum Mechanics & Relativity', description: 'Quantum Mechanics and Relativity' },
+          { name: 'Solid Mechanics', description: 'Solid Mechanics' },
+          { name: 'Data Structures in C', description: 'Data Structures in C' },
+          { name: 'Inorganic Chemistry 1', description: 'Inorganic Chemistry' },
+          { name: 'Organic Chemistry 1', description: 'Organic Chemistry' },
         ],
       },
     ],
@@ -134,7 +134,7 @@ export default function CoursesSection() {
         </div>
 
         {/* Academic Years */}
-        <div className="space-y-8">
+        <div className="space-y-20">
           {academicYears.map((academicYear, yearIndex) => (
             <motion.div
               key={academicYear.year}
@@ -142,20 +142,20 @@ export default function CoursesSection() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.2 * yearIndex, duration: 0.5 }}
             >
-              <Card className="p-8 bg-card/80 backdrop-blur-sm border-2 border-accent/30 rounded-3xl shadow-lg hover:shadow-xl hover:border-accent/50 transition-all duration-300">
+              <Card className="p-8 bg-background/50 border border-accent/25 rounded-xl shadow-sm">
                 {/* Year Header */}
-                <div className="flex flex-wrap items-center gap-4 mb-6">
-                  <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-accent/30 to-primary/30 border-2 border-accent/50 shadow-md">
-                    <Calendar className="h-7 w-7 text-accent drop-shadow-lg" />
+                <div className="flex flex-wrap items-center gap-4 mb-8 pb-6 border-b border-accent/15">
+                  <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-accent/8 border border-accent/20">
+                    <Calendar className="h-6 w-6 text-primary/80" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-2xl md:text-3xl font-bold text-foreground drop-shadow-sm" data-testid={`text-year-${academicYear.year}`}>
+                    <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-1" data-testid={`text-year-${academicYear.year}`}>
                       {academicYear.institution && (
-                        <span className="text-accent">{academicYear.institution}</span>
+                        <span className="text-primary/90">{academicYear.institution}</span>
                       )}{' '}
                       Academic Year {academicYear.year}
                     </h3>
-                    <p className="text-base text-foreground/70 font-medium">
+                    <p className="text-sm text-muted-foreground font-medium">
                       {academicYear.courses 
                         ? `${academicYear.courses.length} courses`
                         : academicYear.semesters 
@@ -166,7 +166,11 @@ export default function CoursesSection() {
                   <div>
                     <Badge 
                       variant="secondary"
-                      className="px-5 py-2.5 text-sm font-bold bg-gradient-to-r from-accent to-primary text-primary-foreground border-2 border-accent/50 rounded-full shadow-lg"
+                      className={`px-4 py-1.5 text-sm font-medium rounded-md ${
+                        academicYear.year === '2025-26' 
+                          ? 'bg-primary/90 text-white border-0' 
+                          : 'bg-background border border-accent/25 text-muted-foreground'
+                      }`}
                     >
                       {academicYear.year === '2025-26' ? 'Current' : academicYear.institution === 'FST Tanger' ? 'Foundation' : 'Completed'}
                     </Badge>
@@ -175,10 +179,10 @@ export default function CoursesSection() {
 
                 {/* Note for FST Tanger */}
                 {academicYear.note && (
-                  <div className="mb-6 p-4 bg-primary/10 border-l-4 border-primary rounded-lg">
+                  <div className="mb-8 p-4 bg-accent/5 border border-accent/20 rounded-lg">
                     <div className="flex items-start gap-3">
-                      <Info className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                      <p className="text-sm text-foreground/80 leading-relaxed">
+                      <Info className="h-5 w-5 text-primary/70 flex-shrink-0 mt-0.5" />
+                      <p className="text-sm text-muted-foreground leading-relaxed">
                         {academicYear.note}
                       </p>
                     </div>
@@ -187,29 +191,29 @@ export default function CoursesSection() {
 
                 {/* Regular Course Grid */}
                 {academicYear.courses && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                     {academicYear.courses.map((course, courseIndex) => (
                       <motion.div
                         key={course.name}
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={inView ? { opacity: 1, scale: 1 } : {}}
                         transition={{ delay: 0.3 + yearIndex * 0.1 + courseIndex * 0.05, duration: 0.3 }}
-                        whileHover={{ scale: 1.03 }}
+                        whileHover={{ scale: 1.02 }}
                         className="group"
                       >
-                        <Card className="p-4 h-full bg-gradient-to-br from-muted/80 to-card/80 backdrop-blur-sm border-2 border-card-border hover:border-accent/60 hover:bg-accent/5 rounded-2xl transition-all duration-300 hover:shadow-lg">
+                        <Card className="p-4 h-full bg-card border border-accent/20 hover:border-primary/35 rounded-lg transition-all duration-300">
                           <div className="flex items-start gap-3">
                             <div className="flex-shrink-0 mt-1">
-                              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-accent/20 to-primary/20 border border-accent/30 flex items-center justify-center group-hover:bg-accent/30 group-hover:border-accent/50 transition-all shadow-sm">
-                                <BookOpen className="h-5 w-5 text-accent drop-shadow-sm" />
+                              <div className="w-8 h-8 rounded-md bg-accent/8 border border-accent/20 flex items-center justify-center group-hover:bg-accent/12 transition-all">
+                                <BookOpen className="h-4 w-4 text-primary/70 group-hover:text-primary transition-colors" />
                               </div>
                             </div>
                             <div className="flex-1 min-w-0">
-                              <h4 className="font-bold text-sm md:text-base text-foreground leading-tight mb-1.5 group-hover:text-accent transition-colors">
+                              <h4 className="font-semibold text-sm md:text-base text-foreground leading-snug mb-1.5 group-hover:text-primary transition-colors">
                                 {course.name}
                               </h4>
                               {course.code && (
-                                <p className="text-xs md:text-sm text-foreground/60 font-medium">
+                                <p className="text-xs md:text-sm text-muted-foreground font-medium">
                                   {course.code}
                                 </p>
                               )}
@@ -223,16 +227,17 @@ export default function CoursesSection() {
 
                 {/* Semester-based Layout for FST Tanger */}
                 {academicYear.semesters && (
-                  <div className="space-y-6">
+                  <div className="space-y-10">
                     {academicYear.semesters.map((semester, semIndex) => (
                       <div key={semester.semester}>
-                        <h4 className="text-xl font-bold text-foreground mb-3 flex items-center gap-2">
-                          <span className="w-8 h-8 rounded-lg bg-accent/20 flex items-center justify-center text-accent text-sm font-bold">
+                        <h4 className="text-lg font-bold text-foreground mb-4 flex items-center gap-3 pb-2">
+                          <span className="w-7 h-7 rounded-md bg-accent/8 border border-accent/20 flex items-center justify-center text-primary/80 text-sm font-bold">
                             S{semIndex + 1}
                           </span>
                           {semester.semester}
+                          <div className="flex-1 h-px bg-accent/12" />
                         </h4>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                           {semester.courses.map((course, courseIndex) => (
                             <motion.div
                               key={course.name}
@@ -242,19 +247,19 @@ export default function CoursesSection() {
                               whileHover={{ scale: 1.02 }}
                               className="group"
                             >
-                              <Card className="p-3 h-full bg-gradient-to-br from-muted/80 to-card/80 backdrop-blur-sm border-2 border-card-border hover:border-accent/60 hover:bg-accent/5 rounded-xl transition-all duration-300 hover:shadow-md">
-                                <div className="flex items-start gap-2">
+                              <Card className="p-3.5 h-full bg-card border border-accent/20 hover:border-primary/35 rounded-lg transition-all duration-300">
+                                <div className="flex items-start gap-2.5">
                                   <div className="flex-shrink-0 mt-0.5">
-                                    <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-accent/20 to-primary/20 border border-accent/30 flex items-center justify-center group-hover:bg-accent/30 group-hover:border-accent/50 transition-all">
-                                      <BookOpen className="h-4 w-4 text-accent" />
+                                    <div className="w-7 h-7 rounded-md bg-accent/8 border border-accent/20 flex items-center justify-center group-hover:bg-accent/12 transition-all">
+                                      <BookOpen className="h-4 w-4 text-primary/70 group-hover:text-primary transition-colors" />
                                     </div>
                                   </div>
                                   <div className="flex-1 min-w-0">
-                                    <h5 className="font-bold text-sm text-foreground leading-tight mb-1 group-hover:text-accent transition-colors">
+                                    <h5 className="font-semibold text-sm text-foreground leading-snug mb-1 group-hover:text-primary transition-colors">
                                       {course.name}
                                     </h5>
                                     {course.description && (
-                                      <p className="text-xs text-foreground/60 font-medium leading-tight">
+                                      <p className="text-xs text-muted-foreground leading-relaxed">
                                         {course.description}
                                       </p>
                                     )}
@@ -278,33 +283,33 @@ export default function CoursesSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.6, duration: 0.5 }}
-          className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6"
+          className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-6"
         >
-          <Card className="p-6 text-center bg-gradient-to-br from-accent/20 to-primary/20 backdrop-blur-sm border-2 border-accent/40 rounded-2xl shadow-lg hover:shadow-xl hover:border-accent/60 transition-all">
-            <div className="text-4xl md:text-5xl font-bold text-accent drop-shadow-lg mb-2">
+          <Card className="p-6 text-center bg-card border border-accent/25 rounded-lg shadow-sm">
+            <div className="text-4xl md:text-5xl font-bold text-primary mb-2">
               {academicYears.reduce((sum, year) => {
                 if (year.courses) return sum + year.courses.length;
                 if (year.semesters) return sum + year.semesters.reduce((s, sem) => s + sem.courses.length, 0);
                 return sum;
               }, 0)}
             </div>
-            <div className="text-sm md:text-base text-foreground font-bold">
+            <div className="text-sm md:text-base text-muted-foreground font-medium">
               Total Courses Studied
             </div>
           </Card>
-          <Card className="p-6 text-center bg-gradient-to-br from-primary/20 to-accent/20 backdrop-blur-sm border-2 border-primary/40 rounded-2xl shadow-lg hover:shadow-xl hover:border-primary/60 transition-all">
-            <div className="text-4xl md:text-5xl font-bold text-primary drop-shadow-lg mb-2">
+          <Card className="p-6 text-center bg-card border border-accent/25 rounded-lg shadow-sm">
+            <div className="text-4xl md:text-5xl font-bold text-primary mb-2">
               2
             </div>
-            <div className="text-sm md:text-base text-foreground font-bold">
+            <div className="text-sm md:text-base text-muted-foreground font-medium">
               Universities
             </div>
           </Card>
-          <Card className="p-6 text-center bg-gradient-to-br from-secondary/20 to-accent/20 backdrop-blur-sm border-2 border-secondary/40 rounded-2xl shadow-lg hover:shadow-xl hover:border-secondary/60 transition-all">
-            <div className="text-4xl md:text-5xl font-bold text-secondary drop-shadow-lg mb-2">
+          <Card className="p-6 text-center bg-card border border-accent/25 rounded-lg shadow-sm">
+            <div className="text-4xl md:text-5xl font-bold text-primary mb-2">
               {academicYears.length}
             </div>
-            <div className="text-sm md:text-base text-foreground font-bold">
+            <div className="text-sm md:text-base text-muted-foreground font-medium">
               Academic Periods
             </div>
           </Card>
