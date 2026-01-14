@@ -146,16 +146,16 @@ export default function CoursesSection() {
                 {/* Year Header */}
                 <div className="flex flex-wrap items-center gap-4 mb-8 pb-6 border-b border-accent/15">
                   <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-accent/8 border border-accent/20">
-                    <Calendar className="h-6 w-6 text-primary/80" />
+                    <Calendar className="h-6 w-6 text-primary" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-1" data-testid={`text-year-${academicYear.year}`}>
                       {academicYear.institution && (
-                        <span className="text-primary/90">{academicYear.institution}</span>
+                        <span className="text-primary">{academicYear.institution}</span>
                       )}{' '}
                       Academic Year {academicYear.year}
                     </h3>
-                    <p className="text-sm text-muted-foreground font-medium">
+                    <p className="text-sm text-foreground/70 font-medium">
                       {academicYear.courses 
                         ? `${academicYear.courses.length} courses`
                         : academicYear.semesters 
@@ -181,8 +181,8 @@ export default function CoursesSection() {
                 {academicYear.note && (
                   <div className="mb-8 p-4 bg-accent/5 border border-accent/20 rounded-lg">
                     <div className="flex items-start gap-3">
-                      <Info className="h-5 w-5 text-primary/70 flex-shrink-0 mt-0.5" />
-                      <p className="text-sm text-muted-foreground leading-relaxed">
+                      <Info className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                      <p className="text-sm text-foreground/80 leading-relaxed">
                         {academicYear.note}
                       </p>
                     </div>
@@ -198,22 +198,21 @@ export default function CoursesSection() {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={inView ? { opacity: 1, scale: 1 } : {}}
                         transition={{ delay: 0.3 + yearIndex * 0.1 + courseIndex * 0.05, duration: 0.3 }}
-                        whileHover={{ scale: 1.02 }}
                         className="group"
                       >
-                        <Card className="p-4 h-full bg-card border border-accent/20 hover:border-primary/35 rounded-lg transition-all duration-300">
+                        <Card className="p-4 h-full bg-muted/30 border border-accent/25 hover:border-accent/40 rounded-lg transition-colors duration-200">
                           <div className="flex items-start gap-3">
                             <div className="flex-shrink-0 mt-1">
-                              <div className="w-8 h-8 rounded-md bg-accent/8 border border-accent/20 flex items-center justify-center group-hover:bg-accent/12 transition-all">
-                                <BookOpen className="h-4 w-4 text-primary/70 group-hover:text-primary transition-colors" />
+                              <div className="w-8 h-8 rounded-md bg-primary/10 border border-primary/20 flex items-center justify-center">
+                                <BookOpen className="h-4 w-4 text-primary" />
                               </div>
                             </div>
                             <div className="flex-1 min-w-0">
-                              <h4 className="font-semibold text-sm md:text-base text-foreground leading-snug mb-1.5 group-hover:text-primary transition-colors">
+                              <h4 className="font-semibold text-sm md:text-base text-card-foreground leading-snug mb-1.5">
                                 {course.name}
                               </h4>
                               {course.code && (
-                                <p className="text-xs md:text-sm text-muted-foreground font-medium">
+                                <p className="text-xs md:text-sm text-card-foreground/60 font-medium">
                                   {course.code}
                                 </p>
                               )}
@@ -231,7 +230,7 @@ export default function CoursesSection() {
                     {academicYear.semesters.map((semester, semIndex) => (
                       <div key={semester.semester}>
                         <h4 className="text-lg font-bold text-foreground mb-4 flex items-center gap-3 pb-2">
-                          <span className="w-7 h-7 rounded-md bg-accent/8 border border-accent/20 flex items-center justify-center text-primary/80 text-sm font-bold">
+                          <span className="w-7 h-7 rounded-md bg-primary/10 border border-primary/20 flex items-center justify-center text-primary text-sm font-bold">
                             S{semIndex + 1}
                           </span>
                           {semester.semester}
@@ -244,22 +243,21 @@ export default function CoursesSection() {
                               initial={{ opacity: 0, scale: 0.9 }}
                               animate={inView ? { opacity: 1, scale: 1 } : {}}
                               transition={{ delay: 0.3 + yearIndex * 0.1 + semIndex * 0.1 + courseIndex * 0.03, duration: 0.3 }}
-                              whileHover={{ scale: 1.02 }}
                               className="group"
                             >
-                              <Card className="p-3.5 h-full bg-card border border-accent/20 hover:border-primary/35 rounded-lg transition-all duration-300">
+                              <Card className="p-3.5 h-full bg-muted/30 border border-accent/25 hover:border-accent/40 rounded-lg transition-colors duration-200">
                                 <div className="flex items-start gap-2.5">
                                   <div className="flex-shrink-0 mt-0.5">
-                                    <div className="w-7 h-7 rounded-md bg-accent/8 border border-accent/20 flex items-center justify-center group-hover:bg-accent/12 transition-all">
-                                      <BookOpen className="h-4 w-4 text-primary/70 group-hover:text-primary transition-colors" />
+                                    <div className="w-7 h-7 rounded-md bg-primary/10 border border-primary/20 flex items-center justify-center">
+                                      <BookOpen className="h-4 w-4 text-primary" />
                                     </div>
                                   </div>
                                   <div className="flex-1 min-w-0">
-                                    <h5 className="font-semibold text-sm text-foreground leading-snug mb-1 group-hover:text-primary transition-colors">
+                                    <h5 className="font-semibold text-sm text-card-foreground leading-snug mb-1">
                                       {course.name}
                                     </h5>
                                     {course.description && (
-                                      <p className="text-xs text-muted-foreground leading-relaxed">
+                                      <p className="text-xs text-card-foreground/60 leading-relaxed">
                                         {course.description}
                                       </p>
                                     )}
@@ -285,7 +283,7 @@ export default function CoursesSection() {
           transition={{ delay: 0.6, duration: 0.5 }}
           className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-6"
         >
-          <Card className="p-6 text-center bg-card border border-accent/25 rounded-lg shadow-sm">
+          <Card className="p-6 text-center bg-muted/30 border border-accent/25 rounded-lg shadow-sm">
             <div className="text-4xl md:text-5xl font-bold text-primary mb-2">
               {academicYears.reduce((sum, year) => {
                 if (year.courses) return sum + year.courses.length;
@@ -293,23 +291,23 @@ export default function CoursesSection() {
                 return sum;
               }, 0)}
             </div>
-            <div className="text-sm md:text-base text-muted-foreground font-medium">
+            <div className="text-sm md:text-base text-card-foreground/70 font-medium">
               Total Courses Studied
             </div>
           </Card>
-          <Card className="p-6 text-center bg-card border border-accent/25 rounded-lg shadow-sm">
+          <Card className="p-6 text-center bg-muted/30 border border-accent/25 rounded-lg shadow-sm">
             <div className="text-4xl md:text-5xl font-bold text-primary mb-2">
               2
             </div>
-            <div className="text-sm md:text-base text-muted-foreground font-medium">
+            <div className="text-sm md:text-base text-card-foreground/70 font-medium">
               Universities
             </div>
           </Card>
-          <Card className="p-6 text-center bg-card border border-accent/25 rounded-lg shadow-sm">
+          <Card className="p-6 text-center bg-muted/30 border border-accent/25 rounded-lg shadow-sm">
             <div className="text-4xl md:text-5xl font-bold text-primary mb-2">
               {academicYears.length}
             </div>
-            <div className="text-sm md:text-base text-muted-foreground font-medium">
+            <div className="text-sm md:text-base text-card-foreground/70 font-medium">
               Academic Periods
             </div>
           </Card>
