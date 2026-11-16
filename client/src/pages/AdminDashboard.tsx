@@ -15,6 +15,9 @@ import {
   Star,
   Check,
   Eye,
+  EyeOff,
+  Lock,
+  KeyRound,
   Mail,
   User,
   FolderGit2,
@@ -62,6 +65,7 @@ export default function AdminDashboard() {
     messages,
     login,
     logout,
+    changeAdminPassword,
     updateHero,
     updateTheme,
     updateCta,
@@ -90,6 +94,24 @@ export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState<AdminTab>('hero');
   const [passwordInput, setPasswordInput] = useState('');
   const [loginError, setLoginError] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [isVerifying, setIsVerifying] = useState(false);
+  const [attemptsLeft, setAttemptsLeft] = useState<number>(5);
+  const [lockoutUntil, setLockoutUntil] = useState<number>(() => {
+    try {
+      const lock = localStorage.getItem('soulaimane_auth_lockout');
+      if (lock) {
+        const val = parseInt(lock, 10);
+        if (val > Date.now()) return val;
+      }
+    } catch {}
+    return 0;
+  });
+
+  // Password change state
+  const [currentPassChange, setCurrentPassChange] = useState('');
+  const [newPassChange, setNewPassChange] = useState('');
+  const [isChangingPass, setIsChangingPass] = useState(false);
 
   // Modal / Form state for Projects
   const [editingProject, setEditingProject] = useState<ProjectItem | null>(null);
@@ -138,24 +160,59 @@ export default function AdminDashboard() {
   const [importJsonText, setImportJsonText] = useState('');
   const [showImportBox, setShowImportBox] = useState(false);
 
-  // Handle Login
-  const handleLoginSubmit = (e: React.FormEvent) => {
+  // Handle Secure Login
+  const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const success = login(passwordInput);
+    if (Date.now() < lockoutUntil) {
+      const remainingSecs = Math.ceil((lockoutUntil - Date.now()) / 1000);
+      toast({
+        variant: 'destructive',
+        title: 'Security Lockout Active',
+        description: `Too many failed attempts. Try again in ${remainingSecs} seconds.`
+      });
+      return;
+    }
+
+    if (!passwordInput.trim()) return;
+
+    setIsVerifying(true);
+    const success = await login(passwordInput.trim());
+    setIsVerifying(false);
+
     if (success) {
       setLoginError(false);
       setPasswordInput('');
+      setAttemptsLeft(5);
+      try {
+        localStorage.removeItem('soulaimane_auth_lockout');
+      } catch {}
       toast({
-        title: 'Authenticated',
-        description: 'Welcome back Soulaimane! Admin mode active.'
+        title: 'Access Granted',
+        description: 'Identity cryptographically verified. Welcome back Soulaimane!'
       });
     } else {
+      const remaining = attemptsLeft - 1;
+      setAttemptsLeft(remaining);
       setLoginError(true);
-      toast({
-        variant: 'destructive',
-        title: 'Access Denied',
-        description: 'Invalid credentials. Try "admin" or PIN "1337".'
-      });
+
+      if (remaining <= 0) {
+        const lock = Date.now() + 15 * 60 * 1000;
+        setLockoutUntil(lock);
+        try {
+          localStorage.setItem('soulaimane_auth_lockout', lock.toString());
+        } catch {}
+        toast({
+          variant: 'destructive',
+          title: 'Account Locked Out',
+          description: 'Too many incorrect attempts. Security lockout active for 15 minutes.'
+        });
+      } else {
+        toast({
+          variant: 'destructive',
+          title: 'Access Denied',
+          description: `Invalid master security key. (${remaining} attempts remaining)`
+        });
+      }
     }
   };
 
@@ -233,42 +290,75 @@ export default function AdminDashboard() {
           </div>
 
           <form onSubmit={handleLoginSubmit} className="space-y-5">
-            <div>
-              <label className="block text-xs font-mono uppercase tracking-wider text-zinc-300 mb-2">
-                Master Security Key / Password
-              </label>
-              <Input
-                type="password"
-                placeholder="Enter admin password or PIN..."
-                value={passwordInput}
-                onChange={(e) => setPasswordInput(e.target.value)}
-                className="bg-black/90 border-[#3D0000] focus:border-[#FF0000] text-white font-mono text-sm h-12"
-                autoFocus
-              />
-              {loginError && (
-                <p className="text-xs text-[#FF0000] mt-1.5 font-mono">
-                  Authentication failed. (Accepted: "admin", "admin123", or PIN "1337")
+            {Date.now() < lockoutUntil ? (
+              <div className="p-4 rounded-2xl bg-[#3D0000]/40 border border-[#FF0000] text-center space-y-1">
+                <span className="text-xs font-mono font-bold text-[#FF0000] block uppercase tracking-wider">
+                  ⚠️ Security Lockout Active
+                </span>
+                <p className="text-[11px] font-mono text-zinc-300">
+                  Multiple incorrect attempts detected. Access is temporarily locked.
                 </p>
-              )}
-            </div>
+                <span className="text-[10px] font-mono text-zinc-400 block pt-1">
+                  Please wait before attempting verification again.
+                </span>
+              </div>
+            ) : (
+              <div>
+                <label className="block text-xs font-mono uppercase tracking-wider text-zinc-300 mb-2 flex items-center justify-between">
+                  <span>Master Security Key</span>
+                  <span className="text-[10px] text-zinc-500 font-mono">
+                    {attemptsLeft < 5 ? `${attemptsLeft} tries left` : 'Protected Access'}
+                  </span>
+                </label>
+                <div className="relative">
+                  <Input
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder="Enter master key..."
+                    value={passwordInput}
+                    disabled={isVerifying}
+                    onChange={(e) => setPasswordInput(e.target.value)}
+                    className="bg-black/90 border-[#3D0000] focus:border-[#FF0000] text-white font-mono text-sm h-12 pr-11"
+                    autoFocus
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white transition-colors"
+                    title={showPassword ? 'Hide key' : 'Show key'}
+                  >
+                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
+                </div>
+                {loginError && (
+                  <p className="text-xs text-[#FF0000] mt-1.5 font-mono">
+                    Verification failed. Invalid master key.
+                  </p>
+                )}
+              </div>
+            )}
 
             <Button
               type="submit"
-              className="w-full h-12 bg-[#FF0000] hover:bg-[#d60000] text-white font-bold tracking-wide transition-all shadow-lg shadow-[#FF0000]/25 rounded-xl"
+              disabled={Date.now() < lockoutUntil || isVerifying || !passwordInput.trim()}
+              className="w-full h-12 bg-[#FF0000] hover:bg-[#d60000] text-white font-bold tracking-wide transition-all shadow-lg shadow-[#FF0000]/25 rounded-xl disabled:opacity-50"
             >
-              Sign In to Admin Portal
+              {isVerifying ? (
+                <span className="flex items-center gap-2">
+                  <span className="w-3.5 h-3.5 rounded-full border-2 border-white border-t-transparent animate-spin" />
+                  Verifying Hash...
+                </span>
+              ) : (
+                'Authenticate as Admin'
+              )}
             </Button>
           </form>
 
-          {/* Quick Demo Bypass for Soulaimane */}
+          {/* Secure Security Info */}
           <div className="mt-6 pt-5 border-t border-[#3D0000]/70 flex items-center justify-between text-xs text-zinc-400 font-mono">
-            <button
-              type="button"
-              onClick={() => login('admin')}
-              className="text-zinc-400 hover:text-[#FF0000] underline transition-colors"
-            >
-              Quick Sign-in (Demo: admin)
-            </button>
+            <span className="flex items-center gap-1.5 text-zinc-500">
+              <Lock className="w-3.5 h-3.5 text-[#FF0000]" />
+              <span>SHA-256 Cryptographic Hash</span>
+            </span>
             <Link href="/" className="hover:text-white transition-colors flex items-center gap-1">
               Back to Portfolio <ArrowRight className="w-3 h-3" />
             </Link>
@@ -1963,6 +2053,64 @@ export default function AdminDashboard() {
                   </div>
                 </div>
               )}
+
+              {/* Security & Key Rotation Card */}
+              <div className="bg-[#0c0202] border border-[#3D0000] p-6 rounded-3xl space-y-4">
+                <div className="flex items-center gap-2 text-white font-heading font-bold text-base">
+                  <KeyRound className="w-5 h-5 text-[#FF0000]" />
+                  <span>Rotate Master Security Key</span>
+                </div>
+                <p className="text-xs text-zinc-400 font-sans">
+                  Update your admin access password. The new key is hashed with 256-bit salted SHA encryption.
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                  <div>
+                    <label className="text-[11px] font-mono text-zinc-400 block mb-1">Current Password</label>
+                    <Input
+                      type="password"
+                      value={currentPassChange}
+                      onChange={(e) => setCurrentPassChange(e.target.value)}
+                      placeholder="Enter current password..."
+                      className="bg-black border-[#3D0000] text-white text-xs font-mono"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-[11px] font-mono text-zinc-400 block mb-1">New Password (min 8 chars)</label>
+                    <Input
+                      type="password"
+                      value={newPassChange}
+                      onChange={(e) => setNewPassChange(e.target.value)}
+                      placeholder="Enter new master password..."
+                      className="bg-black border-[#3D0000] text-white text-xs font-mono"
+                    />
+                  </div>
+                </div>
+                <div className="flex justify-end pt-2">
+                  <Button
+                    onClick={async () => {
+                      if (!currentPassChange || !newPassChange) {
+                        toast({ variant: 'destructive', title: 'Missing fields', description: 'Please fill both password fields.' });
+                        return;
+                      }
+                      setIsChangingPass(true);
+                      const ok = await changeAdminPassword(currentPassChange, newPassChange);
+                      setIsChangingPass(false);
+                      if (ok) {
+                        setCurrentPassChange('');
+                        setNewPassChange('');
+                        toast({ title: 'Security Key Updated', description: 'New master password active and hashed.' });
+                      } else {
+                        toast({ variant: 'destructive', title: 'Update Failed', description: 'Current password was incorrect or new password was too short.' });
+                      }
+                    }}
+                    disabled={isChangingPass}
+                    className="bg-[#FF0000] hover:bg-[#d60000] text-white text-xs font-bold h-9 px-4 gap-1.5"
+                  >
+                    <Save className="w-3.5 h-3.5" />
+                    {isChangingPass ? 'Updating...' : 'Update Master Key'}
+                  </Button>
+                </div>
+              </div>
 
               {/* Factory Reset */}
               <div className="bg-[#120202] border border-[#FF0000]/30 p-6 rounded-3xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">

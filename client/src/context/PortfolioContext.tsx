@@ -576,13 +576,28 @@ export const defaultPortfolioData: PortfolioData = {
 const STORAGE_KEY = 'soulaimane_portfolio_custom_v1';
 const AUTH_KEY = 'soulaimane_admin_auth_v1';
 const MESSAGES_KEY = 'soulaimane_contact_inquiries_v1';
+const CUSTOM_HASH_KEY = 'soulaimane_custom_auth_hash';
+
+// Salted cryptographic hash of master key (prevents plaintext exposure in source)
+const MASTER_SALT = 'soulaimane_spinoza_portfolio_secure_salt_2026_';
+const MASTER_AUTH_HASH = '5abb1feba218bb7e03417e8089e55160deb228f87796c7d687c4f8dcc966f43f';
+
+async function computeSha256(text: string): Promise<string> {
+  const enc = new TextEncoder();
+  const data = enc.encode(text);
+  const hash = await window.crypto.subtle.digest('SHA-256', data);
+  return Array.from(new Uint8Array(hash))
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('');
+}
 
 interface PortfolioContextType {
   data: PortfolioData;
   isAdmin: boolean;
   messages: ContactMessage[];
-  login: (pass: string) => boolean;
+  login: (pass: string) => Promise<boolean>;
   logout: () => void;
+  changeAdminPassword: (oldPass: string, newPass: string) => Promise<boolean>;
   updateHero: (hero: Partial<HeroData>) => void;
   updateTheme: (theme: Partial<ThemeSettings>) => void;
   updateCta: (cta: Partial<CtaData>) => void;
@@ -632,10 +647,17 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
 
   const [isAdmin, setIsAdmin] = useState<boolean>(() => {
     try {
-      return localStorage.getItem(AUTH_KEY) === 'true';
+      const raw = localStorage.getItem(AUTH_KEY);
+      if (!raw) return false;
+      const session = JSON.parse(raw);
+      if (session && session.authenticated && session.expiresAt && Date.now() < session.expiresAt) {
+        return true;
+      }
+      localStorage.removeItem(AUTH_KEY);
     } catch {
-      return false;
+      localStorage.removeItem(AUTH_KEY);
     }
+    return false;
   });
 
   const [messages, setMessages] = useState<ContactMessage[]>(() => {
@@ -689,15 +711,33 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
     }
   }, [data.theme]);
 
-  const login = (pass: string) => {
-    // Allows admin access via password (default: admin, admin123, spin0za, or custom)
-    const valid = ['admin', 'admin123', 'spin0za', 'spinoza', '1337', 'change-this-secure-password'].includes(pass.toLowerCase());
-    if (valid) {
-      setIsAdmin(true);
-      try {
-        localStorage.setItem(AUTH_KEY, 'true');
-      } catch {}
-      return true;
+  // Secure Cryptographic Authentication
+  const login = async (pass: string): Promise<boolean> => {
+    if (!pass || typeof pass !== 'string') return false;
+
+    // Artificial timing delay against high-speed automated brute-force scripts
+    await new Promise((r) => setTimeout(r, 350));
+
+    try {
+      const computed = await computeSha256(MASTER_SALT + pass);
+      const customHash = localStorage.getItem(CUSTOM_HASH_KEY);
+      const targetHash = customHash || MASTER_AUTH_HASH;
+
+      if (computed === targetHash) {
+        setIsAdmin(true);
+        const session = {
+          authenticated: true,
+          ts: Date.now(),
+          expiresAt: Date.now() + 7 * 24 * 60 * 60 * 1000, // 7 days
+          token: 'sec_' + Math.random().toString(36).substring(2) + Date.now().toString(36)
+        };
+        try {
+          localStorage.setItem(AUTH_KEY, JSON.stringify(session));
+        } catch {}
+        return true;
+      }
+    } catch (e) {
+      console.error('Crypto error during authentication', e);
     }
     return false;
   };
@@ -707,6 +747,17 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
     try {
       localStorage.removeItem(AUTH_KEY);
     } catch {}
+  };
+
+  const changeAdminPassword = async (oldPass: string, newPass: string): Promise<boolean> => {
+    if (!newPass || newPass.length < 8) return false;
+    const isOldValid = await login(oldPass);
+    if (!isOldValid) return false;
+    const newHash = await computeSha256(MASTER_SALT + newPass);
+    try {
+      localStorage.setItem(CUSTOM_HASH_KEY, newHash);
+    } catch {}
+    return true;
   };
 
   const updateHero = (hero: Partial<HeroData>) => {
@@ -890,6 +941,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
         messages,
         login,
         logout,
+        changeAdminPassword,
         updateHero,
         updateTheme,
         updateCta,
