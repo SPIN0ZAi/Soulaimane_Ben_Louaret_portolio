@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, Github, Linkedin, ArrowUpRight } from 'lucide-react';
+import { Menu, X, Github, Linkedin, ArrowUpRight, Shield } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
+import { Link } from 'wouter';
+import { usePortfolio } from '@/context/PortfolioContext';
 
 export default function Navigation() {
+  const { data, isAdmin } = usePortfolio();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -69,7 +72,7 @@ export default function Navigation() {
 
             <div className="flex flex-col">
               <span className="font-heading font-black text-sm tracking-tight text-white group-hover:text-[#FF0000] transition-colors uppercase">
-                Soulaimane Ben Louaret
+                {data.hero.fullName || 'Soulaimane Ben Louaret'}
               </span>
               <span className="text-[10px] font-mono text-zinc-500 uppercase -mt-0.5">
                 Computer Science · UCLM
@@ -90,8 +93,21 @@ export default function Navigation() {
             ))}
           </nav>
 
-          {/* Right Action Button - Red Pill matching Stygar "Get in Touch" */}
-          <div className="flex items-center gap-3">
+          {/* Right Action Button - Red Pill matching Stygar "Get in Touch" + Admin Link */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            <Link href="/admin">
+              <button
+                className={`p-2 rounded-full border transition-all text-xs flex items-center justify-center ${
+                  isAdmin
+                    ? 'bg-[#FF0000]/20 border-[#FF0000] text-[#FF0000]'
+                    : 'bg-black/50 border-[#3D0000] text-zinc-400 hover:text-white hover:border-[#FF0000]'
+                }`}
+                title={isAdmin ? "Admin Console (Active)" : "Admin Portal"}
+              >
+                <Shield className="w-3.5 h-3.5" />
+              </button>
+            </Link>
+
             <Button
               className="rounded-full px-6 py-2.5 text-xs font-bold bg-[#FF0000] text-white hover:bg-[#d60000] shadow-md shadow-[#FF0000]/30 transition-all active:scale-95"
               onClick={() => scrollToSection('#contact')}

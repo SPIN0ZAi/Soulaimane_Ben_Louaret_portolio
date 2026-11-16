@@ -2,37 +2,13 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import DotMatrix from './ui/DotMatrix';
 import CropBox from './ui/CropBox';
-
-interface Achievement {
-  num: string;
-  title: string;
-  description: string;
-}
-
-const achievements: Achievement[] = [
-  {
-    num: '1',
-    title: 'nup-extractor Open-Source Recognition',
-    description: 'Authored the premier native GUI for Nintendo Switch 1 & 2 clean-room (.nup) container archives, growing past 57+ stars and widespread community adoption.',
-  },
-  {
-    num: '2',
-    title: '100% Academic Pass Rate at UCLM',
-    description: 'Successfully passed every single course across Years 1 & 2 at Escuela Superior de Ingeniería Informática (Albacete) with zero backlogs.',
-  },
-  {
-    num: '3',
-    title: 'FrameVault Full-Stack Flagship',
-    description: 'Engineered a modern social film ecosystem using Next.js 15 App Router, Prisma ORM, and Supabase PostgreSQL with TMDB syncing.',
-  },
-  {
-    num: '4',
-    title: 'Low-Level Systems Engineering in Rust & C#',
-    description: 'Developed Switch-1-extractor with BKTR delta merging, alongside custom C task schedulers and RISC-V assembly renderers.',
-  },
-];
+import { usePortfolio } from '@/context/PortfolioContext';
 
 export default function AchievementsSection() {
+  const { data } = usePortfolio();
+  const achievementsData = data.achievements;
+  const items = achievementsData.items && achievementsData.items.length > 0 ? achievementsData.items : [];
+
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
@@ -44,12 +20,12 @@ export default function AchievementsSection() {
           <div className="space-y-3 max-w-xl">
             <div className="flex items-center">
               <h2 className="font-heading text-3xl sm:text-5xl font-black text-white tracking-tight">
-                My Achievements
+                {achievementsData.title || 'My Achievements'}
               </h2>
               <DotMatrix />
             </div>
             <p className="text-sm text-zinc-400 font-sans">
-              Key milestones across academic performance, open-source adoption, and systems software engineering.
+              {achievementsData.subtitle || 'Key milestones across academic performance, open-source adoption, and systems software engineering.'}
             </p>
           </div>
         </div>
@@ -57,11 +33,11 @@ export default function AchievementsSection() {
         {/* 2-Column Layout matching Image 5 */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
-          {/* Left Column: Big Stylized Year Graphic "20 ::: 27" */}
+          {/* Left Column: Big Stylized Year Graphic */}
           <div className="lg:col-span-5 flex flex-col items-center lg:items-start justify-center space-y-2 select-none">
             <div className="flex items-center gap-4">
               <span className="font-heading font-black text-7xl sm:text-9xl text-transparent bg-clip-text bg-gradient-to-br from-[#FF0000] via-[#950101] to-[#3D0000] leading-none tracking-tighter">
-                20
+                {achievementsData.year1 || '20'}
               </span>
               <DotMatrix className="scale-125" />
             </div>
@@ -69,22 +45,22 @@ export default function AchievementsSection() {
             <div className="flex items-center gap-4 pl-8 sm:pl-12">
               <DotMatrix className="scale-125" />
               <span className="font-heading font-black text-7xl sm:text-9xl text-transparent bg-clip-text bg-gradient-to-br from-[#FF0000] via-[#950101] to-[#3D0000] leading-none tracking-tighter">
-                27
+                {achievementsData.year2 || '27'}
               </span>
             </div>
 
             <p className="text-xs font-mono text-zinc-500 uppercase tracking-widest pt-4 pl-2">
-              UCLM Academic Track · 2024 — 2027
+              UCLM Academic Track · 2024 — {achievementsData.year1}{achievementsData.year2}
             </p>
           </div>
 
           {/* Right Column: Achievements List with Technical Crop Boxes */}
           <div className="lg:col-span-7 space-y-4">
-            {achievements.map((item, idx) => {
+            {items.map((item, idx) => {
               const isActive = activeIndex === idx;
               return (
                 <motion.div
-                  key={item.num}
+                  key={item.id || item.num}
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}

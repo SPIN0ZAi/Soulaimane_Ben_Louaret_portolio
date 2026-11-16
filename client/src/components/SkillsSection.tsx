@@ -5,79 +5,14 @@ import {
   Database,
   Terminal,
 } from 'lucide-react';
+import { usePortfolio } from '@/context/PortfolioContext';
 
-interface SkillGroup {
-  title: string;
-  subtitle: string;
-  icon: typeof Cpu;
-  skills: Array<{ name: string; highlight?: boolean; note?: string }>;
-}
-
-const skillGroups: SkillGroup[] = [
-  {
-    title: 'Systems & Low-Level Programming',
-    subtitle: 'Native architecture, desktop tooling, memory management, and binary archive inspection',
-    icon: Cpu,
-    skills: [
-      { name: 'C# / .NET 10', highlight: true, note: 'nup-extractor' },
-      { name: 'Rust', highlight: true, note: 'Switch-1-extractor' },
-      { name: 'C', highlight: true, note: 'Operating Systems & Schedulers' },
-      { name: 'RISC-V Assembly', highlight: true, note: 'Datapath & 2D Engine' },
-      { name: 'Reverse Engineering', note: 'Container specs & clean-room formats' },
-      { name: 'Concurrency & Threads', note: 'Mutexes, semaphores & sync' },
-      { name: 'Memory Management', note: 'Pointers, buffers & zero-copy' },
-      { name: 'Win32 API & Avalonia' },
-    ],
-  },
-  {
-    title: 'Full-Stack & Modern Web',
-    subtitle: 'Component-driven frontends, reactive interfaces, and scalable API services',
-    icon: Code2,
-    skills: [
-      { name: 'TypeScript', highlight: true },
-      { name: 'Next.js 15 (App Router)', highlight: true, note: 'FrameVault flagship' },
-      { name: 'React 18', highlight: true },
-      { name: 'Node.js & Express', highlight: true },
-      { name: 'Tailwind CSS', highlight: true },
-      { name: 'RESTful API Architecture' },
-      { name: 'JWT & Session Security' },
-      { name: 'Vite & Frontend Tooling' },
-      { name: 'HTML5 / Modern CSS' },
-    ],
-  },
-  {
-    title: 'Databases & Backend Infrastructure',
-    subtitle: 'Relational data modeling, ORM workflows, and embedded persistence',
-    icon: Database,
-    skills: [
-      { name: 'PostgreSQL', highlight: true, note: 'Supabase production' },
-      { name: 'Supabase', highlight: true },
-      { name: 'Prisma ORM', highlight: true },
-      { name: 'MongoDB & Mongoose' },
-      { name: 'SQLite', note: 'Local desktop & bots' },
-      { name: 'Redis Cache' },
-      { name: 'Database Normalization' },
-      { name: 'Data Pipeline Design' },
-    ],
-  },
-  {
-    title: 'Algorithms, Theory & Developer Tools',
-    subtitle: 'Formal computer science foundations, version control, and Unix environments',
-    icon: Terminal,
-    skills: [
-      { name: 'Data Structures & Algorithms', highlight: true, note: 'Trees, Graphs, Search' },
-      { name: 'Intelligent Systems & AI', note: 'A*, heuristics & state space' },
-      { name: 'Distributed Systems' },
-      { name: 'Git & GitHub Workflows' },
-      { name: 'Docker & Containers' },
-      { name: 'Linux / WSL & Bash' },
-      { name: 'FFmpeg & Transcoding' },
-      { name: 'Unit Testing & Benchmarking' },
-    ],
-  },
-];
+const groupIcons = [Cpu, Code2, Database, Terminal];
 
 export default function SkillsSection() {
+  const { data } = usePortfolio();
+  const groups = data.skills;
+
   return (
     <section id="skills" className="py-24 relative scroll-mt-24 bg-black">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
@@ -95,13 +30,13 @@ export default function SkillsSection() {
           </p>
         </div>
 
-        {/* 4 Bento Group Cards */}
+        {/* Bento Group Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {skillGroups.map((group, idx) => {
-            const Icon = group.icon;
+          {groups.map((group, idx) => {
+            const Icon = groupIcons[idx % groupIcons.length] || Cpu;
             return (
               <motion.div
-                key={group.title}
+                key={group.id || group.title}
                 initial={{ opacity: 0, y: 25 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -118,7 +53,7 @@ export default function SkillsSection() {
                       <h3 className="font-heading font-black text-xl text-white">
                         {group.title}
                       </h3>
-                      <p className="text-xs font-mono text-zinc-400 mt-0.5">
+                      <p className="text-xs text-zinc-400 font-mono">
                         {group.subtitle}
                       </p>
                     </div>
@@ -126,13 +61,13 @@ export default function SkillsSection() {
 
                   {/* Skills Grid */}
                   <div className="flex flex-wrap gap-2 pt-2">
-                    {group.skills.map((skill, sIdx) => (
+                    {group.skills.map((skill) => (
                       <span
-                        key={sIdx}
-                        className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono transition-all ${
+                        key={skill.name}
+                        className={`text-xs font-mono px-3 py-1.5 rounded-xl border transition-colors inline-flex items-center gap-1.5 ${
                           skill.highlight
-                            ? 'bg-[#3D0000]/50 text-white font-semibold border border-[#950101] shadow-sm'
-                            : 'bg-black/80 text-zinc-300 border border-[#3D0000]'
+                            ? 'bg-[#3D0000]/40 text-white border-[#FF0000]/50 shadow-[0_0_12px_rgba(255,0,0,0.15)]'
+                            : 'bg-[#0f0404] text-zinc-300 border-[#3D0000] hover:border-zinc-700'
                         }`}
                       >
                         {skill.highlight && (
@@ -140,8 +75,8 @@ export default function SkillsSection() {
                         )}
                         <span>{skill.name}</span>
                         {skill.note && (
-                          <span className="text-[10px] text-zinc-400 pl-1 font-sans">
-                            ({skill.note})
+                          <span className="text-[10px] text-zinc-500 font-sans">
+                            · {skill.note}
                           </span>
                         )}
                       </span>
@@ -149,9 +84,10 @@ export default function SkillsSection() {
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-[#3D0000] flex items-center justify-between text-xs font-mono text-zinc-500">
+                {/* Bottom line hint */}
+                <div className="pt-4 border-t border-[#3D0000]/50 flex items-center justify-between text-[11px] font-mono text-zinc-400">
                   <span>{group.skills.length} Capabilities</span>
-                  <span className="text-[#FF0000]">Verified via projects</span>
+                  <span className="text-[#FF0000]">Verified in Production</span>
                 </div>
               </motion.div>
             );

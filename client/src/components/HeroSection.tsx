@@ -3,9 +3,13 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Star, ShieldCheck, GraduationCap, Flame, ArrowUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import DotMatrix from './ui/DotMatrix';
+import { usePortfolio } from '@/context/PortfolioContext';
 
 export default function HeroSection() {
-  const [starCount, setStarCount] = useState<number>(57);
+  const { data } = usePortfolio();
+  const hero = data.hero;
+
+  const [starCount, setStarCount] = useState<number>(60);
 
   useEffect(() => {
     fetch('https://api.github.com/repos/SPIN0ZAi/nup-extractor')
@@ -13,9 +17,9 @@ export default function HeroSection() {
         if (res.ok) return res.json();
         throw new Error('API fetch failed');
       })
-      .then((data) => {
-        if (typeof data.stargazers_count === 'number') {
-          setStarCount(data.stargazers_count);
+      .then((ghData) => {
+        if (typeof ghData.stargazers_count === 'number') {
+          setStarCount(ghData.stargazers_count);
         }
       })
       .catch(() => {});
@@ -64,29 +68,29 @@ export default function HeroSection() {
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[#FF0000]" />
               </span>
               <span className="text-zinc-200 uppercase tracking-wider font-semibold">
-                Available for Software Engineering Roles · 2026/27
+                {hero.availabilityBadge || 'Available for Software Engineering Roles · 2026/27'}
               </span>
             </motion.div>
 
-            {/* Main Headline with Technical Red Crop Box on 'Systems' */}
+            {/* Main Headline with Technical Red Crop Box */}
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
               className="font-heading text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-tight leading-[1.05]"
             >
-              Turning{' '}
+              {hero.headlinePrefix || 'Turning'}{' '}
               <span className="relative inline-block border border-[#FF0000] text-[#FF0000] px-2 py-0.5 mx-1 shadow-[0_0_20px_rgba(255,0,0,0.25)]">
                 {/* 4 Corner Crop Nodes */}
                 <span className="absolute -top-1 -left-1 w-1.5 h-1.5 bg-[#FF0000]" />
                 <span className="absolute -top-1 -right-1 w-1.5 h-1.5 bg-[#FF0000]" />
                 <span className="absolute -bottom-1 -left-1 w-1.5 h-1.5 bg-[#FF0000]" />
                 <span className="absolute -bottom-1 -right-1 w-1.5 h-1.5 bg-[#FF0000]" />
-                Ideas
+                {hero.headlineCropWord || 'Ideas'}
               </span>{' '}
-              Into
+              {hero.headlineSuffix.split('\n')[0] || 'Into'}
               <br />
-              Digital Reality
+              {hero.headlineSuffix.split('\n')[1] || hero.headlineSuffix.replace(/^Into\s*/, '') || 'Digital Reality'}
             </motion.h1>
 
             {/* Description */}
@@ -96,7 +100,7 @@ export default function HeroSection() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-base sm:text-lg text-zinc-300 font-sans leading-relaxed max-w-xl"
             >
-              I am <span className="text-white font-bold">Soulaimane Ben Louaret</span>, a 3rd-year Computer Science student at Universidad de Castilla-La Mancha (ESII Albacete). Having cleared <span className="text-[#FF0000] font-semibold">100% of coursework in Years 1 &amp; 2</span>, I engineer high-performance systems tools, reverse-engineer Nintendo Switch archives (<span className="text-white font-mono">nup-extractor</span> · 57+ stars), and craft modern full-stack web platforms (<span className="text-white font-mono">FrameVault</span>).
+              {hero.bio}
             </motion.p>
 
             {/* Action Buttons */}
@@ -130,8 +134,8 @@ export default function HeroSection() {
             
             {/* Giant Background Typographic Outline */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none -z-0">
-              <span className="font-heading font-black text-[75px] sm:text-[110px] lg:text-[130px] text-transparent tracking-tighter opacity-15 [-webkit-text-stroke:2px_#ffffff] uppercase">
-                SOULAIMANE
+              <span className="font-heading font-black text-[70px] sm:text-[105px] lg:text-[120px] text-transparent tracking-tighter opacity-15 [-webkit-text-stroke:2px_#ffffff] uppercase text-center break-all">
+                {hero.outlineText || 'SOULAIMANE'}
               </span>
             </div>
 
@@ -146,8 +150,8 @@ export default function HeroSection() {
               className="relative z-10 w-full max-w-[340px] sm:max-w-[400px] flex items-center justify-center"
             >
               <motion.img
-                src="/images/soulaimane-3d.png?v=2"
-                alt="Soulaimane Ben Louaret 3D Character"
+                src={hero.avatarUrl || '/images/soulaimane-3d.png?v=2'}
+                alt={`${hero.fullName} 3D Character`}
                 className="w-full h-auto object-contain filter drop-shadow-[0_20px_35px_rgba(255,0,0,0.25)]"
                 animate={{
                   y: [0, -8, 0],
@@ -173,56 +177,31 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Bottom Metrics Bar (exact Stygar layout with red dot matrices) */}
+      {/* Bottom Metrics Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-12 border-t border-[#3D0000]/60">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 items-center">
-          
-          <div className="flex items-center gap-3">
-            <DotMatrix className="hidden sm:inline-grid shrink-0" />
-            <div>
-              <div className="text-2xl sm:text-3xl font-heading font-black text-white">
-                {starCount}+
+          {hero.metrics.map((m, idx) => {
+            const isFirst = idx === 0;
+            const isLast = idx === hero.metrics.length - 1;
+            const displayVal = isFirst && starCount ? `${starCount}+` : m.value;
+            return (
+              <div
+                key={m.id || idx}
+                className={`flex items-center gap-3 ${isLast ? 'justify-between sm:justify-start' : ''}`}
+              >
+                {isFirst && <DotMatrix className="hidden sm:inline-grid shrink-0" />}
+                <div>
+                  <div className="text-2xl sm:text-3xl font-heading font-black text-white">
+                    {displayVal}
+                  </div>
+                  <div className="text-xs text-zinc-400 font-sans">
+                    {m.label}
+                  </div>
+                </div>
+                {isLast && <DotMatrix className="hidden sm:inline-grid shrink-0 ml-auto" />}
               </div>
-              <div className="text-xs text-zinc-400 font-sans">
-                Stars on nup-extractor
-              </div>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <div>
-              <div className="text-2xl sm:text-3xl font-heading font-black text-white">
-                100%
-              </div>
-              <div className="text-xs text-zinc-400 font-sans">
-                Passed Years 1 &amp; 2 Coursework
-              </div>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <div>
-              <div className="text-2xl sm:text-3xl font-heading font-black text-white">
-                3rd Year
-              </div>
-              <div className="text-xs text-zinc-400 font-sans">
-                Computer Science (2026–27)
-              </div>
-            </div>
-          </div>
-
-          <div className="flex items-center justify-between sm:justify-start gap-3">
-            <div>
-              <div className="text-2xl sm:text-3xl font-heading font-black text-white">
-                Rust·C#·TS
-              </div>
-              <div className="text-xs text-zinc-400 font-sans">
-                Systems &amp; Full-Stack Stack
-              </div>
-            </div>
-            <DotMatrix className="hidden sm:inline-grid shrink-0 ml-auto" />
-          </div>
-
+            );
+          })}
         </div>
       </div>
 

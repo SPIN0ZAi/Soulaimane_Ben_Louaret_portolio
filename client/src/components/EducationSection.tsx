@@ -7,10 +7,11 @@ import {
   ChevronDown,
   Building2
 } from 'lucide-react';
+import { usePortfolio } from '@/context/PortfolioContext';
 
 interface Subject {
   name: string;
-  theme: 'Systems' | 'Programming' | 'Math' | 'Networks' | 'AI' | 'Management';
+  theme: string;
   tag?: string;
 }
 
@@ -26,7 +27,7 @@ interface AcademicYear {
   subjects: Subject[];
 }
 
-const academicYears: AcademicYear[] = [
+const fallbackAcademicYears: AcademicYear[] = [
   {
     id: 'year-3',
     year: '2026-27',
@@ -120,6 +121,8 @@ const themeStyles: Record<Subject['theme'], { badge: string; dot: string }> = {
 };
 
 export default function EducationSection() {
+  const { data } = usePortfolio();
+  const academicYears: AcademicYear[] = (data.education && data.education.length > 0 ? data.education : fallbackAcademicYears) as AcademicYear[];
   const [expandedYear, setExpandedYear] = useState<string>('year-3');
   const [selectedTheme, setSelectedTheme] = useState<string>('all');
 
@@ -202,12 +205,12 @@ export default function EducationSection() {
 
         {/* Timeline List Accordion */}
         <div className="space-y-6">
-          {academicYears.map((ay) => {
+          {academicYears.map((ay: AcademicYear) => {
             const isExpanded = expandedYear === ay.id;
             const filteredSubjects =
               selectedTheme === 'all'
                 ? ay.subjects
-                : ay.subjects.filter((s) => s.theme === selectedTheme);
+                : ay.subjects.filter((s: Subject) => s.theme === selectedTheme);
 
             return (
               <motion.div
@@ -299,8 +302,8 @@ export default function EducationSection() {
                         </p>
                       ) : (
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                          {filteredSubjects.map((subject, sIdx) => {
-                            const style = themeStyles[subject.theme];
+                          {filteredSubjects.map((subject: Subject, sIdx: number) => {
+                            const style = (themeStyles as any)[subject.theme] || themeStyles.Systems;
                             return (
                               <div
                                 key={sIdx}

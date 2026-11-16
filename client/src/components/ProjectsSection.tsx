@@ -15,16 +15,17 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import DotMatrix from './ui/DotMatrix';
+import { usePortfolio } from '@/context/PortfolioContext';
 
 interface FeaturedProject {
   id: string;
   repoName: string;
-  num: string;
+  num?: string;
   title: string;
   category: string;
-  badge: string;
-  badgeColor: string;
-  icon: typeof Flame;
+  badge?: string;
+  badgeColor?: string;
+  icon?: any;
   oneLiner: string;
   description: string;
   tech: string[];
@@ -43,11 +44,12 @@ interface OtherProject {
   title: string;
   description: string;
   tech: string[];
-  category: 'systems' | 'web' | 'tools' | 'assembly';
+  category: string;
   githubUrl: string;
   demoUrl?: string;
   image: string;
   stars?: number;
+  oneLiner?: string;
 }
 
 const initialFeaturedProjects: FeaturedProject[] = [
@@ -287,12 +289,54 @@ const initialOtherProjects: OtherProject[] = [
 ];
 
 export default function ProjectsSection() {
-  const [featuredProjects, setFeaturedProjects] = useState<FeaturedProject[]>(initialFeaturedProjects);
-  const [otherProjects, setOtherProjects] = useState<OtherProject[]>(initialOtherProjects);
+  const { data } = usePortfolio();
+
+  // Populate from custom portfolio context data
+  const contextFeatured: FeaturedProject[] = useMemo(() => {
+    return data.projects
+      .filter((p) => p.isFeatured)
+      .map((p, idx) => ({
+        ...p,
+        num: p.num || String(idx + 1).padStart(2, '0'),
+        badge: p.badge || 'Featured Project',
+        badgeColor: p.badgeColor || 'border-[#FF0000]/60 text-[#FF0000] bg-[#3D0000]/40',
+        features: p.features || []
+      }));
+  }, [data.projects]);
+
+  const contextOther = useMemo(() => {
+    return data.projects
+      .filter((p) => !p.isFeatured)
+      .map((p) => ({
+        id: p.id,
+        repoName: p.repoName,
+        title: p.title,
+        description: p.description,
+        tech: p.tech,
+        category: p.category,
+        githubUrl: p.githubUrl,
+        demoUrl: p.liveUrl,
+        image: p.image,
+        stars: p.stars || 0,
+        oneLiner: p.oneLiner
+      }));
+  }, [data.projects]);
+
+  const [featuredProjects, setFeaturedProjects] = useState<FeaturedProject[]>(contextFeatured);
+  const [otherProjects, setOtherProjects] = useState<OtherProject[]>(contextOther);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [showAllOtherProjects, setShowAllOtherProjects] = useState(false);
   const [frameVaultImg, setFrameVaultImg] = useState('/images/framevault-home.jpg');
+
+  // Keep in sync with custom context changes
+  useEffect(() => {
+    setFeaturedProjects(contextFeatured);
+  }, [contextFeatured]);
+
+  useEffect(() => {
+    setOtherProjects(contextOther);
+  }, [contextOther]);
 
   // Track expanded cards
   const [expandedFeatured, setExpandedFeatured] = useState<Record<string, boolean>>({});

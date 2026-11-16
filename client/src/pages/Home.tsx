@@ -8,6 +8,7 @@ import SkillsSection from '@/components/SkillsSection';
 import CtaBanner from '@/components/CtaBanner';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
+import AdminFloatingTrigger from '@/components/AdminFloatingTrigger';
 
 export default function Home() {
   return (
@@ -44,6 +45,9 @@ export default function Home() {
 
       {/* 10. Minimalist Dashed-Divider Footer */}
       <Footer />
+
+      {/* 11. Discreet Floating Admin Access Button */}
+      <AdminFloatingTrigger />
     </div>
   );
 }

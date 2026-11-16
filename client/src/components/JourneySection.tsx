@@ -3,18 +3,20 @@ import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import DotMatrix from './ui/DotMatrix';
 import CropBox from './ui/CropBox';
 import { GraduationCap, Cpu, Layers, Sparkles, Binary } from 'lucide-react';
+import { usePortfolio } from '@/context/PortfolioContext';
 
 interface JourneyNode {
+  id?: string;
   step: string;
   year: string;
   title: string;
   subtitle: string;
   description: string;
   tags: string[];
-  icon: typeof Binary;
+  icon?: any;
 }
 
-const journeyNodes: JourneyNode[] = [
+const fallbackJourneyNodes: JourneyNode[] = [
   {
     step: '1',
     year: '2024–25 · Year 1',
@@ -63,6 +65,13 @@ const journeyNodes: JourneyNode[] = [
 ];
 
 export default function JourneySection() {
+  const { data } = usePortfolio();
+  const journeyNodes = data.journey && data.journey.length > 0 ? data.journey : fallbackJourneyNodes;
+  const n1 = journeyNodes[0] || fallbackJourneyNodes[0];
+  const n2 = journeyNodes[1] || fallbackJourneyNodes[1];
+  const n3 = journeyNodes[2] || fallbackJourneyNodes[2];
+  const n4 = journeyNodes[3] || fallbackJourneyNodes[3];
+  const n5 = journeyNodes[4] || fallbackJourneyNodes[4];
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -155,18 +164,18 @@ export default function JourneySection() {
                 </CropBox>
                 <div>
                   <span className="text-[10px] font-mono font-bold text-[#FF0000] uppercase tracking-wider block">
-                    {journeyNodes[0].year}
+                    {n1.year}
                   </span>
                   <h3 className="font-heading font-black text-lg text-white group-hover:text-[#FF0000] transition-colors">
-                    {journeyNodes[0].title}
+                    {n1.title}
                   </h3>
                 </div>
               </div>
               <p className="text-xs text-zinc-300 leading-relaxed font-sans">
-                {journeyNodes[0].description}
+                {n1.description}
               </p>
               <div className="flex flex-wrap gap-1 pt-1">
-                {journeyNodes[0].tags.map((t) => (
+                {n1.tags.map((t) => (
                   <span key={t} className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#3D0000]/40 text-zinc-300 border border-[#3D0000]">
                     {t}
                   </span>
@@ -189,18 +198,18 @@ export default function JourneySection() {
                 </CropBox>
                 <div>
                   <span className="text-[10px] font-mono font-bold text-[#FF0000] uppercase tracking-wider block">
-                    {journeyNodes[1].year}
+                    {n2.year}
                   </span>
                   <h3 className="font-heading font-black text-lg text-white group-hover:text-[#FF0000] transition-colors">
-                    {journeyNodes[1].title}
+                    {n2.title}
                   </h3>
                 </div>
               </div>
               <p className="text-xs text-zinc-300 leading-relaxed font-sans">
-                {journeyNodes[1].description}
+                {n2.description}
               </p>
               <div className="flex flex-wrap gap-1 pt-1">
-                {journeyNodes[1].tags.map((t) => (
+                {n2.tags.map((t) => (
                   <span key={t} className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#3D0000]/40 text-zinc-300 border border-[#3D0000]">
                     {t}
                   </span>
@@ -223,18 +232,18 @@ export default function JourneySection() {
                 </CropBox>
                 <div>
                   <span className="text-[10px] font-mono font-bold text-[#FF0000] uppercase tracking-wider block">
-                    {journeyNodes[2].year}
+                    {n3.year}
                   </span>
                   <h3 className="font-heading font-black text-xl text-white group-hover:text-[#FF0000] transition-colors">
-                    {journeyNodes[2].title}
+                    {n3.title}
                   </h3>
                 </div>
               </div>
               <p className="text-xs text-zinc-300 leading-relaxed font-sans">
-                {journeyNodes[2].description}
+                {n3.description}
               </p>
               <div className="flex flex-wrap gap-1 pt-1">
-                {journeyNodes[2].tags.map((t) => (
+                {n3.tags.map((t) => (
                   <span key={t} className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#3D0000]/60 text-white border border-[#950101]">
                     {t}
                   </span>
@@ -257,18 +266,18 @@ export default function JourneySection() {
                 </CropBox>
                 <div>
                   <span className="text-[10px] font-mono font-bold text-[#FF0000] uppercase tracking-wider block">
-                    {journeyNodes[3].year}
+                    {n4.year}
                   </span>
                   <h3 className="font-heading font-black text-xl text-white group-hover:text-[#FF0000] transition-colors">
-                    {journeyNodes[3].title}
+                    {n4.title}
                   </h3>
                 </div>
               </div>
               <p className="text-xs text-zinc-300 leading-relaxed font-sans">
-                {journeyNodes[3].description}
+                {n4.description}
               </p>
               <div className="flex flex-wrap gap-1 pt-1">
-                {journeyNodes[3].tags.map((t) => (
+                {n4.tags.map((t) => (
                   <span key={t} className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#3D0000]/40 text-zinc-300 border border-[#3D0000]">
                     {t}
                   </span>
@@ -291,18 +300,18 @@ export default function JourneySection() {
                 </CropBox>
                 <div>
                   <span className="text-[10px] font-mono font-bold text-[#FF0000] uppercase tracking-wider block">
-                    {journeyNodes[4].year}
+                    {n5.year}
                   </span>
                   <h3 className="font-heading font-black text-xl text-white group-hover:text-[#FF0000] transition-colors">
-                    {journeyNodes[4].title}
+                    {n5.title}
                   </h3>
                 </div>
               </div>
               <p className="text-xs text-zinc-300 leading-relaxed font-sans">
-                {journeyNodes[4].description}
+                {n5.description}
               </p>
               <div className="flex flex-wrap gap-1 pt-1">
-                {journeyNodes[4].tags.map((t) => (
+                {n5.tags.map((t) => (
                   <span key={t} className="text-[10px] font-mono px-2.5 py-1 rounded-md bg-[#FF0000]/15 text-[#FF0000] font-semibold border border-[#FF0000]/30">
                     {t}
                   </span>

@@ -14,9 +14,13 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import DotMatrix from './ui/DotMatrix';
+import { usePortfolio } from '@/context/PortfolioContext';
 
 export default function ContactSection() {
   const { toast } = useToast();
+  const { data, addMessage } = usePortfolio();
+  const contact = data.contact;
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [formData, setFormData] = useState({
@@ -26,14 +30,14 @@ export default function ContactSection() {
     message: '',
   });
 
-  const emailAddress = 'ssolayman244@gmail.com';
+  const emailAddress = contact.email || 'ssolayman244@gmail.com';
 
   const copyEmailToClipboard = () => {
     navigator.clipboard.writeText(emailAddress);
     setCopiedEmail(true);
     toast({
       title: 'Email Copied!',
-      description: 'ssolayman244@gmail.com copied to your clipboard.',
+      description: `${emailAddress} copied to your clipboard.`,
     });
     setTimeout(() => setCopiedEmail(false), 2500);
   };
@@ -47,6 +51,14 @@ export default function ContactSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    // Save to local portfolio inquiries state
+    addMessage({
+      name: formData.name,
+      email: formData.email,
+      subject: formData.subject || 'Portfolio Inquiry',
+      message: formData.message
+    });
 
     try {
       const response = await fetch('/api/contact', {
@@ -66,32 +78,30 @@ export default function ContactSection() {
         });
         setFormData({ name: '', email: '', subject: '', message: '' });
       } else {
+        toast({
+          title: 'Message Received!',
+          description: 'Your inquiry has been registered in the admin console. Opening email fallback...',
+        });
         const mailtoUrl = `mailto:${emailAddress}?subject=${encodeURIComponent(
           formData.subject || 'Portfolio Inquiry'
         )}&body=${encodeURIComponent(
           `From: ${formData.name} (${formData.email})\n\n${formData.message}`
         )}`;
-
-        toast({
-          title: 'Opening Email Client',
-          description:
-            'Direct message fallback activated. You can also send directly to ssolayman244@gmail.com.',
-        });
         window.location.href = mailtoUrl;
+        setFormData({ name: '', email: '', subject: '', message: '' });
       }
     } catch {
+      toast({
+        title: 'Message Received!',
+        description: 'Saved to messages. Opening email app for direct delivery...',
+      });
       const mailtoUrl = `mailto:${emailAddress}?subject=${encodeURIComponent(
         formData.subject || 'Portfolio Inquiry'
       )}&body=${encodeURIComponent(
         `From: ${formData.name} (${formData.email})\n\n${formData.message}`
       )}`;
       window.location.href = mailtoUrl;
-
-      toast({
-        title: 'Email Client Opened',
-        description:
-          'Your message was prepared in your default mail app. Thank you!',
-      });
+      setFormData({ name: '', email: '', subject: '', message: '' });
     } finally {
       setIsSubmitting(false);
     }
@@ -108,20 +118,20 @@ export default function ContactSection() {
           <div className="lg:col-span-5 space-y-6">
             <div className="flex items-center">
               <h2 className="font-heading text-3xl sm:text-5xl font-black text-white tracking-tight">
-                Let's Talk About Your Idea
+                {contact.title || "Let's Talk About Your Idea"}
               </h2>
               <DotMatrix />
             </div>
 
             <p className="text-sm text-zinc-400 font-sans leading-relaxed">
-              Open to software engineering internships, junior systems developer positions, and open-source systems collaborations.
+              {contact.subtitle || "Open to software engineering internships, junior systems developer positions, and open-source systems collaborations."}
             </p>
 
             <div className="space-y-3 pt-2 text-xs font-mono text-zinc-300">
               <div className="flex items-center justify-between p-3.5 rounded-2xl bg-[#080202] border border-[#3D0000]">
                 <div className="flex items-center gap-2.5">
                   <span className="w-2 h-2 rounded-full bg-[#FF0000]" />
-                  <span>ssolayman244@gmail.com</span>
+                  <span>{emailAddress}</span>
                 </div>
                 <button
                   onClick={copyEmailToClipboard}
@@ -134,31 +144,35 @@ export default function ContactSection() {
 
               <div className="flex items-center gap-2.5 p-3.5 rounded-2xl bg-[#080202] border border-[#3D0000]">
                 <span className="w-2 h-2 rounded-full bg-[#FF0000]" />
-                <span>Albacete, Spain · ESII UCLM</span>
+                <span>{contact.location || "Albacete, Spain · ESII UCLM"}</span>
               </div>
             </div>
 
             {/* Quick Profile Links */}
             <div className="flex items-center gap-3 pt-2">
-              <a
-                href="https://github.com/SPIN0ZAi"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#3D0000]/30 hover:bg-[#3D0000]/80 text-xs font-mono text-zinc-200 border border-[#3D0000] hover:border-[#FF0000] transition-colors"
-              >
-                <Github className="w-4 h-4" />
-                <span>GitHub @SPIN0ZAi</span>
-              </a>
+              {contact.social?.github && (
+                <a
+                  href={contact.social.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#3D0000]/30 hover:bg-[#3D0000]/80 text-xs font-mono text-zinc-200 border border-[#3D0000] hover:border-[#FF0000] transition-colors"
+                >
+                  <Github className="w-4 h-4" />
+                  <span>GitHub</span>
+                </a>
+              )}
 
-              <a
-                href="https://www.linkedin.com/in/soulaimane-ben-louaret-98471428b/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#3D0000]/30 hover:bg-[#3D0000]/80 text-xs font-mono text-zinc-200 border border-[#3D0000] hover:border-[#FF0000] transition-colors"
-              >
-                <Linkedin className="w-4 h-4 text-[#FF0000]" />
-                <span>LinkedIn</span>
-              </a>
+              {contact.social?.linkedin && (
+                <a
+                  href={contact.social.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#3D0000]/30 hover:bg-[#3D0000]/80 text-xs font-mono text-zinc-200 border border-[#3D0000] hover:border-[#FF0000] transition-colors"
+                >
+                  <Linkedin className="w-4 h-4 text-[#FF0000]" />
+                  <span>LinkedIn</span>
+                </a>
+              )}
             </div>
           </div>
 

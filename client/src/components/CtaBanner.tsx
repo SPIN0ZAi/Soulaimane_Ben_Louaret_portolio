@@ -2,8 +2,13 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Send } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { usePortfolio } from '@/context/PortfolioContext';
 
 export default function CtaBanner() {
+  const { data } = usePortfolio();
+  const cta = data.cta;
+  const targetEmail = data.contact.email || 'ssolayman244@gmail.com';
+
   const [email, setEmail] = useState('');
   const { toast } = useToast();
 
@@ -11,10 +16,10 @@ export default function CtaBanner() {
     e.preventDefault();
     if (!email) return;
 
-    window.location.href = `mailto:ssolayman244@gmail.com?subject=Collaboration%20Inquiry&body=Hi%20Soulaimane,%20let's%20connect.%20My%20email%20is%20${encodeURIComponent(email)}`;
+    window.location.href = `mailto:${targetEmail}?subject=Collaboration%20Inquiry&body=Hi%20Soulaimane,%20let's%20connect.%20My%20email%20is%20${encodeURIComponent(email)}`;
     toast({
       title: 'Connecting...',
-      description: 'Opening your email client to connect with Soulaimane.',
+      description: `Opening email client to connect with ${data.hero.fullName}.`,
     });
     setEmail('');
   };
@@ -34,14 +39,14 @@ export default function CtaBanner() {
             {/* Left Content */}
             <div className="lg:col-span-8 space-y-6 text-left">
               <h2 className="font-heading text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
-                Let's Build{' '}
+                {cta.title || "Let's Build"}{' '}
                 <span className="text-[#FF0000] relative inline-block">
-                  Something Amazing
+                  {cta.titleHighlight || "Something Amazing"}
                 </span>
               </h2>
 
               <p className="text-sm sm:text-base text-zinc-300 font-sans max-w-xl leading-relaxed">
-                Whether you have an internship opportunity, a systems challenge, or an innovative full-stack project in mind, I am ready to build with you.
+                {cta.subtitle || "Whether you have an internship opportunity, a systems challenge, or an innovative full-stack project in mind, I am ready to build with you."}
               </p>
 
               {/* Email Form with Red Arrow Pill Button */}
@@ -67,8 +72,8 @@ export default function CtaBanner() {
             {/* Right Side: 3D Character Popping Up */}
             <div className="lg:col-span-4 relative hidden lg:flex items-end justify-center">
               <motion.img
-                src="/images/soulaimane-3d.png?v=2"
-                alt="Soulaimane 3D Avatar"
+                src={cta.avatarUrl || data.hero.avatarUrl || "/images/soulaimane-3d.png?v=2"}
+                alt="3D Avatar"
                 className="w-72 h-auto object-contain filter drop-shadow-[0_15px_30px_rgba(255,0,0,0.3)] select-none"
                 animate={{ y: [0, -6, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
