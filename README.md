@@ -2,7 +2,7 @@
 
 A high-performance, dark-themed personal developer portfolio showcasing low-level systems software, clean-room reverse engineering tools, and modern full-stack web applications. Built with React 18, Vite, Tailwind CSS, TypeScript, and an Express backend API.
 
-![Soulaimane Ben Louaret Portfolio Preview](./portfolio-preview.jpg)
+![Soulaimane Ben Louaret Portfolio Preview](./portfolio-preview.png)
 
 ## 🚀 Features
 
