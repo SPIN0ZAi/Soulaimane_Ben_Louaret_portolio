@@ -1,262 +1,231 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronDown, Github, Linkedin, Mail, Terminal, Code, Cpu } from 'lucide-react';
+import { ArrowRight, Star, ShieldCheck, GraduationCap, Flame, ArrowUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import ShapeBlur from './ShapeBlur';
-import LaserFlow from './LaserFlow';
-import FloatingCode from './FloatingCode';
-import MatrixRain from './MatrixRain';
-import TerminalWindow from './TerminalWindow';
-import profileImage from '@assets/generated_images/soulaimane_portrait_sketch.png';
+import DotMatrix from './ui/DotMatrix';
 
 export default function HeroSection() {
-  const [displayedText, setDisplayedText] = useState('');
-  const roles = ['Computer Engineering Student', 'Full-Stack Developer', 'Code Architect', 'Tech Innovator', 'Problem Solver', 'Digital Creator'];
-  const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
+  const [starCount, setStarCount] = useState<number>(57);
 
   useEffect(() => {
-    const currentRole = roles[currentRoleIndex];
-    const timeout = setTimeout(
-      () => {
-        if (!isDeleting) {
-          if (displayedText.length < currentRole.length) {
-            setDisplayedText(currentRole.slice(0, displayedText.length + 1));
-          } else {
-            setTimeout(() => setIsDeleting(true), 2000);
-          }
-        } else {
-          if (displayedText.length > 0) {
-            setDisplayedText(currentRole.slice(0, displayedText.length - 1));
-          } else {
-            setIsDeleting(false);
-            setCurrentRoleIndex((prev) => (prev + 1) % roles.length);
-          }
+    fetch('https://api.github.com/repos/SPIN0ZAi/nup-extractor')
+      .then((res) => {
+        if (res.ok) return res.json();
+        throw new Error('API fetch failed');
+      })
+      .then((data) => {
+        if (typeof data.stargazers_count === 'number') {
+          setStarCount(data.stargazers_count);
         }
-      },
-      isDeleting ? 50 : 100
-    );
+      })
+      .catch(() => {});
+  }, []);
 
-    return () => clearTimeout(timeout);
-  }, [displayedText, isDeleting, currentRoleIndex]);
-
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.3,
-      },
-    },
-  };
-
-  const item = {
-    hidden: { opacity: 0, y: 30 },
-    show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100 } },
+  const scrollTo = (id: string) => {
+    const el = document.querySelector(id);
+    if (el) {
+      const navOffset = 90;
+      const elementPosition = el.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navOffset;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
   };
 
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background"
+      className="relative min-h-[92vh] flex flex-col justify-between pt-32 pb-12 overflow-hidden bg-black text-white"
     >
-      {/* Sophisticated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
-      </div>
+      {/* Anchor for 'Who Am I' / 'About' */}
+      <div id="about" className="absolute top-0" />
 
-      {/* Main Content */}
-      <motion.div
-        variants={container}
-        initial="hidden"
-        animate="show"
-        className="relative z-10 max-w-7xl mx-auto px-6 py-32"
-      >
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          {/* Left Column - Text Content */}
-          <div className="space-y-8">
-            {/* Status Indicator */}
-            <motion.div variants={item} className="flex items-center space-x-2 text-sm font-sans">
-              <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-              <span className="text-muted-foreground uppercase tracking-wide">Available for Projects</span>
+      {/* Ambient background glow in Deep Maroon (#3D0000) and Crimson */}
+      <div className="absolute top-1/4 left-1/3 w-[600px] h-[500px] bg-[#3D0000]/25 blur-[160px] rounded-full pointer-events-none -z-10" />
+      <div className="absolute top-1/3 right-1/4 w-[400px] h-[400px] bg-[#FF0000]/10 blur-[140px] rounded-full pointer-events-none -z-10" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full my-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          {/* Left Column: Headline, Bio & CTAs */}
+          <div className="lg:col-span-7 space-y-8 text-left z-10">
+            
+            {/* Availability Pill */}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#3D0000]/30 border border-[#950101]/60 text-xs font-mono"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF0000] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#FF0000]" />
+              </span>
+              <span className="text-zinc-200 uppercase tracking-wider font-semibold">
+                Available for Software Engineering Roles · 2026/27
+              </span>
             </motion.div>
 
-            <motion.div variants={item}>
-              <h1 className="font-serif text-6xl md:text-8xl font-black mb-6 text-foreground leading-tight uppercase tracking-wider">
-                <span className="block text-foreground">Soulaimane</span>
-                <span className="block text-primary text-5xl md:text-7xl font-extrabold">Ben Louaret</span>
-              </h1>
-            </motion.div>
+            {/* Main Headline with Technical Red Crop Box on 'Systems' */}
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="font-heading text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-tight leading-[1.05]"
+            >
+              Turning{' '}
+              <span className="relative inline-block border border-[#FF0000] text-[#FF0000] px-2 py-0.5 mx-1 shadow-[0_0_20px_rgba(255,0,0,0.25)]">
+                {/* 4 Corner Crop Nodes */}
+                <span className="absolute -top-1 -left-1 w-1.5 h-1.5 bg-[#FF0000]" />
+                <span className="absolute -top-1 -right-1 w-1.5 h-1.5 bg-[#FF0000]" />
+                <span className="absolute -bottom-1 -left-1 w-1.5 h-1.5 bg-[#FF0000]" />
+                <span className="absolute -bottom-1 -right-1 w-1.5 h-1.5 bg-[#FF0000]" />
+                Ideas
+              </span>{' '}
+              Into
+              <br />
+              Digital Reality
+            </motion.h1>
 
-            <motion.div variants={item} className="h-20 relative">
-              <div className="flex items-center space-x-2 font-sans text-2xl md:text-3xl font-medium">
-                <span className="text-accent">&gt;</span>
-                <span className="text-muted-foreground" data-testid="text-hero-role">
-                  {displayedText}
-                </span>
-                <span className="animate-pulse text-primary">|</span>
-              </div>
-            </motion.div>
+            {/* Description */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-base sm:text-lg text-zinc-300 font-sans leading-relaxed max-w-xl"
+            >
+              I am <span className="text-white font-bold">Soulaimane Ben Louaret</span>, a 3rd-year Computer Science student at Universidad de Castilla-La Mancha (ESII Albacete). Having cleared <span className="text-[#FF0000] font-semibold">100% of coursework in Years 1 &amp; 2</span>, I engineer high-performance systems tools, reverse-engineer Nintendo Switch archives (<span className="text-white font-mono">nup-extractor</span> · 57+ stars), and craft modern full-stack web platforms (<span className="text-white font-mono">FrameVault</span>).
+            </motion.p>
 
-            <motion.div variants={item}>
-              <div className="bg-card backdrop-blur-sm border-2 border-card-border rounded-3xl p-8 shadow-lg">
-                <div className="flex items-center space-x-2 text-sm font-sans text-accent mb-4">
-                  <Code className="h-4 w-4" />
-                  <span className="uppercase tracking-wide font-semibold">Developer Profile</span>
-                </div>
-                <p className="font-sans text-base text-card-foreground leading-relaxed max-w-lg" data-testid="text-hero-tagline">
-                  Passionate about technology & innovation,<br/>
-                  Building digital solutions that matter,<br/>
-                  Ready to create and collaborate.
-                </p>
-              </div>
-            </motion.div>
-
-            <motion.div variants={item} className="flex flex-wrap gap-4">
+            {/* Action Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="flex flex-wrap items-center gap-4 pt-2"
+            >
               <Button
                 size="lg"
-                variant="default"
-                className="gap-3 font-sans font-semibold bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-8 py-6 text-sm transition-all duration-200 hover:scale-105 shadow-lg"
-                onClick={() => window.open('https://github.com/SPIN0ZAi', '_blank')}
-                data-testid="button-github"
+                className="rounded-full px-8 py-6 text-sm font-bold bg-[#FF0000] text-white hover:bg-[#d60000] shadow-xl shadow-[#FF0000]/30 transition-all hover:scale-105 active:scale-95"
+                onClick={() => scrollTo('#contact')}
               >
-                <Github className="h-5 w-5" />
-                View Repository
+                <span>Start a Project</span>
               </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="gap-3 font-sans font-semibold border-2 border-accent text-accent hover:bg-accent hover:text-accent-foreground rounded-full px-8 py-6 text-sm transition-all duration-200 hover:scale-105 shadow-lg"
-                onClick={() =>
-                  window.open('https://www.linkedin.com/in/soulaimane-ben-louaret-98471428b', '_blank')
-                }
-                data-testid="button-linkedin"
+
+              <button
+                onClick={() => scrollTo('#featured')}
+                className="inline-flex items-center gap-2 text-sm font-bold text-zinc-300 hover:text-[#FF0000] transition-colors group px-4 py-3"
               >
-                <Linkedin className="h-5 w-5" />
-                Connect Network
-              </Button>
-              <Button
-                size="lg"
-                variant="secondary"
-                className="gap-3 font-sans font-semibold bg-secondary hover:bg-secondary/80 text-secondary-foreground rounded-full px-8 py-6 text-sm transition-all duration-200 hover:scale-105 shadow-lg"
-                onClick={() => (window.location.href = 'mailto:ssolayman244@gmail.com')}
-                data-testid="button-email"
-              >
-                <Mail className="h-5 w-5" />
-                Send Message
-              </Button>
+                <span>Explore My Work</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
+              </button>
             </motion.div>
+
           </div>
 
-          {/* Right Column - Profile & Terminal */}
-          <motion.div variants={item} className="relative space-y-6">
-            {/* Profile Section */}
-            <div className="relative">
-              {/* Circuit Board Background */}
-              <div className="absolute inset-0 -inset-8 opacity-20">
-                <svg viewBox="0 0 200 200" className="w-full h-full text-accent transform rotate-12">
-                  <path
-                    d="M20,20 L180,20 L180,40 L40,40 L40,160 L160,160 L160,180 L20,180 Z"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  />
-                  <circle cx="60" cy="60" r="8" fill="currentColor" />
-                  <circle cx="140" cy="140" r="8" fill="currentColor" />
-                  <circle cx="180" cy="20" r="4" fill="currentColor" />
-                </svg>
-              </div>
-              
-              <motion.div
-                className="relative z-10 mx-auto max-w-sm"
-                whileHover={{
-                  scale: 1.02,
-                  rotate: 1,
-                }}
-                transition={{ type: 'spring', stiffness: 300 }}
-              >
-                <div className="relative">
-                  <img
-                    src={profileImage}
-                    alt="Soulaimane Ben Louaret"
-                    className="w-full h-auto rounded-3xl shadow-2xl border-2 border-primary/30 glow-cyan"
-                    data-testid="img-profile"
-                  />
-                  
-                  {/* Cyberpunk Frame Elements */}
-                  <div className="absolute -top-4 -right-4 w-16 h-16 bg-primary/80 backdrop-blur-sm rounded-2xl shadow-lg transform rotate-12 flex items-center justify-center border border-primary glow-magenta">
-                    <Cpu className="h-8 w-8 text-primary-foreground" />
-                  </div>
-                  <div className="absolute -bottom-6 -left-6 w-12 h-12 bg-accent/80 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center border border-accent glow-green">
-                    <Code className="h-6 w-6 text-accent-foreground" />
-                  </div>
-                  
-                  {/* Status Indicators */}
-                  <div className="absolute top-4 left-4 flex space-x-2">
-                    <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse glow-green"></div>
-                    <div className="w-3 h-3 bg-secondary rounded-full animate-pulse glow-cyan" style={{ animationDelay: '0.5s' }}></div>
-                  </div>
-                </div>
-              </motion.div>
+          {/* Right Column: Giant Typographic Outline + 3D Animated Character */}
+          <div className="lg:col-span-5 relative flex items-center justify-center">
+            
+            {/* Giant Background Typographic Outline */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none -z-0">
+              <span className="font-heading font-black text-[75px] sm:text-[110px] lg:text-[130px] text-transparent tracking-tighter opacity-15 [-webkit-text-stroke:2px_#ffffff] uppercase">
+                SOULAIMANE
+              </span>
             </div>
 
-            {/* Floating Terminal Window */}
+            {/* Glowing circular podium backdrop */}
+            <div className="absolute w-72 h-72 sm:w-80 sm:h-80 rounded-full bg-gradient-to-tr from-[#3D0000]/80 via-[#950101]/30 to-[#FF0000]/10 blur-2xl -z-0" />
+
+            {/* 3D Character of Soulaimane */}
             <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1, duration: 0.8 }}
-              className="relative"
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="relative z-10 w-full max-w-[340px] sm:max-w-[400px] flex items-center justify-center"
             >
-              <TerminalWindow className="max-w-xs mx-auto glow-green" />
+              <motion.img
+                src="/images/soulaimane-3d.png?v=2"
+                alt="Soulaimane Ben Louaret 3D Character"
+                className="w-full h-auto object-contain filter drop-shadow-[0_20px_35px_rgba(255,0,0,0.25)]"
+                animate={{
+                  y: [0, -8, 0],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+
+              {/* Status pill tag attached near character */}
+              <div className="absolute bottom-4 -left-2 sm:-left-6 p-2.5 rounded-2xl bg-black/90 border border-[#3D0000] shadow-xl backdrop-blur-md flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#FF0000] animate-pulse" />
+                <span className="text-[11px] font-mono font-bold text-white">
+                  UCLM · ESII Albacete
+                </span>
+              </div>
             </motion.div>
-          </motion.div>
+
+          </div>
+
         </div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          variants={item}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 2 }}
-            className="cursor-pointer flex flex-col items-center space-y-2"
-            onClick={() =>
-              document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' })
-            }
-            data-testid="button-scroll-down"
-          >
-            <span className="text-sm font-mono text-muted-foreground uppercase tracking-wide">SCROLL_DOWN</span>
-            <ChevronDown className="h-6 w-6 text-accent glow-green" />
-          </motion.div>
-        </motion.div>
-      </motion.div>
-
-      {/* Enhanced Effects */}
-      <div className="absolute inset-0 opacity-30">
-        <ShapeBlur 
-          variation={0}
-          pixelRatioProp={window.devicePixelRatio || 1}
-          shapeSize={1.5}
-          roundness={0.6}
-          borderSize={0.03}
-          circleSize={0.25}
-          circleEdge={0.7}
-        />
       </div>
 
-      <div className="absolute inset-0 opacity-40 pointer-events-none">
-        <LaserFlow 
-          color="#00FFFF"
-          wispDensity={0.8}
-          mouseTiltStrength={0.015}
-          fogIntensity={0.35}
-          flowSpeed={0.4}
-          wispIntensity={3.5}
-        />
+      {/* Bottom Metrics Bar (exact Stygar layout with red dot matrices) */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-12 border-t border-[#3D0000]/60">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 items-center">
+          
+          <div className="flex items-center gap-3">
+            <DotMatrix className="hidden sm:inline-grid shrink-0" />
+            <div>
+              <div className="text-2xl sm:text-3xl font-heading font-black text-white">
+                {starCount}+
+              </div>
+              <div className="text-xs text-zinc-400 font-sans">
+                Stars on nup-extractor
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <div>
+              <div className="text-2xl sm:text-3xl font-heading font-black text-white">
+                100%
+              </div>
+              <div className="text-xs text-zinc-400 font-sans">
+                Passed Years 1 &amp; 2 Coursework
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <div>
+              <div className="text-2xl sm:text-3xl font-heading font-black text-white">
+                3rd Year
+              </div>
+              <div className="text-xs text-zinc-400 font-sans">
+                Computer Science (2026–27)
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between sm:justify-start gap-3">
+            <div>
+              <div className="text-2xl sm:text-3xl font-heading font-black text-white">
+                Rust·C#·TS
+              </div>
+              <div className="text-xs text-zinc-400 font-sans">
+                Systems &amp; Full-Stack Stack
+              </div>
+            </div>
+            <DotMatrix className="hidden sm:inline-grid shrink-0 ml-auto" />
+          </div>
+
+        </div>
       </div>
+
     </section>
   );
 }

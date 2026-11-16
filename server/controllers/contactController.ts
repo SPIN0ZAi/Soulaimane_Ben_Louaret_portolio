@@ -199,7 +199,7 @@ export class ContactController {
     message: string;
     contactId: string;
   }): Promise<void> {
-    const transporter = nodemailer.createTransporter({
+    const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
         user: process.env.EMAIL_USER,

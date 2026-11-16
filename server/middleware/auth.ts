@@ -76,7 +76,7 @@ export const generateToken = (userId: string): string => {
     { userId },
     secret,
     { 
-      expiresIn: process.env.JWT_EXPIRES_IN || '7d',
+      expiresIn: (process.env.JWT_EXPIRES_IN || '7d') as any,
       issuer: 'soulaimane-portfolio',
       audience: 'portfolio-users'
     }

@@ -11,7 +11,7 @@ export default {
         sm: ".1875rem", /* 3px */
       },
       colors: {
-        // Flat / base colors (regular buttons)
+        // Flat / base colors
         background: "hsl(var(--background) / <alpha-value>)",
         foreground: "hsl(var(--foreground) / <alpha-value>)",
         border: "hsl(var(--border) / <alpha-value>)",
@@ -52,12 +52,20 @@ export default {
           border: "var(--destructive-border)",
         },
         ring: "hsl(var(--ring) / <alpha-value>)",
+        // Custom Color Hunt Palette: Black, Maroon, Crimson, Electric Red
+        crimson: {
+          black: "#000000",
+          maroon: "#3D0000",
+          dark: "#950101",
+          bright: "#FF0000",
+          glow: "rgba(255, 0, 0, 0.4)",
+        },
         chart: {
-          "1": "hsl(var(--chart-1) / <alpha-value>)",
-          "2": "hsl(var(--chart-2) / <alpha-value>)",
-          "3": "hsl(var(--chart-3) / <alpha-value>)",
-          "4": "hsl(var(--chart-4) / <alpha-value>)",
-          "5": "hsl(var(--chart-5) / <alpha-value>)",
+          "1": "#FF0000",
+          "2": "#950101",
+          "3": "#3D0000",
+          "4": "#ff4d4d",
+          "5": "#800000",
         },
         sidebar: {
           ring: "hsl(var(--sidebar-ring) / <alpha-value>)",
@@ -76,17 +84,18 @@ export default {
           border: "var(--sidebar-accent-border)"
         },
         status: {
-          online: "rgb(34 197 94)",
+          online: "#FF0000",
           away: "rgb(245 158 11)",
           busy: "rgb(239 68 68)",
           offline: "rgb(156 163 175)",
         },
       },
       fontFamily: {
-        sans: ["JetBrains Mono", "Fira Code", "monospace"],
-        serif: ["JetBrains Mono", "Fira Code", "monospace"],
+        sans: ["Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
+        heading: ["Plus Jakarta Sans", "Inter", "sans-serif"],
+        serif: ["Plus Jakarta Sans", "Inter", "sans-serif"],
         mono: ["JetBrains Mono", "Fira Code", "monospace"],
-        code: ["Fira Code", "JetBrains Mono", "monospace"],
+        code: ["JetBrains Mono", "Fira Code", "monospace"],
       },
       fontWeight: {
         light: '300',

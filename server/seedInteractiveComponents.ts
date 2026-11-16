@@ -8,7 +8,7 @@ const seedInteractiveComponents = async () => {
     console.log('🌱 Starting interactive components seeding...');
     
     // Connect to database
-    await mongoose.connect(config.mongoUri);
+    await mongoose.connect(config.mongodb.uri);
     console.log('✅ Connected to MongoDB');
 
     // Clear existing data

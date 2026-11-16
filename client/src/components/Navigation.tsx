@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Github, Linkedin, ArrowUpRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 
@@ -9,158 +9,146 @@ export default function Navigation() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100);
+      setIsScrolled(window.scrollY > 30);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const navItems = [
     { label: 'Home', href: '#home' },
-    { label: 'About', href: '#about' },
-    { label: 'Projects', href: '#projects' },
-    { label: 'Courses', href: '#courses' },
-    { label: 'Experience', href: '#experience' },
+    { label: 'Projects', href: '#featured' },
+    { label: 'Journey', href: '#journey' },
+    { label: 'Achievements', href: '#achievements' },
+    { label: 'Education', href: '#education' },
     { label: 'Contact', href: '#contact' },
   ];
 
   const scrollToSection = (href: string) => {
+    setIsMobileMenuOpen(false);
     const element = document.querySelector(href);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      setIsMobileMenuOpen(false);
+      const navOffset = 90;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navOffset;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
     }
   };
 
   return (
     <>
-      <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      {/* Top Header Navigation styled after Stygar */}
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? 'bg-background/95 backdrop-blur-xl border-b-2 border-accent/20 shadow-2xl'
-            : 'bg-transparent'
+            ? 'bg-black/90 backdrop-blur-md border-b border-[#3D0000] py-3.5 shadow-2xl shadow-black'
+            : 'bg-transparent py-5'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 py-6">
-          <div className="flex items-center justify-between">
-            {/* Logo with Cyberpunk Typography */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-              className="relative"
-            >
-              <span className="font-serif text-2xl font-bold uppercase tracking-wider text-foreground">
-                SB
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+          
+          {/* Logo with Stygar-style Geometric Red Glyph */}
+          <a
+            href="#home"
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className="flex items-center gap-2.5 group focus:outline-none"
+          >
+            {/* Stygar Geometric Red Glyph */}
+            <div className="grid grid-cols-2 gap-1 w-6 h-6 items-center">
+              <span className="w-2.5 h-2.5 rounded-sm bg-[#FF0000]" />
+              <span className="w-2.5 h-2.5 rounded-sm bg-[#950101]" />
+              <span className="w-2.5 h-2.5 rounded-sm bg-[#950101]" />
+              <span className="w-2.5 h-2.5 rounded-sm bg-[#FF0000]" />
+            </div>
+
+            <div className="flex flex-col">
+              <span className="font-heading font-black text-sm tracking-tight text-white group-hover:text-[#FF0000] transition-colors uppercase">
+                Soulaimane Ben Louaret
               </span>
-              <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-accent rounded-full"></div>
-            </motion.div>
-
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-2">
-              {navItems.map((item, index) => (
-                <motion.button
-                  key={item.href}
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 * index }}
-                  onClick={() => scrollToSection(item.href)}
-                  className="group relative font-sans text-sm font-medium text-muted-foreground hover:text-foreground transition-all duration-300 px-6 py-3 rounded-full hover:bg-card/30"
-                  data-testid={`link-nav-${item.label.toLowerCase()}`}
-                >
-                  <span className="relative z-10 uppercase tracking-wide">{item.label}</span>
-                  
-                  {/* Hover indicator with neon glow */}
-                  <div className="absolute inset-x-2 bottom-1 h-0.5 bg-accent rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
-                </motion.button>
-              ))}
+              <span className="text-[10px] font-mono text-zinc-500 uppercase -mt-0.5">
+                Computer Science · UCLM
+              </span>
             </div>
+          </a>
 
-            <div className="hidden md:block">
-              <Button
-                variant="default"
-                className="font-sans font-semibold bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-6 py-3 text-sm transition-all duration-200 hover:scale-105 shadow-lg"
-                onClick={() => scrollToSection('#contact')}
+          {/* Center Navigation Links */}
+          <nav className="hidden md:flex items-center gap-7">
+            {navItems.map((item) => (
+              <button
+                key={item.href}
+                onClick={() => scrollToSection(item.href)}
+                className="text-xs font-medium text-zinc-300 hover:text-[#FF0000] transition-colors focus:outline-none relative py-1"
               >
-                Connect
-              </Button>
-            </div>
+                <span>{item.label}</span>
+              </button>
+            ))}
+          </nav>
 
-            {/* Mobile Menu Button */}
+          {/* Right Action Button - Red Pill matching Stygar "Get in Touch" */}
+          <div className="flex items-center gap-3">
             <Button
-              size="icon"
-              variant="ghost"
-              className="md:hidden relative rounded-2xl border-2 border-accent/20 hover:border-accent hover:bg-accent/10 transition-all duration-200"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              data-testid="button-mobile-menu"
+              className="rounded-full px-6 py-2.5 text-xs font-bold bg-[#FF0000] text-white hover:bg-[#d60000] shadow-md shadow-[#FF0000]/30 transition-all active:scale-95"
+              onClick={() => scrollToSection('#contact')}
             >
-              <motion.div
-                animate={{ rotate: isMobileMenuOpen ? 180 : 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-              </motion.div>
+              Get in Touch
             </Button>
-          </div>
-        </div>
-      </motion.nav>
 
-      {/* Mobile Menu */}
+            {/* Mobile Menu Toggle */}
+            <button
+              className="md:hidden p-2 rounded-lg text-zinc-300 hover:text-white"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle navigation menu"
+            >
+              {isMobileMenuOpen ? <X className="w-6 h-6 text-white" /> : <Menu className="w-6 h-6 text-white" />}
+            </button>
+          </div>
+
+        </div>
+      </header>
+
+      {/* Mobile Drawer Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="fixed inset-0 z-40 bg-background/80 backdrop-blur-sm md:hidden"
+              className="fixed inset-0 bg-black/90 backdrop-blur-md z-40 md:hidden"
             />
-            
-            {/* Menu Panel */}
             <motion.div
-              initial={{ opacity: 0, x: '100%' }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className="fixed inset-y-0 right-0 z-50 w-full max-w-sm bg-card border-l-2 border-accent/20 md:hidden"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="fixed top-20 left-4 right-4 bg-[#0a0202] border border-[#3D0000] rounded-3xl p-6 shadow-2xl z-40 md:hidden"
             >
-              <div className="p-6 border-b border-accent/10">
-                <div className="font-serif text-xl font-bold uppercase tracking-wider text-foreground">
-                  Menu
-                </div>
-              </div>
-              
-              {/* Navigation Items */}
-              <div className="flex flex-col gap-2 p-6">
-                {navItems.map((item, index) => (
-                  <motion.button
+              <div className="flex flex-col gap-2">
+                {navItems.map((item) => (
+                  <button
                     key={item.href}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.1 * index }}
                     onClick={() => scrollToSection(item.href)}
-                    className="group text-left font-sans text-lg font-medium text-foreground hover:text-accent transition-all duration-300 px-6 py-4 rounded-2xl hover:bg-card/30 border border-transparent hover:border-accent/20"
-                    data-testid={`link-mobile-${item.label.toLowerCase()}`}
+                    className="flex items-center justify-between px-4 py-3 text-sm font-semibold text-zinc-200 hover:text-white hover:bg-[#3D0000]/40 rounded-2xl transition-colors text-left"
                   >
-                    <span className="uppercase tracking-wide">{item.label}</span>
-                    <div className="w-0 group-hover:w-8 h-0.5 bg-accent rounded-full transition-all duration-300 mt-1 glow-warm"></div>
-                  </motion.button>
+                    <span>{item.label}</span>
+                    <span className="text-xs font-mono text-[#FF0000]">→</span>
+                  </button>
                 ))}
-                
-                {/* Mobile CTA */}
-                <div className="mt-8">
-                  <Button
-                    variant="default"
-                    className="w-full font-sans font-semibold bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-6 py-4 text-sm transition-all duration-200 hover:scale-105 shadow-lg"
-                    onClick={() => scrollToSection('#contact')}
-                  >
-                    Get In Touch
-                  </Button>
-                </div>
+
+                <div className="h-px bg-[#3D0000] my-2" />
+
+                <Button
+                  className="w-full rounded-2xl bg-[#FF0000] text-white hover:bg-[#d60000] font-bold"
+                  onClick={() => scrollToSection('#contact')}
+                >
+                  Get in Touch
+                </Button>
               </div>
             </motion.div>
           </>

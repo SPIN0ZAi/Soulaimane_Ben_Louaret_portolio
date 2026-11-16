@@ -1,166 +1,154 @@
-import { Github, Linkedin, Mail, Heart, ArrowUp } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { motion } from 'framer-motion';
+import { Github, Linkedin, Mail, ArrowUp } from 'lucide-react';
+import CropBox from './ui/CropBox';
 
 export default function Footer() {
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   };
 
-  const currentYear = new Date().getFullYear();
-
   return (
-    <footer className="relative bg-gradient-to-br from-muted/20 to-background border-t-2 border-accent/20 overflow-hidden">
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute top-20 left-20 w-32 h-32 bg-accent/10 rounded-full blur-2xl"></div>
-        <div className="absolute bottom-20 right-20 w-40 h-40 bg-primary/10 rounded-full blur-2xl"></div>
-      </div>
+    <footer className="bg-black text-white relative">
+      {/* Dashed line divider matching Image 6 & 7 */}
+      <div className="w-full border-t border-dashed border-[#3D0000]" />
 
-      <div className="relative max-w-7xl mx-auto px-6 py-16">
-        {/* Main Footer Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 mb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
           
-          {/* Brand Section */}
-          <div className="lg:col-span-2 space-y-6">
-            <div>
-              <h3 className="font-sans text-3xl font-black uppercase tracking-extra-wide text-foreground mb-4">
+          {/* Left Brand Column */}
+          <div className="md:col-span-6 space-y-5">
+            <div className="flex items-center gap-2.5">
+              <div className="grid grid-cols-2 gap-1 w-6 h-6 items-center">
+                <span className="w-2.5 h-2.5 rounded-sm bg-[#FF0000]" />
+                <span className="w-2.5 h-2.5 rounded-sm bg-[#950101]" />
+                <span className="w-2.5 h-2.5 rounded-sm bg-[#950101]" />
+                <span className="w-2.5 h-2.5 rounded-sm bg-[#FF0000]" />
+              </div>
+              <span className="font-heading font-black text-xl tracking-tight text-white uppercase">
                 Soulaimane Ben Louaret
-              </h3>
-              <div className="w-16 h-1 bg-accent rounded-full mb-6"></div>
-              <p className="font-body text-lg text-muted-foreground leading-relaxed max-w-md">
-                Computer Engineering student passionate about technology, innovation, and crafting digital solutions that make a meaningful impact.
-              </p>
+              </span>
             </div>
-            
-            {/* Quote */}
-            <div className="bg-accent/5 rounded-3xl p-6 border border-accent/10">
-              <p className="font-body text-sm italic text-muted-foreground">
-                "Thriving in the oceans of tech since age 10 — where curiosity meets code."
-              </p>
-            </div>
-          </div>
 
-          {/* Quick Links */}
-          <div className="space-y-6">
-            <div>
-              <h4 className="font-sans text-lg font-bold uppercase tracking-wide text-foreground mb-4">
-                Navigation
-              </h4>
-              <div className="w-8 h-0.5 bg-accent rounded-full mb-4"></div>
-            </div>
-            <div className="space-y-3">
-              {['Home', 'About', 'Projects', 'Experience', 'Contact'].map((item, index) => (
-                <motion.button
-                  key={item}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  onClick={() =>
-                    document
-                      .querySelector(`#${item.toLowerCase()}`)
-                      ?.scrollIntoView({ behavior: 'smooth' })
-                  }
-                  className="group block font-body text-sm text-muted-foreground hover:text-foreground transition-all duration-300 py-2"
-                  data-testid={`link-footer-${item.toLowerCase()}`}
-                >
-                  <span className="relative">
-                    {item}
-                    <div className="absolute -bottom-1 left-0 w-0 group-hover:w-full h-0.5 bg-accent rounded-full transition-all duration-300"></div>
-                  </span>
-                </motion.button>
-              ))}
-            </div>
-          </div>
+            <p className="text-xs sm:text-sm text-zinc-400 font-sans max-w-md leading-relaxed">
+              3rd-year Computer Science student at Universidad de Castilla-La Mancha (ESII Albacete). Systems programming, reverse engineering, and modern full-stack web architectures.
+            </p>
 
-          {/* Social & Contact */}
-          <div className="space-y-6">
-            <div>
-              <h4 className="font-sans text-lg font-bold uppercase tracking-wide text-foreground mb-4">
-                Connect
-              </h4>
-              <div className="w-8 h-0.5 bg-accent rounded-full mb-4"></div>
+            <div className="space-y-1 text-xs font-mono text-zinc-400">
+              <div className="flex items-center gap-2">
+                <span className="text-[#FF0000]">•</span>
+                <a href="mailto:ssolayman244@gmail.com" className="hover:text-white transition-colors">
+                  ssolayman244@gmail.com
+                </a>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-[#FF0000]">•</span>
+                <span>Albacete, Spain (CET / GMT+1)</span>
+              </div>
             </div>
-            
-            {/* Social Links */}
-            <div className="flex flex-wrap gap-3">
-              <Button
-                size="lg"
-                variant="outline"
-                className="group rounded-2xl border-2 border-accent/20 hover:border-accent hover:bg-accent/10 transition-all duration-300 hover:scale-105"
-                onClick={() => window.open('https://github.com/SPIN0ZAi', '_blank')}
-                data-testid="button-footer-github"
+
+            {/* Social Icons Row */}
+            <div className="flex items-center gap-2 pt-2">
+              <a
+                href="https://github.com/SPIN0ZAi"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2.5 rounded-full bg-[#3D0000]/30 hover:bg-[#FF0000] text-zinc-300 hover:text-white border border-[#3D0000] transition-colors"
+                title="GitHub"
               >
-                <Github className="h-5 w-5 group-hover:scale-110 transition-transform" />
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="group rounded-2xl border-2 border-accent/20 hover:border-accent hover:bg-accent/10 transition-all duration-300 hover:scale-105"
-                onClick={() =>
-                  window.open(
-                    'https://www.linkedin.com/in/soulaimane-ben-louaret-98471428b',
-                    '_blank'
-                  )
-                }
-                data-testid="button-footer-linkedin"
+                <Github className="w-4 h-4" />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/soulaimane-ben-louaret-98471428b/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2.5 rounded-full bg-[#3D0000]/30 hover:bg-[#FF0000] text-zinc-300 hover:text-white border border-[#3D0000] transition-colors"
+                title="LinkedIn"
               >
-                <Linkedin className="h-5 w-5 group-hover:scale-110 transition-transform" />
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="group rounded-2xl border-2 border-accent/20 hover:border-accent hover:bg-accent/10 transition-all duration-300 hover:scale-105"
-                onClick={() => (window.location.href = 'mailto:ssolayman244@gmail.com')}
-                data-testid="button-footer-email"
+                <Linkedin className="w-4 h-4" />
+              </a>
+              <a
+                href="mailto:ssolayman244@gmail.com"
+                className="p-2.5 rounded-full bg-[#3D0000]/30 hover:bg-[#FF0000] text-zinc-300 hover:text-white border border-[#3D0000] transition-colors"
+                title="Email"
               >
-                <Mail className="h-5 w-5 group-hover:scale-110 transition-transform" />
-              </Button>
-            </div>
-
-            {/* Contact Info */}
-            <div className="space-y-2 text-sm text-muted-foreground">
-              <p className="font-body">Based in Spain</p>
-              <p className="font-body">Open for opportunities</p>
+                <Mail className="w-4 h-4" />
+              </a>
             </div>
           </div>
-        </div>
 
-        {/* Bottom Section */}
-        <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-accent/20 gap-4">
-          <div className="flex items-center gap-2 font-body text-sm text-muted-foreground">
-            <span>Made with</span>
-            <Heart className="h-4 w-4 text-accent fill-accent animate-pulse" />
-            <span>and lots of</span>
-            <span className="text-accent font-medium">☕</span>
-            <span>© {currentYear} Soulaimane Ben Louaret</span>
+          {/* Right Columns with Crop Box Headers */}
+          <div className="md:col-span-3 space-y-4">
+            <CropBox active size="sm">
+              Navigation
+            </CropBox>
+            <ul className="space-y-2 text-xs font-mono text-zinc-400 pt-2">
+              <li>
+                <a href="#home" className="hover:text-white transition-colors">Home</a>
+              </li>
+              <li>
+                <a href="#featured" className="hover:text-white transition-colors">My Projects</a>
+              </li>
+              <li>
+                <a href="#journey" className="hover:text-white transition-colors">My Journey</a>
+              </li>
+              <li>
+                <a href="#achievements" className="hover:text-white transition-colors">My Achievements</a>
+              </li>
+              <li>
+                <a href="#education" className="hover:text-white transition-colors">Academic Record</a>
+              </li>
+              <li>
+                <a href="#contact" className="hover:text-white transition-colors">Contact</a>
+              </li>
+            </ul>
           </div>
-          
-          {/* Back to Top */}
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={scrollToTop}
-            className="group gap-2 rounded-2xl border-2 border-accent/20 hover:border-accent hover:bg-accent/10 transition-all duration-300 hover:scale-105"
-          >
-            <span className="font-body text-xs uppercase tracking-wide">Back to top</span>
-            <ArrowUp className="h-4 w-4 group-hover:-translate-y-1 transition-transform" />
-          </Button>
+
+          <div className="md:col-span-3 space-y-4">
+            <CropBox size="sm">
+              Flagship Works
+            </CropBox>
+            <ul className="space-y-2 text-xs font-mono text-zinc-400 pt-2">
+              <li>
+                <a href="https://github.com/SPIN0ZAi/nup-extractor" target="_blank" rel="noopener noreferrer" className="hover:text-[#FF0000] transition-colors">
+                  nup-extractor (57★)
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/SPIN0ZAi/FrameVault" target="_blank" rel="noopener noreferrer" className="hover:text-[#FF0000] transition-colors">
+                  FrameVault (Flagship)
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/SPIN0ZAi/Switch-1-extractor" target="_blank" rel="noopener noreferrer" className="hover:text-[#FF0000] transition-colors">
+                  Switch-1-extractor
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/SPIN0ZAi/Cognitia" target="_blank" rel="noopener noreferrer" className="hover:text-[#FF0000] transition-colors">
+                  Cognitia AI Platform
+                </a>
+              </li>
+            </ul>
+
+            <button
+              onClick={scrollToTop}
+              className="mt-4 inline-flex items-center gap-1.5 text-xs font-mono text-[#FF0000] hover:underline"
+            >
+              <span>Back to Top</span>
+              <ArrowUp className="w-3.5 h-3.5" />
+            </button>
+          </div>
+
         </div>
       </div>
 
-      {/* Organic shape divider at top */}
-      <div className="absolute top-0 left-0 w-full h-12 overflow-hidden">
-        <svg
-          className="absolute inset-0 w-full h-full text-background"
-          viewBox="0 0 1200 120"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0,120 C120,60 360,90 600,60 C840,30 1080,90 1200,60 L1200,0 L0,0 Z"
-            fill="currentColor"
-          />
-        </svg>
+      {/* Bottom dashed divider and copyright bar */}
+      <div className="w-full border-t border-dashed border-[#3D0000]" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-zinc-500 gap-2">
+        <span>Copyright © {new Date().getFullYear()} Soulaimane Ben Louaret · All rights reserved.</span>
+        <span>Crafted with high-performance dark architecture</span>
       </div>
     </footer>
   );

@@ -37,7 +37,7 @@ export const config = {
   // Frontend URLs for CORS
   frontend: {
     devUrl: process.env.FRONTEND_URL || 'http://localhost:3000',
-    prodUrl: process.env.FRONTEND_URL_PROD || 'https://soulaimane-portfolio.vercel.app'
+    prodUrl: process.env.FRONTEND_URL_PROD || 'https://soulaimane-ben-louaret-portolio.vercel.app'
   },
   
   // Security Configuration
@@ -58,9 +58,9 @@ export const config = {
   
   // Social Media Links
   social: {
-    github: process.env.GITHUB_URL || 'https://github.com/soulaimane',
-    linkedin: process.env.LINKEDIN_URL || 'https://linkedin.com/in/soulaimane',
-    twitter: process.env.TWITTER_URL || 'https://twitter.com/soulaimane'
+    github: process.env.GITHUB_URL || 'https://github.com/SPIN0ZAi',
+    linkedin: process.env.LINKEDIN_URL || 'https://www.linkedin.com/in/soulaimane-ben-louaret-98471428b/',
+    twitter: process.env.TWITTER_URL || 'https://twitter.com/SPIN0ZAi'
   }
 };
 

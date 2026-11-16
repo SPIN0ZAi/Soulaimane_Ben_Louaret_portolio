@@ -36,7 +36,7 @@ export class AuthController {
       await user.save();
 
       // Generate token
-      const token = generateToken(user._id);
+      const token = generateToken(String(user._id));
 
       res.status(201).json({
         success: true,
@@ -103,7 +103,7 @@ export class AuthController {
       }
 
       // Generate token
-      const token = generateToken(user._id);
+      const token = generateToken(String(user._id));
 
       res.status(200).json({
         success: true,

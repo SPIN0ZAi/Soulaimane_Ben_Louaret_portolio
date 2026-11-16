@@ -103,7 +103,7 @@ export class ProjectController {
       }
 
       // Check if project is public or user is authenticated admin
-      if (!project.isPublic && (!req.user || req.user.role !== 'admin')) {
+      if (!project.isPublic && (!(req as any).user || (req as any).user.role !== 'admin')) {
         res.status(403).json({
           success: false,
           message: 'Access denied'
