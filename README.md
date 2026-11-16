@@ -1,7 +1,8 @@
-# Soulaimane Ben Louaret - Portfolio Backend API
+# Soulaimane Ben Louaret - Modern Developer Portfolio
 
-A secure, scalable, and well-documented backend API for Soulaimane's modern portfolio website. Built with Node.js, Express, MongoDB, and TypeScript.
-![My image died :( ](https://github.com/SPIN0ZAi/Soulaimane_Ben_Louaret_portolio/blob/main/Screenshot%202025-10-04%20211118.png)
+A high-performance, dark-themed personal developer portfolio showcasing low-level systems software, clean-room reverse engineering tools, and modern full-stack web applications. Built with React 18, Vite, Tailwind CSS, TypeScript, and an Express backend API.
+
+![Soulaimane Ben Louaret Portfolio Preview](./portfolio-preview.jpg)
 
 ## 🚀 Features
 
@@ -556,10 +557,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👨‍💻 Author
 
 **Soulaimane Ben Louaret**
-- Website: [https://soulaimane.dev](https://soulaimane.dev)
-- GitHub: [@soulaimane](https://github.com/soulaimane)
-- LinkedIn: [Soulaimane Ben Louaret](https://linkedin.com/in/soulaimane-ben-louaret)
-- Email: soulaimane.benlouaret@gmail.com
+- Live Portfolio: [https://soulaimane-ben-louaret-portolio.vercel.app/](https://soulaimane-ben-louaret-portolio.vercel.app/)
+- GitHub: [@SPIN0ZAi](https://github.com/SPIN0ZAi)
+- LinkedIn: [Soulaimane Ben Louaret](https://www.linkedin.com/in/soulaimane-ben-louaret-98471428b/)
+- Email: ssolayman244@gmail.com
 
 ## 🙏 Acknowledgments
 
