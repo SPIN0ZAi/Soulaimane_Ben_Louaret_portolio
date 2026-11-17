@@ -204,7 +204,7 @@ export const defaultPortfolioData: PortfolioData = {
       num: '01',
       title: 'nup-extractor',
       category: 'Systems & Native Desktop',
-      badge: 'Flagship Tool · 60+ Stars',
+      badge: 'Flagship Tool · 65+ Stars',
       badgeColor: 'border-[#FF0000]/60 text-[#FF0000] bg-[#3D0000]/40',
       oneLiner: 'Native desktop GUI for inspecting, exploring, verifying, and extracting Nintendo Switch 1 & 2 clean-room (.nup) container archives.',
       description: 'High-performance native desktop tool built for deep inspection and clean-room extraction of Nintendo Switch 1 and next-generation Switch 2 (.nup) container archives. Features hierarchical tree browsing, SHA-256 integrity verification, automated file-type deduction, and selective extraction.',
@@ -219,7 +219,7 @@ export const defaultPortfolioData: PortfolioData = {
       liveUrl: 'https://spin0zai.github.io/nup-extractor/',
       liveUrlLabel: 'Showcase',
       image: '/images/nup-extractor.png',
-      stars: 60,
+      stars: 65,
       isFlagship: true,
       isFeatured: true,
       priority: 1
@@ -245,7 +245,7 @@ export const defaultPortfolioData: PortfolioData = {
       liveUrl: 'https://frame-vault-xi.vercel.app',
       liveUrlLabel: 'Live App',
       image: '/images/framevault-home.jpg',
-      stars: 6,
+      stars: 1,
       isFlagship: true,
       isFeatured: true,
       priority: 2
@@ -268,8 +268,10 @@ export const defaultPortfolioData: PortfolioData = {
         'Fast CLI with detailed partition layout and header reports'
       ],
       githubUrl: 'https://github.com/SPIN0ZAi/Switch-1-extractor',
+      liveUrl: 'https://spin0zai.github.io/Switch-1-extractor/',
+      liveUrlLabel: 'Showcase',
       image: '/images/switch-1-extractor.png',
-      stars: 4,
+      stars: 0,
       isFlagship: false,
       isFeatured: true,
       priority: 3
@@ -292,55 +294,196 @@ export const defaultPortfolioData: PortfolioData = {
         'Exportable study notes and structured problem set solutions'
       ],
       githubUrl: 'https://github.com/SPIN0ZAi/Cognitia',
-      liveUrl: 'https://cognitia-platform.vercel.app',
-      liveUrlLabel: 'Demo',
-      image: '/images/cognitia.png',
-      stars: 5,
+      liveUrl: 'https://cognitia-kappa.vercel.app',
+      liveUrlLabel: 'Live App',
+      image: '/images/cognitia.jpg',
+      stars: 1,
       isFlagship: false,
       isFeatured: true,
       priority: 4
     },
     {
+      id: 'data-structures-visualizer',
+      repoName: 'Data-Structures-Visualizer',
+      title: 'Data Structures Visualizer',
+      category: 'Web & Algorithms',
+      description: 'Interactive web application for learning and visualizing fundamental data structures and algorithms (BST, AVL rotations, graph BFS/DFS, Floyd-Warshall).',
+      tech: ['TypeScript', 'React', 'Vite', 'SVG', 'Algorithms'],
+      features: ['Step-by-step visual transitions', 'Dynamic tree rotation demonstrations', 'Graph pathfinding benchmarks'],
+      oneLiner: 'Interactive educational web instrument for algorithm visualization.',
+      githubUrl: 'https://github.com/SPIN0ZAi/Data-Structures-Visualizer',
+      liveUrl: 'https://data-structures-visualizer-seven.vercel.app/',
+      image: '/images/data-structures-visualizer.png',
+      stars: 6,
+      isFeatured: false
+    },
+    {
       id: 'sb-manifest-db',
       repoName: 'SB_manifest_DB',
       title: 'SB_manifest_DB',
-      description: 'Centralized clean-room database repository cataloging verified metadata, cryptographic SHA-256 digests, and partition specs for Switch title archives.',
-      tech: ['Python', 'SQLite', 'JSON Schema', 'Data Engineering'],
       category: 'Systems & Data',
+      description: 'Centralized clean-room database repository cataloging verified metadata, cryptographic SHA-256 digests, and partition specs for Steam Depot title archives.',
+      tech: ['Python', 'SQLite', 'JSON Schema', 'Data Engineering'],
+      features: ['Automated depot manifest indexing', 'Cryptographic SHA-256 verification', 'Fast query caching'],
+      oneLiner: 'Steam Depot manifest archival indexer and cryptographic registry.',
       githubUrl: 'https://github.com/SPIN0ZAi/SB_manifest_DB',
-      image: '/images/sb-manifest-db.png',
+      image: '/images/sb-manifest-db.svg',
       stars: 12,
-      isFeatured: false,
-      features: ['Automated cryptographic digest cataloging', 'Fast SQLite indexed search'],
-      oneLiner: 'Cryptographic SHA-256 database for Switch manifests.'
+      isFeatured: false
     },
     {
-      id: 'dungeon-riscv',
-      repoName: 'dungeon-crawler-riscv',
-      title: '2D Dungeon Crawler in RISC-V',
-      description: 'A complete 2D retro dungeon crawler written 100% in pure RISC-V 32-bit assembly. Features bitmap graphics rendering, tile collision, and sprite animations.',
-      tech: ['RISC-V Assembly', 'RARS Simulator', 'Low-Level Optimization', 'Computer Organization'],
-      category: 'Assembly & Hardware',
-      githubUrl: 'https://github.com/SPIN0ZAi',
-      image: '/images/riscv-dungeon.png',
-      stars: 9,
-      isFeatured: false,
-      features: ['Pixel-perfect bitmap frame buffer manipulation', 'Direct register allocation and datapath optimization'],
-      oneLiner: 'Pure RISC-V assembly game with frame-buffer rendering.'
+      id: 'one-tap-discord-bot',
+      repoName: 'One-Tap---Advanced-Discord-JTC-Bot',
+      title: 'One-Tap Discord JTC Bot',
+      category: 'Tools & Utilities',
+      description: 'Advanced Join-to-Create voice channel manager with persistent sticky control message panels and multi-level permissions.',
+      tech: ['TypeScript', 'Discord.js v14', 'Node.js', 'SQLite'],
+      features: ['Dynamic sticky interface panel', 'Automatic channel lifecycle cleanup', 'Granular voice permissions'],
+      oneLiner: 'Premium Join-to-Create voice channel automation for Discord servers.',
+      githubUrl: 'https://github.com/SPIN0ZAi/One-Tap---Advanced-Discord-JTC-Bot',
+      image: '/images/one-tap-discord-bot.png',
+      stars: 1,
+      isFeatured: false
     },
     {
-      id: 'c-task-scheduler',
-      repoName: 'c-concurrency-scheduler',
-      title: 'Preemptive Task Scheduler in C',
-      description: 'Custom multi-threaded task scheduler and mutex synchronization suite created for Operating Systems coursework at UCLM.',
-      tech: ['C', 'POSIX Threads', 'Mutexes & Semaphores', 'Operating Systems'],
-      category: 'Operating Systems',
-      githubUrl: 'https://github.com/SPIN0ZAi',
-      image: '/images/c-scheduler.png',
-      stars: 7,
-      isFeatured: false,
-      features: ['Priority queue thread scheduling', 'Deadlock detection algorithms'],
-      oneLiner: 'POSIX thread scheduler with mutex synchronization in C.'
+      id: 'emupresence',
+      repoName: 'EmuPresence-Rich-Presence-for-Discord',
+      title: 'EmuPresence Rich Presence',
+      category: 'Tools & Utilities',
+      description: 'Unified Discord Rich Presence integration supporting retro and modern console emulators (PCSX2, RPCS3, DuckStation) with automated game detection.',
+      tech: ['Python', 'Discord RPC', 'Process Hooking', 'System Tray'],
+      features: ['Real-time emulator detection', 'Automated game box-art resolution', 'Low-overhead background tray execution'],
+      oneLiner: 'System tray Discord Rich Presence for PlayStation & retro emulators.',
+      githubUrl: 'https://github.com/SPIN0ZAi/EmuPresence-Rich-Presence-for-Discord',
+      image: '/images/emupresence.png',
+      stars: 1,
+      isFeatured: false
+    },
+    {
+      id: 'pdf-toolkit',
+      repoName: 'PDF-Toolkit---Free-PDF-Image-Tools',
+      title: 'PDF Toolkit Web',
+      category: 'Web & Utilities',
+      description: 'A completely free, privacy-first web application for PDF manipulation and image conversion. All processing happens client-side in the browser.',
+      tech: ['TypeScript', 'Next.js 14', 'Web APIs', 'Tailwind CSS'],
+      features: ['100% client-side privacy guarantee', 'PDF merge, split, and page extraction', 'Zero external server dependencies'],
+      oneLiner: 'Client-side privacy-first PDF utility suite with zero server uploads.',
+      githubUrl: 'https://github.com/SPIN0ZAi/PDF-Toolkit---Free-PDF-Image-Tools',
+      image: '/images/pdf-toolkit.png',
+      stars: 0,
+      isFeatured: false
+    },
+    {
+      id: 'assembly-pixel-renderer',
+      repoName: 'assembly-pixel-renderer',
+      title: 'Assembly Pixel Renderer',
+      category: 'Low-Level & Assembly',
+      description: 'A 2D sprite animation and movement engine written in pure RISC-V Assembly. Features directional movement via D-pad, pose switching, and screen boundary checks.',
+      tech: ['RISC-V Assembly', 'Ripes Simulator', 'Low-Level Graphics', 'Computer Architecture'],
+      features: ['Direct LED matrix frame-buffer manipulation', 'Register allocation optimizations', 'Real-time D-pad collision detection'],
+      oneLiner: '2D sprite animation and physics engine in pure RISC-V assembly.',
+      githubUrl: 'https://github.com/SPIN0ZAi/assembly-pixel-renderer',
+      image: '/images/assembly-pixel-renderer.png',
+      stars: 0,
+      isFeatured: false
+    },
+    {
+      id: 'task-scheduling-simulation',
+      repoName: 'Task-Scheduling-Simulation',
+      title: 'Task Scheduling Simulation',
+      category: 'Systems & OS',
+      description: 'C-based simulation managing the scheduling of concurrent tasks based on duration, priority, and dependency graphs with latency analysis.',
+      tech: ['C', 'Operating Systems', 'Algorithms', 'Data Structures'],
+      features: ['Priority queue dispatcher', 'Dependency resolution cycle detection', 'Comprehensive execution telemetry'],
+      oneLiner: 'Preemptive priority task scheduler simulation in C.',
+      githubUrl: 'https://github.com/SPIN0ZAi/Task-Scheduling-Simulation',
+      image: '/images/task-scheduling.png',
+      stars: 0,
+      isFeatured: false
+    },
+    {
+      id: 'hotel-simulation-system',
+      repoName: 'Hotel-simulation-program',
+      title: 'Hotel Simulation System',
+      category: 'Systems & Algorithms',
+      description: 'Hotel management system simulating reservations across 6 floors and 23 rooms per floor built in C using 2D arrays, structs, and dynamic data structures.',
+      tech: ['C', 'Memory Management', 'Data Structures', 'Console UI'],
+      features: ['Multi-floor occupancy tracking', 'Dynamic guest check-in/check-out', 'State persistence routines'],
+      oneLiner: '6-floor multi-room hotel reservation engine written in C.',
+      githubUrl: 'https://github.com/SPIN0ZAi/Hotel-simulation-program',
+      image: '/images/hotel-simulation.png',
+      stars: 0,
+      isFeatured: false
+    },
+    {
+      id: 'brick-breaker-game',
+      repoName: 'Brick_Breaker_Game_in_Java',
+      title: 'Brick Breaker Game',
+      category: 'Games & OOP',
+      description: 'Classic arcade-style brick breaker game engineered with Java Swing featuring collision physics, frame-rate synchronization, and score tracking.',
+      tech: ['Java', 'Swing', 'Object-Oriented Design', 'Game Loops'],
+      features: ['AABB collision detection physics', 'Multi-ball and powerup mechanics', 'Retro arcade sound & graphics'],
+      oneLiner: 'Retro arcade brick breaker game built with Java Swing.',
+      githubUrl: 'https://github.com/SPIN0ZAi/Brick_Breaker_Game_in_Java',
+      image: '/images/brick-breaker-game.png',
+      stars: 0,
+      isFeatured: false
+    },
+    {
+      id: 'restaurant-reservation',
+      repoName: 'Restaurants-Chain-Reservation-System',
+      title: 'Restaurant Reservation System',
+      category: 'Enterprise Java',
+      description: 'Object-oriented Java console application simulating the reservation process for a restaurant chain with multi-table bookings and capacity management.',
+      tech: ['Java', 'OOP', 'Data Modeling', 'Business Logic'],
+      features: ['Hierarchical Chain/Restaurant/Table schema', 'Automated table allocation heuristics', 'Interactive booking ledger'],
+      oneLiner: 'Multi-location restaurant chain table reservation system in Java.',
+      githubUrl: 'https://github.com/SPIN0ZAi/Restaurants-Chain-Reservation-System',
+      image: '/images/restaurant-reservation.jpg',
+      stars: 0,
+      isFeatured: false
+    },
+    {
+      id: 'riscv-face-renderer',
+      repoName: 'Drawing-a-Face-in-assembly-RISC-V',
+      title: 'RISC-V Pixel Face Renderer',
+      category: 'Low-Level & Assembly',
+      description: 'Pixel-art facial rendering program written in RISC-V assembly executing on the Ripes simulated memory-mapped bitmap display.',
+      tech: ['RISC-V Assembly', 'Ripes Simulator', 'Bitmap Graphics'],
+      features: ['Direct video memory write cycles', 'Optimized instruction loops', 'Custom 16-color palette mapping'],
+      oneLiner: 'Pixel art portrait renderer executing in RISC-V assembly.',
+      githubUrl: 'https://github.com/SPIN0ZAi/Drawing-a-Face-in-assembly-RISC-V',
+      image: '/images/riscv-face.jpg',
+      stars: 0,
+      isFeatured: false
+    },
+    {
+      id: 'mkv-to-mp4-converter',
+      repoName: 'Mkv-to-mp4-converter-with-UI',
+      title: 'MKV to MP4 Converter GUI',
+      category: 'Tools & Utilities',
+      description: 'Desktop video transcoding utility with real-time FFmpeg progress tracking, H.264/AAC passthrough, and zero-loss conversion.',
+      tech: ['Python', 'FFmpeg', 'Tkinter', 'Multimedia'],
+      features: ['Streamlined drag-and-drop workflow', 'Hardware-accelerated libx264 encoding', 'Real-time FPS and bitrate telemetry'],
+      oneLiner: 'Desktop GUI for transcoding MKV videos to MP4 with FFmpeg.',
+      githubUrl: 'https://github.com/SPIN0ZAi/Mkv-to-mp4-converter-with-UI',
+      image: '/images/mkv-converter.svg',
+      stars: 0,
+      isFeatured: false
+    },
+    {
+      id: 'universal-doc-converter',
+      repoName: 'Multi-Format-Converter',
+      title: 'Universal Document Converter',
+      category: 'Tools & Utilities',
+      description: 'Batch desktop GUI for converting documents, spreadsheets, presentations, and images between 20+ formats (PDF, DOCX, XLSX, PNG).',
+      tech: ['Python', 'Tkinter', 'pandas', 'Pillow'],
+      features: ['Batch processing queue', 'Multi-format matrix support', 'Automated output layout preserves fonts'],
+      oneLiner: 'Desktop utility converting between 20+ document and media formats.',
+      githubUrl: 'https://github.com/SPIN0ZAi/Multi-Format-Converter',
+      image: '/images/multi-format-converter.svg',
+      stars: 0,
+      isFeatured: false
     }
   ],
   journey: [
@@ -637,7 +780,31 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
-        return { ...defaultPortfolioData, ...parsed };
+        const imageFixes: Record<string, string> = {
+          '/images/cognitia.png': '/images/cognitia.jpg',
+          '/images/sb-manifest-db.png': '/images/sb-manifest-db.svg',
+          '/images/riscv-dungeon.png': '/images/assembly-pixel-renderer.png',
+          '/images/c-scheduler.png': '/images/task-scheduling.png',
+        };
+
+        let projects = defaultPortfolioData.projects;
+        if (Array.isArray(parsed.projects) && parsed.projects.length >= 12) {
+          projects = parsed.projects.map((p: any) => ({
+            ...p,
+            image: imageFixes[p.image] || p.image || '/images/nup-extractor.png'
+          }));
+        }
+
+        return {
+          ...defaultPortfolioData,
+          ...parsed,
+          projects,
+          hero: {
+            ...defaultPortfolioData.hero,
+            ...(parsed.hero || {}),
+            outlineText: parsed.hero?.outlineText || 'SOULAIMANE',
+          }
+        };
       }
     } catch (e) {
       console.warn('Failed to parse saved portfolio data', e);

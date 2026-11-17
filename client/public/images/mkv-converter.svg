@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070202"/>
+      <stop offset="50%" stop-color="#120404"/>
+      <stop offset="100%" stop-color="#040101"/>
+    </linearGradient>
+    <linearGradient id="progressGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#950101"/>
+      <stop offset="100%" stop-color="#FF0000"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="15" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#bg)"/>
+
+  <!-- Ambient Glow -->
+  <circle cx="200" cy="180" r="160" fill="#3D0000" opacity="0.3" filter="url(#glow)"/>
+  <circle cx="650" cy="350" r="140" fill="#FF0000" opacity="0.08" filter="url(#glow)"/>
+
+  <!-- GUI App Window Frame -->
+  <rect x="60" y="40" width="680" height="420" rx="16" fill="#0d0303" stroke="#3D0000" stroke-width="1.5"/>
+
+  <!-- Window Titlebar -->
+  <path d="M 60 56 Q 60 40 76 40 L 724 40 Q 740 40 740 56 L 740 80 L 60 80 Z" fill="#180505"/>
+  <circle cx="85" cy="60" r="5" fill="#FF0000"/>
+  <circle cx="105" cy="60" r="5" fill="#950101"/>
+  <circle cx="125" cy="60" r="5" fill="#3D0000"/>
+  <text x="400" y="65" fill="#e4e4e7" font-family="sans-serif" font-size="12" text-anchor="middle" font-weight="bold">MKV to MP4 Converter Studio (Python &amp; FFmpeg)</text>
+
+  <!-- Input Drop Zone -->
+  <rect x="90" y="105" width="620" height="90" rx="10" fill="#140404" stroke="#950101" stroke-width="1.2" stroke-dasharray="6,4"/>
+  <text x="400" y="145" fill="#ffffff" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle">video_recording_session_01.mkv</text>
+  <text x="400" y="170" fill="#a1a1aa" font-family="monospace" font-size="11" text-anchor="middle">Input: 3.42 GB · Matroska Video · H.264 High @ L4.1 · 1920x1080 @ 60fps</text>
+
+  <!-- Conversion Config Panels -->
+  <rect x="90" y="215" width="295" height="110" rx="8" fill="#140404" stroke="#3D0000" stroke-width="1"/>
+  <text x="110" y="240" fill="#FF0000" font-family="monospace" font-size="11" font-weight="bold">VIDEO STREAM ENCODING</text>
+  <text x="110" y="265" fill="#ffffff" font-family="sans-serif" font-size="12">Codec: H.264 (libx264)</text>
+  <text x="110" y="290" fill="#a1a1aa" font-family="sans-serif" font-size="12">Preset: veryfast | CRF: 20</text>
+  <text x="110" y="312" fill="#22c55e" font-family="monospace" font-size="11">✓ Zero Quality Loss Passthrough</text>
+
+  <rect x="415" y="215" width="295" height="110" rx="8" fill="#140404" stroke="#3D0000" stroke-width="1"/>
+  <text x="435" y="240" fill="#FF0000" font-family="monospace" font-size="11" font-weight="bold">AUDIO &amp; CONTAINER SETTINGS</text>
+  <text x="435" y="265" fill="#ffffff" font-family="sans-serif" font-size="12">Container: MP4 (MPEG-4 Part 14)</text>
+  <text x="435" y="290" fill="#a1a1aa" font-family="sans-serif" font-size="12">Audio: AAC-LC Stereo @ 320kbps</text>
+  <text x="435" y="312" fill="#22c55e" font-family="monospace" font-size="11">✓ FastStart (moov atom at front)</text>
+
+  <!-- Progress Bar Section -->
+  <rect x="90" y="350" width="620" height="75" rx="8" fill="#100303" stroke="#3D0000" stroke-width="1"/>
+  <div xmlns="http://www.w3.org/1999/xhtml"></div>
+  <text x="110" y="375" fill="#ffffff" font-family="sans-serif" font-size="12" font-weight="bold">Transcoding in Progress...</text>
+  <text x="690" y="375" fill="#FF0000" font-family="monospace" font-size="13" font-weight="bold" text-anchor="end">88% (4.2x Speed)</text>
+  
+  <!-- Outer Bar -->
+  <rect x="110" y="390" width="580" height="14" rx="7" fill="#250505"/>
+  <!-- Filled Bar -->
+  <rect x="110" y="390" width="510" height="14" rx="7" fill="url(#progressGrad)"/>
+</svg>

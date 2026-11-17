@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0202"/>
+      <stop offset="50%" stop-color="#140404"/>
+      <stop offset="100%" stop-color="#050101"/>
+    </linearGradient>
+    <linearGradient id="redGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF0000"/>
+      <stop offset="100%" stop-color="#950101"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="15" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#bg)"/>
+  
+  <!-- Subtle Grid Pattern -->
+  <g stroke="#3D0000" stroke-width="0.8" opacity="0.35">
+    <line x1="0" y1="50" x2="800" y2="50"/>
+    <line x1="0" y1="100" x2="800" y2="100"/>
+    <line x1="0" y1="150" x2="800" y2="150"/>
+    <line x1="0" y1="200" x2="800" y2="200"/>
+    <line x1="0" y1="250" x2="800" y2="250"/>
+    <line x1="0" y1="300" x2="800" y2="300"/>
+    <line x1="0" y1="350" x2="800" y2="350"/>
+    <line x1="0" y1="400" x2="800" y2="400"/>
+    <line x1="0" y1="450" x2="800" y2="450"/>
+    <line x1="100" y1="0" x2="100" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="500"/>
+    <line x1="300" y1="0" x2="300" y2="500"/>
+    <line x1="400" y1="0" x2="400" y2="500"/>
+    <line x1="500" y1="0" x2="500" y2="500"/>
+    <line x1="600" y1="0" x2="600" y2="500"/>
+    <line x1="700" y1="0" x2="700" y2="500"/>
+  </g>
+
+  <!-- Ambient Glow -->
+  <circle cx="650" cy="150" r="140" fill="#FF0000" opacity="0.08" filter="url(#glow)"/>
+  <circle cx="150" cy="380" r="160" fill="#3D0000" opacity="0.2" filter="url(#glow)"/>
+
+  <!-- Terminal Window Container -->
+  <rect x="50" y="45" width="700" height="410" rx="14" fill="#0d0303" stroke="#3D0000" stroke-width="1.5"/>
+  
+  <!-- Window Header -->
+  <path d="M 50 59 Q 50 45 64 45 L 736 45 Q 750 45 750 59 L 750 85 L 50 85 Z" fill="#180505"/>
+  <circle cx="75" cy="65" r="5" fill="#FF0000"/>
+  <circle cx="95" cy="65" r="5" fill="#950101"/>
+  <circle cx="115" cy="65" r="5" fill="#3D0000"/>
+  <text x="400" y="70" fill="#a1a1aa" font-family="monospace" font-size="12" text-anchor="middle" font-weight="bold">SB_manifest_DB — Steam Depot Manifest Indexer</text>
+  <rect x="660" y="55" width="70" height="20" rx="10" fill="#3D0000" stroke="#FF0000" stroke-width="0.8"/>
+  <text x="695" y="69" fill="#FF0000" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">★ 12 STARS</text>
+
+  <!-- Terminal Content -->
+  <g font-family="monospace" font-size="13">
+    <!-- Prompt line -->
+    <text x="80" y="125" fill="#FF0000" font-weight="bold">spinoza@arch</text>
+    <text x="175" y="125" fill="#ffffff">:</text>
+    <text x="185" y="125" fill="#950101">~/SB_manifest_DB</text>
+    <text x="310" y="125" fill="#ffffff">$ python indexer.py --sync-depots</text>
+
+    <!-- Query Info -->
+    <text x="80" y="160" fill="#71717a">[INFO] Initializing SQLite database manifest_index.db...</text>
+    <text x="80" y="185" fill="#22c55e">✓ Database connection verified: 18,420 manifest records loaded</text>
+    <text x="80" y="210" fill="#71717a">[QUERY] Scanning Steam AppID 730 / Depot 731 manifest signatures...</text>
+
+    <!-- Visual Database Record Card -->
+    <rect x="80" y="235" width="640" height="155" rx="8" fill="#140404" stroke="#3D0000" stroke-width="1"/>
+    
+    <!-- Table Headers -->
+    <rect x="80" y="235" width="640" height="30" rx="8" fill="#200606"/>
+    <text x="100" y="255" fill="#FF0000" font-weight="bold" font-size="11">DEPOT ID</text>
+    <text x="210" y="255" fill="#FF0000" font-weight="bold" font-size="11">MANIFEST GID</text>
+    <text x="420" y="255" fill="#FF0000" font-weight="bold" font-size="11">SHA-256 CHECKSUM</text>
+    <text x="640" y="255" fill="#FF0000" font-weight="bold" font-size="11">STATUS</text>
+
+    <!-- Row 1 -->
+    <text x="100" y="290" fill="#ffffff" font-size="12">731 (Core)</text>
+    <text x="210" y="290" fill="#d4d4d8" font-size="12">891230491823901</text>
+    <text x="420" y="290" fill="#950101" font-size="12">e3b0c44298fc1c149afb...</text>
+    <text x="640" y="290" fill="#22c55e" font-size="12">VERIFIED</text>
+
+    <!-- Row 2 -->
+    <text x="100" y="320" fill="#ffffff" font-size="12">732 (Content)</text>
+    <text x="210" y="320" fill="#d4d4d8" font-size="12">440912830192309</text>
+    <text x="420" y="320" fill="#950101" font-size="12">7f83b1657ff1fc53b92c...</text>
+    <text x="640" y="320" fill="#22c55e" font-size="12">VERIFIED</text>
+
+    <!-- Row 3 -->
+    <text x="100" y="350" fill="#ffffff" font-size="12">733 (Binaries)</text>
+    <text x="210" y="350" fill="#d4d4d8" font-size="12">102938475610293</text>
+    <text x="420" y="350" fill="#950101" font-size="12">d7a8fbb307d7809469ca...</text>
+    <text x="640" y="350" fill="#22c55e" font-size="12">VERIFIED</text>
+
+    <!-- Bottom Status -->
+    <text x="80" y="420" fill="#22c55e">✓ Manifest sync complete. All cryptographic records authenticated.</text>
+  </g>
+</svg>

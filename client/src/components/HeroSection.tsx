@@ -11,6 +11,25 @@ export default function HeroSection() {
 
   const [starCount, setStarCount] = useState<number>(60);
 
+  // Parse headline suffix cleanly into Line 1 ending and Line 2 (prevents any duplication)
+  const parseHeadlineSuffix = (suffix: string) => {
+    const raw = (suffix || 'Into Digital Reality').trim();
+    if (raw.includes('\n')) {
+      const [l1, ...rest] = raw.split('\n');
+      return { line1: l1.trim(), line2: rest.join(' ').trim() };
+    }
+    const words = raw.split(/\s+/);
+    if (words.length > 1 && words[0].toLowerCase() === 'into') {
+      return { line1: words[0], line2: words.slice(1).join(' ') };
+    }
+    if (words.length >= 3) {
+      return { line1: words[0], line2: words.slice(1).join(' ') };
+    }
+    return { line1: raw, line2: '' };
+  };
+
+  const { line1: headlineLine1End, line2: headlineLine2 } = parseHeadlineSuffix(hero.headlineSuffix);
+
   useEffect(() => {
     fetch('https://api.github.com/repos/SPIN0ZAi/nup-extractor')
       .then((res) => {
@@ -88,9 +107,13 @@ export default function HeroSection() {
                 <span className="absolute -bottom-1 -right-1 w-1.5 h-1.5 bg-[#FF0000]" />
                 {hero.headlineCropWord || 'Ideas'}
               </span>{' '}
-              {hero.headlineSuffix.split('\n')[0] || 'Into'}
-              <br />
-              {hero.headlineSuffix.split('\n')[1] || hero.headlineSuffix.replace(/^Into\s*/, '') || 'Digital Reality'}
+              {headlineLine1End}
+              {headlineLine2 && (
+                <>
+                  <br />
+                  <span>{headlineLine2}</span>
+                </>
+              )}
             </motion.h1>
 
             {/* Description */}
@@ -133,8 +156,8 @@ export default function HeroSection() {
           <div className="lg:col-span-5 relative flex items-center justify-center">
             
             {/* Giant Background Typographic Outline */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none -z-0">
-              <span className="font-heading font-black text-[70px] sm:text-[105px] lg:text-[120px] text-transparent tracking-tighter opacity-15 [-webkit-text-stroke:2px_#ffffff] uppercase text-center break-all">
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none -z-0 overflow-visible">
+              <span className="font-heading font-black text-[65px] sm:text-[95px] lg:text-[120px] xl:text-[130px] text-transparent tracking-tighter opacity-15 [-webkit-text-stroke:2px_#ffffff] uppercase text-center whitespace-nowrap select-none pointer-events-none">
                 {hero.outlineText || 'SOULAIMANE'}
               </span>
             </div>
