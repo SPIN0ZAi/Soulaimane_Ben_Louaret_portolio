@@ -483,7 +483,7 @@ export default function ProjectsSection() {
                     {/* Picture Preview */}
                     <div className="relative aspect-[16/10] overflow-hidden bg-black cursor-pointer" onClick={() => toggleFeaturedExpand(project.id)}>
                       <img
-                        src={project.isFlagship ? frameVaultImg : project.image}
+                        src={project.id === 'framevault' ? frameVaultImg : project.image}
                         alt={project.title}
                         loading="lazy"
                         className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-500 ease-out"
@@ -500,8 +500,8 @@ export default function ProjectsSection() {
                         )}
                       </div>
 
-                      {/* FrameVault Interactive View Tabs (if flagship) */}
-                      {project.isFlagship && (
+                      {/* FrameVault Interactive View Tabs (only on FrameVault card) */}
+                      {project.id === 'framevault' && (
                         <div className="absolute bottom-3 left-3 right-3 flex items-center justify-center gap-1.5 z-20">
                           {[
                             { label: 'Hero', src: '/images/framevault-home.jpg' },
